@@ -1,5 +1,12 @@
 ## Run
 
+Save a devops.json endpoint to file using the crawler:
+
+```
+cp settings.js.example settings.js
+./bin/gutsy -c
+```
+
 The web app:
 
 ```
@@ -7,9 +14,3 @@ The web app:
 ```
 
 Then go to: [http://localhost:3000](http://localhost:3000)
-
-The crawler, which saves a devops.json endpoint to `lib/crawler/devops.json`:
-
-```
-node lib/crawler/app.js
-```

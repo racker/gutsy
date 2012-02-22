@@ -1,0 +1,5 @@
+exports.host = "projects.ifup.org";
+exports.port = "80";
+exports.path = "/devops.json";
+
+exports.filename = "fixtures/devops.json";
