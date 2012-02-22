@@ -37,7 +37,6 @@
     "code": "https://github.example.com/gutsy/gutsy",
     "docs": "https://github.example.com/gutsy/gutsy/wiki",
     "dashboard": "https://gutsy.dev.io",
-    "code": "https://github.example.com/gutsy/gutsy",
     "monitoring": "https://cloudkick.com",
     "ticketing": "https://v1.k1k.me",
     "continuous_integration": "https://gutsy-bb.k1k.me",
