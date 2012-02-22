@@ -1,0 +1,11 @@
+if team
+  h3= team_name
+  ul
+    each contact in team
+      li
+        #{contact.id}
+        if contact.uris
+          ul
+            each uri in contact.uris
+              li
+                a(href=uri) #{uri}

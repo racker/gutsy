@@ -8,7 +8,7 @@
     "cloud"],
 
   "contacts": {
-    "devs": [{
+    "dev": [{
       "id": "weee.beeblebrox",
       "uris": [
         "name:Weee Beeblebrox",
