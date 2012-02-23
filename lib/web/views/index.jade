@@ -17,34 +17,23 @@ block content
 
       .span9
         if contacts
+          h1 Contacts
           .contacts
-            team = contacts.ops
-            team_name = "Ops Team"
+          for team,teamname in contacts
             include includes/team_contacts
 
-            team = contacts.security
-            team_name = "Security Team"
-            include includes/team_contacts
-
-            team = contacts.support
-            team_name = "Support Team"
-            include includes/team_contacts
-
-            team = contacts.dev
-            team_name = "Dev Team"
-            include includes/team_contacts
-
-            team = contacts.product
-            team_name = "Product Team"
-            include includes/team_contacts
         if environments
           .environment
+            h1 Environment
             ul
-              each environ in environments
-                li #{environ.type} #{environ.platforms} #{environ.regions}
-                  a(href='#{environ.url.url}') #{environ.url.url}
+              for environ in environments
+                h4 #{environ.type} 
+                ul
+                  li #{environ.platforms} #{environ.regions}
                   if environ.url.auth.type == "basic"
-                    .creds username: #{environ.url.auth.username}, password: #{environ.url.auth.username}
+                    li <a href=#{environ.url.auth.username}:#{environ.url.auth.username}@#{environ.url.url} >#{environ.url.url}</a>
+                  else
+                    a(href='#{environ.url.url}') #{environ.url.url}
 
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
