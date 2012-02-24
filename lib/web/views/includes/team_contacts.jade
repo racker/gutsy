@@ -1,11 +1,12 @@
-if team
-  h3= team_name
+p
+  h2 #{team.team_name}
   ul
-    each contact in team
-      li
-        #{contact.id}
-        if contact.uris
-          ul
-            each uri in contact.uris
-              li
-                a(href=uri) #{uri}
+  each contact in team.members
+    p
+      h4 #{contact.name}
+      ul
+      for uri,type in contact
+        if type == "github" || type == "mailto"
+          li #{type}: <a href=#{uri}>#{uri}</a>
+        else
+          li #{type}: #{uri}

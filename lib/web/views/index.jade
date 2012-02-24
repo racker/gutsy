@@ -15,36 +15,30 @@ block content
           h1= name
           h2= description
 
+      
       .span9
-        if contacts
-          .contacts
-            team = contacts.ops
-            team_name = "Ops Team"
-            include includes/team_contacts
-
-            team = contacts.security
-            team_name = "Security Team"
-            include includes/team_contacts
-
-            team = contacts.support
-            team_name = "Support Team"
-            include includes/team_contacts
-
-            team = contacts.dev
-            team_name = "Dev Team"
-            include includes/team_contacts
-
-            team = contacts.product
-            team_name = "Product Team"
-            include includes/team_contacts
-        if environments
-          .environment
-            ul
-              each environ in environments
-                li #{environ.type} #{environ.platforms} #{environ.regions}
-                  a(href='#{environ.url.url}') #{environ.url.url}
-                  if environ.url.auth.type == "basic"
-                    .creds username: #{environ.url.auth.username}, password: #{environ.url.auth.username}
+        .row-fluid
+          .span3
+            h1 Contacts
+            .contacts
+              for team in contacts
+                include includes/team_contacts
+          .span3
+            if environments
+              .environment
+                h1 Environment
+                ul
+                  for environ in environments
+                    h4 #{environ.type} 
+                    ul
+                      li #{environ.platforms} #{environ.regions}
+                      if environ.url.auth
+                        li <a href=#{environ.url.auth.username}:#{environ.url.auth.username}@#{environ.url.url} >#{environ.url.url}</a>
+                      else
+                        a(href='#{environ.url.url}') #{environ.url.url}
+    hr
+    .span9
+       
 
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
