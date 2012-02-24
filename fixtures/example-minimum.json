@@ -1,0 +1,15 @@
+{
+  "name": "Minimum Viable Product",
+  "description": "Example of minimum requirements of devops JSON",
+  "contacts": [
+    {
+      "team_name": "Team 1",
+      "members": [
+        {
+          "name": "Lonely Developer",
+          "sso": "lonely.developer"
+        }
+      ]
+    }
+  ]
+}

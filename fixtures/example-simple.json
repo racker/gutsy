@@ -1,0 +1,34 @@
+{
+  "name": "Minimum Viable Product",
+  "description": "Example of minimum requirements of devops JSON",
+  "tags": ["fun", "json"],
+  "contacts": [
+    {
+      "team_name": "Team 1",
+      "members": [
+        {
+          "name": "Lonely Developer",
+          "sso": "lonely.developer"
+        }
+      ]
+    }
+  ],
+  "links": {
+    "code": "https://github.example.com/foo/bar",
+    "docs": "https://github.example.com/foo/bar/wiki",
+    "dashboard": "https://bar.dev.io",
+    "monitoring": "https://cloudkick.com/a/foo"
+  },
+  "environments": [
+    {
+      "type": "production",
+      "platforms": ["Ubuntu 10.4"],
+      "url": {
+        "url": "https://production.example.com"
+      }
+    }
+  ],
+  "dependent_services": [
+    "http://foo.api.example.com/devops.json"
+  ]
+}
