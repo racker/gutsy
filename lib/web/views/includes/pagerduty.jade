@@ -1,0 +1,21 @@
+.pagerduty
+  h1 PagerDuty
+  if error
+    #{error}
+  else
+    h4 Currently On Call:
+    p
+    ul
+      li
+        strong  #{data.entries[0].user.name} <br>
+        | from: #{data.entries[0].start}<br>
+        |	to: #{data.entries[0].end}
+    p
+    if data.entries[1]
+      h4 Next On Call:
+      p
+      ul
+        li
+          strong  #{data.entries[1].user.name} <br>
+          | from: #{data.entries[1].start}<br>
+          | to: #{data.entries[1].end}

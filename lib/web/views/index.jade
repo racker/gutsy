@@ -7,13 +7,13 @@ block content
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Links
-            each uri, name in links
+            each uri, name in devops.links
               li
                 a(href='#{uri}') #{name}
       .span9
         .hero-unit
-          h1= name
-          h2= description
+          h1 #{devops.name}
+          h2 #{devops.description}
 
       
       .span9
@@ -21,24 +21,18 @@ block content
           .span3
             h1 Contacts
             .contacts
-              for team in contacts
+              for team in devops.contacts
                 include includes/team_contacts
+            hr
           .span3
-            if environments
-              .environment
-                h1 Environment
-                ul
-                  for environ in environments
-                    h4 #{environ.type} 
-                    ul
-                      li #{environ.platforms} #{environ.regions}
-                      if environ.url.auth
-                        li <a href=#{environ.url.auth.username}:#{environ.url.auth.username}@#{environ.url.url} >#{environ.url.url}</a>
-                      else
-                        a(href='#{environ.url.url}') #{environ.url.url}
-    hr
+            if devops.environments
+              include includes/environment
+            hr
+            if data
+              include includes/pagerduty
+              
     .span9
        
 
-    script(src='/static/jquery/jquery-1.7.1.min.js')
-    script(src='/static/bootstrap/js/bootstrap.min.js')
+script(src='/static/jquery/jquery-1.7.1.min.js')
+script(src='/static/bootstrap/js/bootstrap.min.js')
