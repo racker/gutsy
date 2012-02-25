@@ -18,6 +18,8 @@
 
 var test_index = require('../tests/view_tests/test_index');
 var test_contexter = require('../tests/middleware_tests/test_contexter');
+var test_pagerduty = require('../tests/middleware_tests/test_pagerduty');
 
 test_index.run();
 test_contexter.run();
+test_pagerduty.run();

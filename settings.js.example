@@ -1,4 +1,5 @@
 exports.host = "projects.ifup.org";
+exports.protocol = "http";
 exports.port = "80";
 exports.path = "/devops.json";
 

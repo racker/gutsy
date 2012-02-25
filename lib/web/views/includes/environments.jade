@@ -1,0 +1,11 @@
+.environment
+  h1 Environments
+  ul
+    for environ in environments
+      h4 #{environ.type}
+      ul
+        li #{environ.platforms} #{environ.regions}
+        if environ.url.auth
+          li <a href=#{environ.url.auth.username}:#{environ.url.auth.username}@#{environ.url.url} >#{environ.url.url}</a>
+        else
+          a(href='#{environ.url.url}') #{environ.url.url}

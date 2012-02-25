@@ -15,7 +15,7 @@ block content
           h1= name
           h2= description
 
-      
+
       .span9
         .row-fluid
           .span3
@@ -25,20 +25,10 @@ block content
                 include includes/team_contacts
           .span3
             if environments.length
-              .environment
-                h1 Environments
-                ul
-                  for environ in environments
-                    h4 #{environ.type} 
-                    ul
-                      li #{environ.platforms} #{environ.regions}
-                      if environ.url.auth
-                        li <a href=#{environ.url.auth.username}:#{environ.url.auth.username}@#{environ.url.url} >#{environ.url.url}</a>
-                      else
-                        a(href='#{environ.url.url}') #{environ.url.url}
-    hr
-    .span9
-       
+              include includes/environments
+            if pagerduty
+              hr
+              include includes/pagerduty
 
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
