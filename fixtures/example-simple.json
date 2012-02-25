@@ -1,6 +1,6 @@
 {
-  "name": "Minimum Viable Product",
-  "description": "Example of minimum requirements of devops JSON",
+  "name": "Simple Service",
+  "description": "A simple DevOps JSON example",
   "tags": ["fun", "json"],
   "contacts": [
     {
@@ -9,6 +9,10 @@
         {
           "name": "Lonely Developer",
           "sso": "lonely.developer"
+        },
+        {
+          "name": "Ben Bitdiddle",
+          "mailto": "ben@bit.ly"
         }
       ]
     }

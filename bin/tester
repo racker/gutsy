@@ -17,4 +17,7 @@
  */
 
 var test_index = require('../tests/view_tests/test_index');
+var test_contexter = require('../tests/middleware_tests/test_contexter');
+
 test_index.run();
+test_contexter.run();
