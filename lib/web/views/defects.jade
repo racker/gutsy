@@ -8,29 +8,30 @@ block content
   | </script>
   .container
     .content
-      h1 VersionOne
-      if versionone.error
-        p An error occurred: #{versionone.error}
-      else if versionone.data.error
-        p API returned the following error:
-        p.alert #{versionone.data.error.code}: #{versionone.data.error.message}
-      else
-        div
-          table#defects.sortable.table-striped
-            thead
-              tr
-                th Priority
-                th Status
-                th Created
-                th Name
-            tbody
-              - each asset, i in versionone.data.defects
-                tr
-                  - var statusName = asset.attributes['Status.Name'] || 'New';
-                  - var priority = asset.attributes['Priority.Name'] || 'Unset';
-                  // a hack.
-                  td #{priority}
-                  td #{statusName}
-                  td #{asset.formattedDate}
-                  td
-                    a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
+      if versionone
+          h1 VersionOne
+          if versionone.error
+            p An error occurred: #{versionone.error}
+          else if versionone.data.error
+            p API returned the following error:
+            p.alert #{versionone.data.error.code}: #{versionone.data.error.message}
+          else
+            div
+              table#defects.sortable.table-striped
+                thead
+                  tr
+                    th Priority
+                    th Status
+                    th Created
+                    th Name
+                tbody
+                  - each asset, i in versionone.data.defects
+                    tr
+                      - var statusName = asset.attributes['Status.Name'] || 'New';
+                      - var priority = asset.attributes['Priority.Name'] || 'Unset';
+                      // a hack.
+                      td #{priority}
+                      td #{statusName}
+                      td #{asset.formattedDate}
+                      td
+                        a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}

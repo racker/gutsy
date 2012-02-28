@@ -36,3 +36,8 @@ jquery tablesorter 2.0.5
   MIT or GPL
   http://tablesorter.com/
   jquery plugin for table sorting
+
+node-jscoverage 0d4608a6b4275
+  GPL
+  https://github.com/Kami/node-jscoverage
+  coverage reports for unit tests

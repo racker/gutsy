@@ -1,6 +1,24 @@
-var assert = require('assert');
+/**
+ * Tests that the pagerduty middleware adds fields to the devops json object
+ */
 var middleware = require('../../lib/web/middleware');
 var utils = require('../../lib/utils');
+
+exports.test_example_minimum = function(test, assert) {
+  run_test(test, assert, 'example-minimum.json', false);
+};
+
+exports.test_example_simple = function(test, assert) {
+  run_test(test, assert, 'example-simple.json', false);
+};
+
+exports.test_example_full_apifail = function(test, assert) {
+  run_test(test, assert, 'example-full.json', true, false);
+};
+
+exports.test_example_full_success = function(test, assert) {
+  run_test(test, assert, 'example-full.json', true, true);
+};
 
 /** Factory for mocking utils.request_maker */
 var mock_maker = function(is_success) {
@@ -19,34 +37,24 @@ var mock_maker = function(is_success) {
  *
  * @param {string} devops_filename the filename of the devopsjson file relative to the fixtures directory
  */
-var test = function(devops_filename, is_pagerduty_present, force_success) {
+var run_test = function(test, assert, devops_filename, is_pagerduty_present, force_success) {
   var devops;
   devops = utils.load_example_devops(devops_filename);
   middleware.pagerduty(devops, mock_maker(force_success))(null, null, function(){});
   if (is_pagerduty_present) {
     if (force_success) {
-      assert.ok(devops.pagerduty);
-      assert.ok(devops.pagerduty.data);
-      assert.equal(devops.pagerduty.error, null);
+      assert.isDefined(devops.pagerduty);
+      assert.isNotNull(devops.pagerduty);
+      assert.isNotNull(devops.pagerduty.data);
+      assert.isNull(devops.pagerduty.error);
     } else {
-      assert.ok(devops.pagerduty);
-      assert.equal(devops.pagerduty.data, null);
-      assert.ok(devops.pagerduty.error);
+      assert.isDefined(devops.pagerduty);
+      assert.isNotNull(devops.pagerduty);
+      assert.isNull(devops.pagerduty.data);
+      assert.isNotNull(devops.pagerduty.error);
     }
   } else {
-    assert.equal(devops.pagerduty, null);
+    assert.isUndefined(devops.pagerduty);
   }
-  console.log('.');
-};
-
-/**
- * Tests that the contexter middleware adds missing optional fields to devops json object
- */
-exports.run = function() {
-  console.log('Running middleware.pagerduty tests: ');
-  test('example-minimum.json', false);
-  test('example-simple.json', false);
-  test('example-full.json', true, true);
-  test('example-full.json', true, false);
-  console.log('Done.');
+  test.finish();
 };

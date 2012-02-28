@@ -8,7 +8,7 @@ but also to realize related links such as on-call rotations.
 
 [Demo](http://gutsy.nodejitsu.com/)
 
-## Run
+## Crawl a devops.json endpoint
 
 Save a devops.json endpoint to file using the crawler:
 
@@ -17,6 +17,8 @@ cp settings.js.example settings.js
 ./bin/gutsy --crawler
 ```
 
+## Website
+
 Run the web app:
 
 ```
@@ -24,3 +26,9 @@ Run the web app:
 ```
 
 Then go to: [http://localhost:3000](http://localhost:3000)
+
+## Tests
+
+```
+npm test
+```
