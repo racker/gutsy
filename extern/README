@@ -31,3 +31,8 @@ jquery 1.7.1
   MIT
   http://jquery.com/
   jquery, duh
+
+jquery tablesorter 2.0.5
+  MIT or GPL
+  http://tablesorter.com/
+  jquery plugin for table sorting

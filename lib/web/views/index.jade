@@ -26,9 +26,14 @@ block content
           .span3
             if environments.length
               include includes/environments
+
             if pagerduty
               hr
               include includes/pagerduty
+
+            if versionone
+              hr
+              include includes/versionone
 
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
