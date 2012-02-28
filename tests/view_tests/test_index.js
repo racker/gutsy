@@ -55,9 +55,7 @@ ViewTester.prototype.test_view = function(view, devopsjson, fn, xhr_success, dat
   var view_path, context;
 
   view_path = path.join(this._view_path, view);
-  context = path.join(this._fixture_path, devopsjson);
-  context = fs.readFileSync(context);
-  context = JSON.parse(context);
+  context = utils.load_example_devops(devopsjson);
 
   middleware.contexter(context)(null, null, function(){});
   middleware.pagerduty(

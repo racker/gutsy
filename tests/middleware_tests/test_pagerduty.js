@@ -21,7 +21,7 @@ var mock_maker = function(is_success) {
  */
 var test = function(devops_filename, is_pagerduty_present, force_success) {
   var devops;
-  devops = utils.load_devops(devops_filename);
+  devops = utils.load_example_devops(devops_filename);
   middleware.pagerduty(devops, mock_maker(force_success))(null, null, function(){});
   if (is_pagerduty_present) {
     if (force_success) {

@@ -9,7 +9,7 @@ var utils = require('../../lib/utils');
  */
 var test = function(devops_filename) {
   var devops;
-  devops = utils.load_devops(devops_filename);
+  devops = utils.load_example_devops(devops_filename);
   middleware.contexter(devops)(null, null, function(){});
   assert.ok(devops.name);
   assert.ok(devops.description);
