@@ -1,5 +1,8 @@
 extends layout
 
+block append css
+  link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
+
 block content
   | <script >
   | $(function() {
@@ -25,7 +28,7 @@ block content
               table.table.table-striped.table-bordered.table-condensed.table-stats
                 thead
                   tr
-                    th Username
+                    th.username Username
                     th #{metric.unit}
                 tbody
                   each stat in metric.stats
