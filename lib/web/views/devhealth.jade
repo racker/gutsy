@@ -3,7 +3,7 @@ extends layout
 block content
   | <script >
   | $(function() {
-  |   $("table#defects").tablesorter();
+  |   $('.table-stats').tablesorter();
   | });
   | </script>
   .container
@@ -16,9 +16,20 @@ block content
             p API returned the following error:
             p.alert #{github.data.error.code}: #{github.data.error.message}
           else
-            ul
-             each metriclist, metricname in github.data
-               li #{metricname}
-                 ul
-                   each val, name in metriclist
-                     li #{name}: #{val}
+
+            h2 Repo: #{github.data.repo}
+            hr
+
+            each metric in github.data.metrics
+              h3 #{metric.name}
+              table.table.table-striped.table-bordered.table-condensed.table-stats
+                thead
+                  tr
+                    th Username
+                    th #{metric.unit}
+                tbody
+                  each stat in metric.stats
+                    each key, val in stat
+                      tr
+                        td #{val}
+                        td #{key}
