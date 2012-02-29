@@ -30,9 +30,14 @@ block content
                   tr
                     th.username Username
                     th #{metric.unit}
+                tfoot
+                  th
+                  th #{metric.aggregate}
                 tbody
                   each stat in metric.stats
                     each key, val in stat
                       tr
-                        td #{val}
+                        td
+                          a(href='https://github.com/#{val}/')#{val}
                         td #{key}
+
