@@ -1,0 +1,12 @@
+h3 #{metric.name}
+table.table.table-striped.table-bordered.table-condensed.table-stats
+  thead
+    tr
+      th.username Username
+      th #{metric.unit}
+  tbody
+    each stat in metric.stats
+      each key, val in stat
+        tr
+          td #{val}
+          td #{key}
