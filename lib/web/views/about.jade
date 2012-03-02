@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  | <script >
+  | $(function() {
+  |   $("table#defects").tablesorter();
+  | });
+  | </script>
+  .container
+    .content
+      .hero-unit
+        h1 About this website
+        h3 API-driven DevOps Dashboard
+
+      p This website is running <a href="http://github.com/racker/gutsy">Gutsy</a>.
+
+      p All content is automatically generated based from the <a href="http://github.com/racker/devopsjson">devops.json</a> endpoints listed in the website's local settings file.
+
+      p Please send questions and feedback to <a href="mailto:dev@lists.rackspace.com">dev@lists.rackspace.com</a>.
