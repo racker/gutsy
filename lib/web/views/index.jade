@@ -10,13 +10,22 @@ block content
             each uri, name in links
               li
                 a(href='#{uri}') #{name}
+
+        if events.length
+          h1 Events
+          ul
+            for event in events
+              li #{event.timestamp}: #{event.name} - #{event.description}
+                if event.related_links
+                  for link in event.related_links
+                    a(href="#{link}") #{link}
+
       .span9
         .hero-unit
-          h1= name
+          p.small DevOps dashboard for
+          h1 #{name}
           h2= description
 
-
-      .span9
         .row-fluid
           .span3
             h1 Contacts
