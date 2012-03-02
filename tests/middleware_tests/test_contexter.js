@@ -1,8 +1,8 @@
 /**
  * Tests that the contexter middleware adds missing optional fields to devops json object
  */
-var middleware = require('../../lib/web/middleware');
-var utils = require('../../lib/utils');
+var middleware = require('web/middleware');
+var utils = require('utils');
 
 exports.test_example_minimum = function(test, assert) {
   run_test(test, assert, 'example-minimum.json');

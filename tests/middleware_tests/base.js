@@ -1,5 +1,5 @@
-var middleware = require('../../lib/web/middleware');
-var utils = require('../../lib/utils');
+var middleware = require('web/middleware');
+var utils = require('utils');
 var mocks = require('../middleware_api_mocks');
 
 /**

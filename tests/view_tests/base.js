@@ -1,7 +1,7 @@
 var path = require('path');
 var jade = require('jade');
-var middleware = require('../../lib/web/middleware');
-var utils = require('../../lib/utils');
+var middleware = require('web/middleware');
+var utils = require('utils');
 
 /**
  * Runs a view test. Calls assert and test.finish().
