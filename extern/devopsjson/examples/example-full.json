@@ -104,6 +104,14 @@
         "name": "PROJECT",
         "project": 42,
         "auth": "user:pass"
+    },
+    "github": {
+        "host": "github.com",
+        "port": 443,
+        "org": "racker",
+        "repo": "gutsy",
+        "username": "xxx",
+        "apikey": "yyy"
     }
   },
  "dependent_services": [

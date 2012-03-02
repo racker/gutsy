@@ -18,7 +18,15 @@ cd devopsjson
 ./bin/devopsjson
 ```
 
-Then visit: http://localhost:3000/
+Then visit: [http://localhost:3000/](http://localhost:3000/ )
+
+## Tests
+
+If the schema or examples change, please ensure that the tests still pass:
+
+```
+./bin/tester
+```
 
 ## Vision
 

@@ -23,5 +23,9 @@ module.exports = {
   versionone: {
       name: 'versionone',
       mock_maker: require('./mock_versionone').mock_maker
+  },
+  github: {
+    name: 'github',
+    mock_maker: require('./mock_github').mock_maker
   }
 };

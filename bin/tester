@@ -14,4 +14,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-NODE_PATH=$NODE_PATH:node_modules/whiskey/lib-cov ./node_modules/.bin/whiskey --tests "tests/view_tests/test_index.js tests/view_tests/test_defects.js tests/middleware_tests/test_contexter.js tests/middleware_tests/test_pagerduty.js tests/middleware_tests/test_versionone.js" #--coverage
+NODE_PATH=$NODE_PATH:node_modules/whiskey/lib-cov ./node_modules/.bin/whiskey --tests "tests/view_tests/test_index.js \
+tests/view_tests/test_defects.js \
+tests/view_tests/test_devhealth.js \
+tests/middleware_tests/test_contexter.js \
+tests/middleware_tests/test_pagerduty.js \
+tests/middleware_tests/test_versionone.js \
+tests/middleware_tests/test_github.js" #--coverage
