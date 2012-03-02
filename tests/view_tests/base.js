@@ -1,6 +1,7 @@
 var path = require('path');
 var jade = require('jade');
 var middleware = require('../../lib/web/middleware');
+var contexter = require('../../lib/web/contexter');
 var utils = require('../../lib/utils');
 
 /**
@@ -26,7 +27,7 @@ exports.test_view = function(test, assert, view, devopsjson, middlewares, xhr_er
   view_path = path.join(view_path, view);
   context = utils.load_example_devops(devopsjson);
 
-  middleware.contexter(context)(null, null, function(){});
+  contexter(context, "test_view");
   for (i = 0; i < middlewares.length; i++) {
     middleware[middlewares[i].name](
         context,

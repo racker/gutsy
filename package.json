@@ -21,6 +21,8 @@
     "node": ">=0.4.1 <0.7.0"
   },
   "scripts": {
-    "test": "./bin/tester"
+    "test": "./bin/test",
+    "start": "./bin/gutsy",
+    "crawl": "./bin/crawl"
   }
 }

@@ -14,8 +14,7 @@ Save a devops.json endpoint to file using the crawler:
 
 ```
 cp settings.js.example settings.js
-mkdir fixtures
-./bin/gutsy --crawler
+npm crawl
 ```
 
 ## Website
@@ -23,7 +22,7 @@ mkdir fixtures
 Run the web app:
 
 ```
-./bin/gutsy
+npm start
 ```
 
 Then go to: [http://localhost:3000](http://localhost:3000)

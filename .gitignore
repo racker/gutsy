@@ -1,3 +1,4 @@
-fixtures/devops.json
+fixtures/*
+!fixtures/README.md
 settings.js
 lib-cov

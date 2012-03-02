@@ -1,6 +1,10 @@
-exports.host = "raw.github.com";
-exports.protocol = "https";
-exports.port = "443";
-exports.path = "/racker/devopsjson/master/examples/example-full.json";
 
-exports.filename = "fixtures/devops.json";
+// list of devopsjson uris
+exports.devopsjson_uris = [
+    "https://raw.github.com/racker/devopsjson/master/examples/example-full.json",
+    "https://raw.github.com/racker/devopsjson/master/examples/example-simple.json",
+    "https://raw.github.com/racker/devopsjson/master/examples/example-min.json"
+];
+
+//where the crawled devopsjson data will end up
+exports.saved_crawls_path = "fixtures";

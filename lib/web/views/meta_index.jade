@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  .container-fluid
+    .row-fluid
+      .span3
+        .well.sidebar-nav
+          ul.nav.nav-list
+            li.nav-header Projects
+            each name in projects
+              li
+                a(href='/#{name}') #{name}
+      .span9
+        .hero-unit
+          h1 All of the Dashboards
+          h2
+
+    script(src='/static/jquery/jquery-1.7.1.min.js')
+    script(src='/static/bootstrap/js/bootstrap.min.js')
