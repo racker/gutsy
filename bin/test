@@ -23,4 +23,5 @@ tests/view_tests/test_devhealth.js \
 tests/unit_tests/test_contexter.js \
 tests/middleware_tests/test_pagerduty.js \
 tests/middleware_tests/test_versionone.js \
-tests/middleware_tests/test_github.js"
+tests/middleware_tests/test_github.js \
+tests/middleware_tests/test_event.js"
