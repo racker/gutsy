@@ -10,6 +10,15 @@ block content
             each name in projects
               li
                 a(href='/p/#{name}') #{name}
+            each uri, name in external_projects
+              li
+                a(href='#{uri}') #{name}
+        .well.sidebar-nav
+          ul.nav.nav-list
+            li.nav-header Links
+            each uri, name in links
+              li
+                a(href='#{uri}') #{name}
       .span9
         .hero-unit
           h1 All of the Dashboards

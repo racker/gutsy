@@ -1,10 +1,20 @@
-
-// list of devopsjson uris
+// devopsjson uris.
+/// keys are used in urls and also become capitalized menu item names
 exports.devopsjson_uris = {
-    full: "https://raw.github.com/racker/devopsjson/master/examples/example-full.json",
-    simple: "https://raw.github.com/racker/devopsjson/master/examples/example-simple.json",
-    min: "https://raw.github.com/racker/devopsjson/master/examples/example-minimum.json"
+    "Full": "https://raw.github.com/racker/devopsjson/master/examples/example-full.json",
+    "Simple": "https://raw.github.com/racker/devopsjson/master/examples/example-simple.json",
+    "Min": "https://raw.github.com/racker/devopsjson/master/examples/example-minimum.json",
 };
 
-//where the crawled devopsjson data will end up
+// where the crawled devopsjson data will end up
 exports.saved_crawls_path = "fixtures";
+
+// external projects
+exports.external_projects = {
+    //"another project": "https://anotherproject.example.com/_dashboard"
+};
+
+// links for the meta dashboard page
+exports.metadashboard_uris = {
+    //"a reference": "https://reference.com"
+};
