@@ -1,0 +1,12 @@
+.newrelic
+  h1 NewRelic
+  if newrelic.error
+    p An error occurred: #{newrelic.error}
+  else
+    div
+      ul
+        - each metric in newrelic.data
+          li
+            strong #{metric.name} 
+            \- #{metric.formatted_metric_value}
+

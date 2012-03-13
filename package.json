@@ -15,7 +15,8 @@
     "sprintf": "0.1.x",
     "jade": "0.20.x",
     "optimist": "0.2.x",
-    "request": "2.2.x"
+    "request": "2.2.x",
+    "newrelicapi": "0.0.2"
   },
   "engines": {
     "node": ">=0.4.1 <0.7.0"

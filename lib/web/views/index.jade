@@ -69,5 +69,9 @@ block content
           #versionone-block.ablock.middleware-block
             include includes/versionone
 
+        if newrelic
+          #newrelic-block.ablock.middleware-block
+            include includes/newrelic
+
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')

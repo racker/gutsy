@@ -18,3 +18,12 @@ exports.external_projects = {
 exports.metadashboard_uris = {
     //"a reference": "https://reference.com"
 };
+
+// credentials too sensitive for devops.json
+exports.external_creds = {
+    "Full": {
+      "newrelic": {
+        "apikey": "123456"
+      }
+    }
+};
