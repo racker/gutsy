@@ -20,7 +20,9 @@ NODE_PATH=$NODE_PATH:${basedir}/../lib-cov ./node_modules/.bin/whiskey --coverag
 --tests "tests/view_tests/test_index.js \
 tests/view_tests/test_defects.js \
 tests/view_tests/test_devhealth.js \
-tests/unit_tests/test_contexter.js \
-tests/middleware_tests/test_pagerduty.js \
+tests/middleware_tests/test_load_devops.js \
+tests/middleware_tests/test_devops_directory_setter.js \
+tests/middleware_tests/test_navbar.js \
+tests/middleware_tests/test_github.js \
 tests/middleware_tests/test_versionone.js \
-tests/middleware_tests/test_github.js"
+tests/middleware_tests/test_pagerduty.js"

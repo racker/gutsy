@@ -36,20 +36,20 @@ html(lang='en')
     .notbootstrap-navbar
       .notbootstrap-navbar-inner
         .notbootstrap-container-fluid
-          if 'Dashboards' == active
+          if '/' == url
             a.active.brand(href='/') Dashboards
           else
             a.brand(href='/') Dashboards
           ul.internal
-            each url, text in navbar
-              if text == active
+            each _url, text in navbar
+              if _url == url
                 li.active
-                  a(href='#{url}') #{text}
+                  a(href='#{_url}') #{text}
               else
                 li
-                  a(href='#{url}') #{text}
+                  a(href='#{_url}') #{text}
           ul.external
-            if "About" == active
+            if "/about" == url
               li.active
                 a(href='/about') About
             else

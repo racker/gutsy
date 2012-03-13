@@ -1,6 +1,6 @@
 var middleware = require('web/middleware');
-var utils = require('utils');
-var mocks = require('../middleware_api_mocks');
+var path = require('path');
+var async = require('async');
 
 /**
  * Runs a single middleware test. Calls assert and test.finish().
@@ -10,32 +10,36 @@ var mocks = require('../middleware_api_mocks');
  * @param {string} devopsjson the filename of the devopsjson file relative to fixture_path
  * @param {string} name the name of everything: middleware, mock, field in devopsjson that is added by middleware
  * @param {boolean} is_field_expected True if the incoming devopsjson file is expected to generate a field via the middleware
- * @param {boolean} xhr_error if True, call the on_error callback rather than on_success
- * @param {boolean} data_error if True and if on_success is called, provide errorful data
  */
-exports.run_test = function(
-    test, assert, devops_filename, name,
-    is_field_expected, xhr_error, data_error) {
+exports.run_test = function(test, assert, devops_filename, middleware_name, field_name, is_field_expected) {
+  var fixtures_path, devops_path, mock_req;
 
-  var devops, mock_maker;
-  devops = utils.load_example_devops(devops_filename);
-  mock_maker = mocks[name].mock_maker(!xhr_error, !data_error);
+  fixtures_path = path.join('extern', 'devopsjson', 'examples');
+  devops_path = path.join(fixtures_path, devops_filename);
 
-  middleware[name](devops, mock_maker)(null, null, function(){});
-  if (is_field_expected) {
-    if (!xhr_error && !data_error) {
-      assert.isDefined(devops[name]);
-      assert.isNotNull(devops[name]);
-      assert.isNotNull(devops[name].data);
-      assert.isNull(devops[name].error);
+  var mock_req = {
+      params: {
+        project: devops_filename
+      },
+      url: '/p/' + devops_filename,
+      devops_directory: fixtures_path
+  };
+
+  async.series([function(cb) {
+    middleware.load_devops(mock_req, null, cb);
+  }, function(cb) {
+    middleware.navbar(mock_req, null, cb);
+  }, function(cb) {
+    middleware[middleware_name](mock_req, null, cb);
+  }], function() {
+    if (is_field_expected) {
+      assert.isDefined(mock_req.devops[field_name]);
+      assert.isNotNull(mock_req.devops[field_name]);
+      assert.isNotNull(mock_req.devops[field_name].data);
+      assert.isNull(mock_req.devops[field_name].error);
     } else {
-      assert.isDefined(devops[name]);
-      assert.isNotNull(devops[name]);
-      assert.isNull(devops[name].data);
-      assert.isNotNull(devops[name].error);
+      assert.isNull(mock_req.devops[field_name]);
     }
-  } else {
-    assert.isUndefined(devops[name]);
-  }
-  test.finish();
+    test.finish();
+  });
 };

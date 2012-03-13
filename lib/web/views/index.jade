@@ -9,6 +9,14 @@ block append scripts
 
 block content
   #timeline
+
+  if errors.length
+    #errors.alert.alert-error
+      ul
+        for error in errors
+          li.error
+            #{error}
+
   .container-fluid
     .row-fluid
       .span3
