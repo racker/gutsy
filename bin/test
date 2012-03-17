@@ -27,3 +27,7 @@ tests/middleware_tests/test_github.js \
 tests/middleware_tests/test_versionone.js \
 tests/middleware_tests/test_newrelic.js \
 tests/middleware_tests/test_pagerduty.js"
+
+echo "Running linter..."
+./bin/lint
+echo "Linting complete."
