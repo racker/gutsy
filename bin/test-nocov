@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#  Copyright 2012 Rackspace
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+basedir=`dirname $0`
+
+NODE_PATH=$NODE_PATH:${basedir}/../lib-cov ./node_modules/.bin/whiskey \
+--tests "tests/view_tests/test_index.js \
+tests/view_tests/test_defects.js \
+tests/view_tests/test_devhealth.js \
+tests/middleware_tests/test_load_devops.js \
+tests/middleware_tests/test_devops_directory_setter.js \
+tests/middleware_tests/test_navbar.js \
+tests/middleware_tests/test_github.js \
+tests/middleware_tests/test_versionone.js \
+tests/middleware_tests/test_newrelic.js \
+tests/middleware_tests/test_pagerduty.js"

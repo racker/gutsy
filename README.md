@@ -36,3 +36,11 @@ Then go to: [http://localhost:3000](http://localhost:3000)
 ```
 npm test
 ```
+
+In order for `--coverage` to work, you'll need to install [node-jscoverage](https://github.com/Kami/node-jscoverage ).
+
+To run tests without installing jscoverage:
+
+```
+./bin/test-nocov
+```
