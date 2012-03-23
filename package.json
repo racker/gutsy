@@ -4,7 +4,8 @@
   "contributors": [
     "Brandon Philips <brandon@ifup.org>",
     "Lucy Mendel <lucy.mendel@rackspace.com>",
-    "Felix Sargent <felix.sargent@rackspace.com>"
+    "Felix Sargent <felix.sargent@rackspace.com>",
+    "Matt Kaniaris <mkaniaris@gmail.com>"
   ],
   "version": "0.0.1",
   "dependencies": {

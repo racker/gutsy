@@ -12,3 +12,10 @@ There are two kinds of middlewares:
   - load_devops
   - navbar
 - API middleware, which make API calls in order to add fields to req.devops. These can be called in parallel as long as req.devops mutations are restricted.
+  - The convention is the following:
+     If no credentials are provided for making an API call, do nothing
+     Else,
+       req.devops.<new field name> = { data: null, error: null }
+       If there is an error populate error
+       Else,
+         populate data.

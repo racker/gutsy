@@ -18,4 +18,3 @@
 
 var entry = require('../lib/entry');
 entry.run();
-

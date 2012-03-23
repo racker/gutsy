@@ -1,17 +1,19 @@
-h3 #{metric.name}
-table.table.table-striped.table-bordered.table-condensed.table-stats
-  thead
-    tr
-      th.username Username
-      th #{metric.unit}
-  tfoot
-    tr
-      td
-      td #{metric.aggregate}
-  tbody
-    each stat in metric.stats
-      each key, val in stat
-        tr
-          td
-            a(href='https://github.com/#{val}', target='_blank') #{val}
-          td #{key}
+div.github_metric
+  h3 #{metric.name}
+  table.table.table-striped.table-bordered.table-condensed.table-stats
+    thead
+      tr
+        th.username Username
+        th #{metric.unit}
+    tfoot
+      tr
+        td
+        td #{metric.aggregate}
+    tbody
+      each stat in metric.stats
+        each key, val in stat
+          tr
+            td
+              a(href='https://github.com/#{val}', target='_blank') #{val}
+            td #{key}
+

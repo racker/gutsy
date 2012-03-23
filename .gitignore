@@ -2,3 +2,4 @@ fixtures/*
 !fixtures/README.md
 settings.js
 lib-cov
+npm-debug.log

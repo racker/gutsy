@@ -24,7 +24,7 @@ var run_test = function(test, assert, devops_filename) {
   fixtures_path = path.join('extern', 'devopsjson', 'examples');
   devops_path = path.join(fixtures_path, devops_filename);
 
-  var mock_req = {
+  mock_req = {
       params: {
         project: devops_filename
       },

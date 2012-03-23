@@ -11,17 +11,9 @@ block content
   | </script>
   .container
     .content
-      if github
-          h1 Development Health
-          if github.error
-            p An error occurred: #{github.error}
-          else if github.data.error
-            p API returned the following error:
-            p.alert #{github.data.error.code}: #{github.data.error.message}
-          else
+      h1 Development Health for 
+      if github.error
+        p Error: #{e}
 
-            h2 Repo: #{github.data.repo}
-            hr
-
-            each metric in github.data.metrics
-              include includes/github_stats
+      for metric in github.data
+        include includes/github_stats
