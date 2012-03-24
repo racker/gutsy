@@ -44,9 +44,10 @@ var run_test = function(test, assert, devops_filename) {
     assert.isDefined(mock_req.devops.dependent_services);
     assert.isDefined(mock_req.devops.events);
     assert.isDefined(mock_req.devops.kpi_spec);
-    assert.isNull(mock_req.devops.pagerduty);
-    assert.isNull(mock_req.devops.versionone);
+    assert.isNull(mock_req.devops.pager_duty);
+    assert.isNull(mock_req.devops.version_one);
     assert.isNull(mock_req.devops.github);
+    assert.isNull(mock_req.devops.new_relic);
     test.finish();
   });
 };

@@ -22,7 +22,7 @@ exports.metadashboard_uris = {
 // credentials too sensitive for devops.json
 exports.external_creds = {
     "Full": {
-      "newrelic": {
+      "new_relic": {
         "apikey": "123456"
       }
     }

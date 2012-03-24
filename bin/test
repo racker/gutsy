@@ -24,8 +24,8 @@ tests/middleware_tests/test_load_devops.js \
 tests/middleware_tests/test_devops_directory_setter.js \
 tests/middleware_tests/test_navbar.js \
 tests/middleware_tests/test_github.js \
-tests/middleware_tests/test_versionone.js \
-tests/middleware_tests/test_newrelic.js \
+tests/middleware_tests/test_version_one.js \
+tests/middleware_tests/test_new_relic.js \
 tests/middleware_tests/test_pagerduty.js"
 
 echo "Running linter..."

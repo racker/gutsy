@@ -1,5 +1,6 @@
 {
   "name": "Gutsy",
+  "debug": false,
   "description": "Devops JSON Dashboard",
   "tags": [
     "javascript",
@@ -37,7 +38,7 @@
         {
           "name": "Zaphod Beeblebrox",
           "sso": "zaphod.beeblebrox"
-        }, 
+        },
         {
           "name": "Ford Prefect",
           "sso":"ford.prefect",
@@ -71,7 +72,7 @@
           "username": "gutsy",
           "password": "PASS"
         }
-      } 
+      }
     },
     {
       "type": "production",
@@ -112,7 +113,7 @@
         "username": "xxx",
         "apikey": "yyy"
     },
-    "newrelic": {
+    "new_relic": {
         "accountId": "22",
         "appid": "42",
         "apikey": "__external__"

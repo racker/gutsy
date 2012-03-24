@@ -12,7 +12,7 @@ exports.run = function() {
 };
 
 var test_file = function(json_path, jsv_env) {
-    var json, parsed_json
+    var json, parsed_json;
     json = fs.readFileSync(json_path);
     parsed_json = JSON.parse(json);
     report = jsv_env.validate(parsed_json, schema);

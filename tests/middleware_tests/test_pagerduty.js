@@ -2,19 +2,19 @@ var base = require('./base');
 var nock = require('nock');
 
 exports.test_example_minimum = function(test, assert) {
-  base.run_test(test, assert, 'example-minimum.json', 'pagerduty', 'pagerduty', _success_mock, false);
+  base.run_test(test, assert, 'example-minimum.json', 'pager_duty', 'pager_duty', _success_mock, false);
 };
 
 exports.test_example_simple = function(test, assert) {
-  base.run_test(test, assert, 'example-simple.json', 'pagerduty', 'pagerduty', _success_mock, false);
+  base.run_test(test, assert, 'example-simple.json', 'pager_duty', 'pager_duty', _success_mock, false);
 };
 
 exports.test_example_full_success = function(test, assert) {
-  base.run_test(test, assert, 'example-full.json', 'pagerduty', 'pagerduty', _success_mock, true);
+  base.run_test(test, assert, 'example-full.json', 'pager_duty', 'pager_duty', _success_mock, true);
 };
 
 exports.test_example_full_error = function(test, assert) {
-  base.run_test(test, assert, 'example-full.json', 'pagerduty', 'pagerduty', _error_mock, true, true);
+  base.run_test(test, assert, 'example-full.json', 'pager_duty', 'pager_duty', _error_mock, true, true);
 };
 
 function _create_mock(req, status, res) {

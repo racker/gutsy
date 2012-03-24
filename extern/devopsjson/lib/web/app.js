@@ -30,7 +30,7 @@ exports.run = function(argv) {
 
   app.post('/', function(req, res) {
     var json_text = req.body.json_text;
-    var report = {'errors': [], 'validated': []}
+    var report = {'errors': [], 'validated': []};
     try {
       var parse_json = JSON.parse(json_text);
       report = jsv_env.validate(parse_json, schema);
@@ -48,4 +48,4 @@ exports.run = function(argv) {
   });
 
   app.listen(argv.p);
-}
+};

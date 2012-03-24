@@ -8,13 +8,13 @@ block content
   | </script>
   .container
     .content
-      if versionone
+      if version_one
           h1 VersionOne
-          if versionone.error
-            p An error occurred: #{versionone.error}
-          else if versionone.data.error
+          if version_one.error
+            p An error occurred: #{version_one.error}
+          else if version_one.data.error
             p API returned the following error:
-            p.alert #{versionone.data.error.code}: #{versionone.data.error.message}
+            p.alert #{version_one.data.error.code}: #{version_one.data.error.message}
           else
             div
               table#defects.sortable.table-striped
@@ -26,7 +26,7 @@ block content
                     th Created
                     th Name
                 tbody
-                  - each asset, i in versionone.data.defects
+                  - each asset, i in version_one.data.defects
                     tr
                       - var statusName = asset.attributes['Status.Name'] || 'New';
                       - var priority = asset.attributes['Priority.Name'] || 'Unset';

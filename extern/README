@@ -17,7 +17,7 @@ backbone 0.9.1
   https://github.com/documentcloud/backbone
   Give your JS App some Backbone with Models, Views, Collections, and Events
 
-devopsjson  2cdc932947
+devopsjson b69f2d36fb
   Apache 2.0
   https://github.com/racker/devopsjson
   devops.json URI specification

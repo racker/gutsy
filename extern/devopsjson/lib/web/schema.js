@@ -23,6 +23,11 @@ exports.schema = {
             },
             'uniqueItems': true
         },
+        'debug': {
+            'description': 'enable debug reporting which may be undesired or unsafe in produciton',
+            'type': 'boolean',
+            'optional': true
+        },
         'contacts': {
             'description': 'Contact information for members of various teams',
             'type': 'array',
@@ -35,7 +40,7 @@ exports.schema = {
                     'team_name': {
                         'description': 'The name of the team',
                         'type': 'string',
-                        'optional': false,
+                        'optional': false
                     },
                     'members': {
                         'type': 'array',
@@ -47,12 +52,12 @@ exports.schema = {
                                 'name': {
                                     'description': 'Full name of team member',
                                     'type': 'string',
-                                    'optional': true,
+                                    'optional': true
                                 },
                                 'sso': {
                                     'description': 'SSO for team member',
                                     'type': 'string',
-                                    'optional': false,
+                                    'optional': false
                                 }
                             },
                             'additionalProperties': {
@@ -191,7 +196,7 @@ exports.schema = {
                     'auth': 'string'
                 }
             },
-            'newrelic': {
+            'new_relic': {
                 'type': 'object',
                 'optional': true,
                 'additionalProperties': {

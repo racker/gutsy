@@ -1,9 +1,0 @@
-.versionone
-  h1 Code Health
-  if versionone.error
-    p An error occurred: #{versionone.error}
-  else if versionone.data.error
-    p API returned the following error:
-    p.alert #{versionone.data.error.code}: #{versionone.data.error.message}
-  else
-    p Number of defects: #{versionone.data.total}

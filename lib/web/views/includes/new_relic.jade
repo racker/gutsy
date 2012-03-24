@@ -1,11 +1,11 @@
-.newrelic
+.new_relic
   h1 NewRelic
-  if newrelic.error
-    p An error occurred: #{newrelic.error}
+  if new_relic.error
+    p An error occurred: #{new_relic.error}
   else
     div
       ul
-        - each metric in newrelic.data
+        - each metric in new_relic.data
           li
             strong #{metric.name} 
             \- #{metric.formatted_metric_value}

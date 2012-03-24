@@ -6,19 +6,19 @@ var path = require('path');
 var xml_fixture = fs.readFileSync(path.join(__dirname,'fixtures', 'version_one.xml'));
 
 exports.test_example_minimum = function(test, assert) {
-  base.run_test(test, assert, 'example-minimum.json', 'versionone', 'versionone', _success_mock, false);
+  base.run_test(test, assert, 'example-minimum.json', 'version_one', 'version_one', _success_mock, false);
 };
 
 exports.test_example_simple = function(test, assert) {
-  base.run_test(test, assert, 'example-simple.json', 'versionone', 'versionone', _success_mock, false);
+  base.run_test(test, assert, 'example-simple.json', 'version_one', 'version_one', _success_mock, false);
 };
 
 exports.test_example_full_success = function(test, assert) {
-  base.run_test(test, assert, 'example-full.json', 'versionone', 'versionone', _success_mock, true);
+  base.run_test(test, assert, 'example-full.json', 'version_one', 'version_one', _success_mock, true);
 };
 
 exports.test_example_full_error = function(test, assert) {
-  base.run_test(test, assert, 'example-full.json', 'versionone', 'versionone', _error_mock, true, true);
+  base.run_test(test, assert, 'example-full.json', 'version_one', 'version_one', _error_mock, true, true);
 };
 
 
@@ -35,10 +35,7 @@ function _create_mock(req, status, res) {
     mock = mock.get(
       ['/',
        req.devops.related_apis.version_one.name,
-       //"/rest-1.v1/Data/Defect?where=Scope='Scope:",
-       //req.devops.related_apis.version_one.project,
-       //"',Status!='Done'"].join(""),
-       "/rest-1.v1/Data/Defect?where=Status.Name!='Closed'&findin=Scope.Name&find='",
+       "/rest-1.v1/Data/Defect?where=Scope='Scope:",
        req.devops.related_apis.version_one.project,
        "'"].join(""));
     mock = mock.reply(status, res);
