@@ -27,3 +27,5 @@ exports.external_creds = {
       }
     }
 };
+
+exports.debug = true;

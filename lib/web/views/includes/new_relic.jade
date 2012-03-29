@@ -1,7 +1,8 @@
 .new_relic
   h1 NewRelic
   if new_relic.error
-    p An error occurred: #{new_relic.error}
+    p The new_relic API returned the following error:
+    p.alert!=trace(new_relic.error)
   else
     div
       ul

@@ -22,6 +22,8 @@ var async = require('async');
 exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
   var view_path, fixtures_path, devops_path;
 
+  middlewares.unshift(middleware.load_devops, middleware.injector.injector_middleware, middleware.navbar);
+
   view_path = path.join(__dirname, '..', '..', 'lib', 'web', 'views', view);
   fixtures_path = path.join('extern', 'devopsjson', 'examples');
   devops_path = path.join(fixtures_path, devopsjson);
@@ -34,25 +36,28 @@ exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
       nocking: true
   };
 
+  var res = new utils.mock_res();
+
   // call default middleware
-  middleware.devops_directory_setter(fixtures_path)(mock_req, null, function() {});
+  middleware.devops_directory_setter(fixtures_path)(mock_req, res, function() {});
 
   // call view-specific middleware
   var wrapped_middleware = [];
   _.each(middlewares, function(middleware) {
     wrapped_middleware.push(function(cb) {
-      middleware(mock_req, null, cb);
+      middleware(mock_req, res, cb);
     });
   });
   async.series(
       wrapped_middleware,
       function() {
-
-      jade.renderFile(view_path, mock_req.devops, function(er, html) {
-        assert.ifError(er, er);
-        if (fn) {
-          fn(html);
-        }
+        // this would get dumped in by express
+        _.extend(mock_req.devops, res._locals);
+        jade.renderFile(view_path, mock_req.devops, function(er, html) {
+          assert.ifError(er, er);
+          if (fn) {
+            fn(html);
+          }
       });
 
       test.finish();

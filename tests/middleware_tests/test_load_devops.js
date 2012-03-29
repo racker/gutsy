@@ -13,6 +13,9 @@ exports.test_example_full = function(test, assert) {
   run_test(test, assert, 'example-full.json');
 };
 
+exports.test_all_endpoint_settings = function(test, assert){
+  test.finish();
+};
 /**
  * Runs a single test. Calls assert.
  *
@@ -32,22 +35,23 @@ var run_test = function(test, assert, devops_filename) {
   };
 
   middleware.load_devops(mock_req, null, function(){
-    assert.isDefined(mock_req.devops);
-    assert.isDefined(mock_req.devops.name);
-    assert.isDefined(mock_req.devops.description);
-    assert.isDefined(mock_req.devops.contacts);
-    assert.isDefined(mock_req.devops.tags);
-    assert.isDefined(mock_req.devops.links);
-    assert.isDefined(mock_req.devops.environments);
-    assert.isDefined(mock_req.devops.metadata);
-    assert.isDefined(mock_req.devops.related_apis);
-    assert.isDefined(mock_req.devops.dependent_services);
-    assert.isDefined(mock_req.devops.events);
-    assert.isDefined(mock_req.devops.kpi_spec);
-    assert.isNull(mock_req.devops.pager_duty);
-    assert.isNull(mock_req.devops.version_one);
-    assert.isNull(mock_req.devops.github);
-    assert.isNull(mock_req.devops.new_relic);
+    var devops = mock_req.devops;
+    assert.isDefined(devops);
+    assert.isDefined(devops.name);
+    assert.isDefined(devops.description);
+    assert.isDefined(devops.contacts);
+    assert.isDefined(devops.tags);
+    assert.isDefined(devops.links);
+    assert.isDefined(devops.environments);
+    assert.isDefined(devops.metadata);
+    assert.isDefined(devops.related_apis);
+    assert.isDefined(devops.dependent_services);
+    assert.isDefined(devops.events);
+    assert.isDefined(devops.kpi_spec);
+    assert.isNull(devops.pager_duty, 'pagerduty is defined: ' + devops.pager_duty);
+    assert.isNull(devops.version_one, 'versionone is defined' + devops.version_one);
+    assert.isNull(devops.github, 'github is defined\n'+ devops.github);
+    assert.isNull(devops.new_relic, 'new_relic is defined' + devops.new_relic);
     test.finish();
   });
 };

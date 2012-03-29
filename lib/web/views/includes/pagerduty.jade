@@ -1,10 +1,8 @@
 .pagerduty
   h1 PagerDuty
   if pager_duty.error
-    p #{pager_duty.error}
-  else if pager_duty.data.error
-    p API returned the following error:
-    p.alert #{pager_duty.data.error.code}: #{pager_duty.data.error.message}
+    p The pager_duty API returned the following error:
+    p.alert!=trace(pager_duty.error)
   else
     h4 Currently On Call:
     p

@@ -1,0 +1,16 @@
+block append scripts
+
+for event in events
+	div.timeline-tooltip(style="left: #{event.position}%")
+		#{event.days_remaining}
+		div.alert.hide
+			b=event.name
+			br
+			#{event.description}
+			ul.related_links
+				if event.related_links
+					for link in event.related_links
+						li
+							a(href="#{link}") #{link}
+			span.date-info
+				#{event.days_remaining} days left - !{(new Date(event.timestamp)).toDateString()}

@@ -1,7 +1,7 @@
 !!! 5
 html(lang='en')
   head
-    title Gutsy, the Dashboard
+    title=title()
 
     block meta
       meta(charset='utf-8')
@@ -23,9 +23,14 @@ html(lang='en')
       script(src='/static/less/less-1.2.2.js')
 
       | <script>
+      |   $(document).ready(function(){
       |   $(function() {
       |     $('.dropdown-toggle').dropdown();
       |   });
+      |   $(".timeline-tooltip").click(function() {
+      |     $(this).children().toggle();
+      |   });
+      | });
       | </script>
 
     link(rel='shortcut icon', href='images/favicon.ico')

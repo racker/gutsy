@@ -4,11 +4,11 @@ block append css
   link(href='/static/css/index.less', rel='stylesheet/less', type='text/css')
 
 block append scripts
-  script(src='/static/js/event-timeline.js')
   script(src='/static/js/contacts.js')
 
 block content
   #timeline
+    include includes/timeline_event
 
   if errors.length
     #errors.alert.alert-error
@@ -30,21 +30,6 @@ block content
             each uri, name in links
               li
                 a(href='#{uri}') #{name}
-
-        if events.length
-          #events-block.ablock
-            h1 Events
-            ul#events
-              for event in events
-                li
-                  p.timestamp #{event.timestamp}
-                  p.name #{event.name}
-                  p.description #{event.description}
-                  ul.related_links
-                    if event.related_links
-                      for link in event.related_links
-                        li
-                          a(href="#{link}") #{link}
 
       .span3
         #contacts-block.ablock
