@@ -60,17 +60,12 @@ block content
           #environments-block.ablock
             include includes/environments
 
-        // oncall shows up in contacts list
-        //if pagerduty
-        //  #pagerduty-block.ablock.middleware-block
-        //    include includes/pagerduty
-
         if version_one
-          #version_one-block.ablock.middleware-block
+          #versionone-block.ablock.middleware-block
             include includes/version_one
 
         if new_relic
-          #new_relic-block.ablock.middleware-block
+          #newrelic-block.ablock.middleware-block
             include includes/new_relic
 
     script(src='/static/jquery/jquery-1.7.1.min.js')

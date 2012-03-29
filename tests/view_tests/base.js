@@ -20,7 +20,7 @@ var async = require('async');
  * @param {function} fn (optional) a callback that takes the rendered html response as an argument
  */
 exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
-  var view_path, fixtures_path, devops_path, mock_req;
+  var view_path, fixtures_path, devops_path;
 
   view_path = path.join(__dirname, '..', '..', 'lib', 'web', 'views', view);
   fixtures_path = path.join('extern', 'devopsjson', 'examples');
@@ -30,7 +30,8 @@ exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
       params: {
         project: devopsjson
       },
-      url: view
+      url: view,
+      nocking: true
   };
 
   // call default middleware

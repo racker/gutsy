@@ -9,31 +9,31 @@ block content
   .container
     .content
       if version_one
-          h1 VersionOne
-          if version_one.error
-            p An error occurred: #{version_one.error}
-          else if version_one.data.error
-            p API returned the following error:
-            p.alert #{version_one.data.error.code}: #{version_one.data.error.message}
-          else
-            div
-              table#defects.sortable.table-striped
-                thead
+        h1 version_one
+        if version_one.error
+          p An error occurred: #{version_one.error}
+        else if version_one.data.error
+          p API returned the following error:
+          p.alert #{version_one.data.error.code}: #{version_one.data.error.message}
+        else
+          div
+            table#defects.sortable.table-striped
+              thead
+                tr
+                  th Priority
+                  th Status
+                  th Project
+                  th Created
+                  th Name
+              tbody
+                - each asset, i in version_one.data.defects
                   tr
-                    th Priority
-                    th Status
-                    th Project
-                    th Created
-                    th Name
-                tbody
-                  - each asset, i in version_one.data.defects
-                    tr
-                      - var statusName = asset.attributes['Status.Name'] || 'New';
-                      - var priority = asset.attributes['Priority.Name'] || 'Unset';
-                      // a hack.
-                      td #{priority}
-                      td #{statusName}
-                      td #{asset.attributes['Scope.Name']}
-                      td #{asset.formattedDate}
-                      td
-                        a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
+                    - var statusName = asset.attributes['Status.Name'] || 'New';
+                    - var priority = asset.attributes['Priority.Name'] || 'Unset';
+                    // a hack.
+                    td #{priority}
+                    td #{statusName}
+                    td #{asset.attributes['Scope.Name']}
+                    td #{asset.formattedDate}
+                    td
+                      a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}

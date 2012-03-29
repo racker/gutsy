@@ -1,0 +1,9 @@
+.versionone
+  h1 Code Health
+  if version_one.error
+    p An error occurred: #{version_one.error}
+  else if version_one.data.error
+    p API returned the following error:
+    p.alert #{version_one.data.error.code}: #{version_one.data.error.message}
+  else
+    p Number of defects: #{version_one.data.total}

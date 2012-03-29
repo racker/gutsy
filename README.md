@@ -30,6 +30,7 @@ npm start
 ```
 
 Then go to: [http://localhost:3000](http://localhost:3000)
+Pages are currently cached for 5 minutes in the local node process to avoid lengthy API calls.
 
 ## Tests
 

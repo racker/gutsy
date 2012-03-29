@@ -3,6 +3,7 @@ var middleware = require('web/middleware');
 
 var middlewares =  [middleware.load_devops,
                     middleware.navbar,
+                    middleware.new_relic,
                     middleware.pager_duty,
                     middleware.github,
                     middleware.version_one];
