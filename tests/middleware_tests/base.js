@@ -37,22 +37,26 @@ exports.run_test = function(test, assert, devops_filename, middleware_name, fiel
     mock = create_mock_fn(mock_req);
     middleware[middleware_name](mock_req, null, cb);
   }], function() {
+    var this_devops = mock_req.devops[field_name];
     if (is_field_expected) {
-      assert.isDefined(mock_req.devops[field_name]);
-      assert.isNotNull(mock_req.devops[field_name]);
+      assert.isDefined(this_devops);
+      assert.isNotNull(this_devops,
+        "Was null when it shouldn't be: mock_req.devops[field_name]: " +
+        field_name);
       if (!is_error) {
         //assert.isNotNull(mock_req.devops[field_name].data);
-        assert.isNull(mock_req.devops[field_name].error);
+        assert.isNull(this_devops.error, "there was an error: \n"+
+          this_devops.error);
       } else {
-        assert.isNull(mock_req.devops[field_name].data);
-        assert.isNotNull(mock_req.devops[field_name].error);
+        assert.isNull(this_devops.data);
+        assert.isNotNull(this_devops.error);
       }
       assert.isNotNull(mock);
       assert.ok(mock.isDone());
     } else {
-      if (mock_req.devops[field_name] !== null){
+      if (this_devops !== null){
       }
-      assert.isNull(mock_req.devops[field_name]);
+      assert.isNull(this_devops);
       assert.isNull(mock);
     }
     test.finish();

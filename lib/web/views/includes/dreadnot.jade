@@ -1,0 +1,32 @@
+.dreadnot
+	h1 DreadNot
+	if dreadnot.error
+		p API returned the following error:
+		p.alert #{dreadnot.error}
+	else
+		for stack in dreadnot.data
+			p
+				b #{stack.name}:
+				br
+				if stack.deploy.finished
+					|  finished
+				else
+					|  didn't finish
+				| and
+				if stack.deploy.success
+					| succeeded
+				else
+					| didn't succeed
+				| deploy
+				a(href="https://"+related_apis.dreadnot.url+'/stacks/'+stack.name+'/regions/'+stack.deploy.region+'/deployments/'+stack.deploy.name)=stack.deploy.name
+				|  at
+				=format_time(stack.deploy.time)
+				|  in #{stack.deploy.region}
+				br
+				a(href=stack.github_href+'/commit/'+stack.deploy.from_revision)=stack.deploy.from_trunc
+				|  ->
+				a(href=stack.github_href+'/commit/'+stack.deploy.to_revision)=stack.deploy.to_trunc
+				|  (
+				a(href=stack.github_href+'/compare/'+stack.deploy.from_revision+'...'+stack.deploy.to_revision) diff
+				|  ) by #{stack.deploy.user}
+

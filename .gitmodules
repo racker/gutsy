@@ -1,0 +1,3 @@
+[submodule "extern/devopsjson"]
+	path = extern/devopsjson
+	url = git://github.com/racker/devopsjson.git
