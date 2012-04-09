@@ -1,0 +1,160 @@
+extends layout
+
+block append scripts
+	script(type='text/javascript')
+		var hosts = !{JSON.stringify(hosts)};
+		$(document).ready(function(){
+			var update_table = function(selected){
+				var klass = "";
+				var healths = !{JSON.stringify(HEALTH_ENUM)};
+				var iter;
+				if (selected == #{SHOW_ALL}){
+					$.each(healths, function(key, value){
+						klass += '.health-' + value + ',';
+					});
+				}else{
+					klass = '.health-'+healths[selected];
+				}
+				$('.data-row').each(function(index, item){
+					item = $(item);
+					if(item.is(klass)){
+						item.show();
+					}else{
+						item.hide();
+					}
+				})
+			};
+			$('select#filter-health').change(function(e){
+				var selected = e.target;
+				var option = selected.options[selected.selectedIndex];
+				var to_filter = $(option).attr('class');
+				update_table(to_filter);
+			});
+			$('select#filter-health').val('#{HEALTH_STRING_ERROR}');
+			update_table('#{HEALTH_ERROR}');
+		});
+
+block append css
+	link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
+	style(type="text/css")
+		.health-#{HEALTH_STRING_OK}{
+			background-color: #B9FAEA;
+		}
+		.health-#{HEALTH_STRING_PROBLEM}{
+			background-color: #F8FAB9;
+		}
+		.health-#{HEALTH_STRING_ERROR}{
+			background-color: #FF7D7D;
+		}
+		.health-#{HEALTH_STRING_UNKNOWN}{
+			background-color: #B8C5FC;
+		}
+		.table{
+			border: 2px solid #000;
+			border-radius: 10px;
+		}
+		.table td,th{
+			width: 16%;
+			vertical-align: middle;
+		}
+		.table td{
+			border: 1px solid #000;
+		}
+		.table th{
+			font-weight: bold;
+			border: 2px solid #000;
+		}
+		.table tr{
+			vertical-align: middle;
+			font-weight: bold;
+		}
+		.data-row{
+			border-top: 1px dotted #000;
+			display: none;
+		}
+		.data-row a{
+			color: #333;
+			text-decoration: underline;
+		}
+		select{
+			width: 100px;
+		}
+		table.table .table-hack{
+			margin: 0; padding: 0; line-height: 0; height: 0; border: 0 none;
+		}
+
+block content
+	.container
+		if hosts
+			h3
+				| filters: health:
+				select(id='filter-health')
+					for key,value in HEALTH_ENUM
+						option(class=value)=key
+					option(class=SHOW_ALL) ALL
+
+			h1 Services:
+			if hosts
+				table.table#service-stats
+					tr#header
+						th type
+						th name
+						th host
+						th ip
+						th health
+						th last updated
+					for host, host_name in hosts
+						for service,name in host.services
+							- var service_color = 'health-' + HEALTH_ENUM[service.health]
+							tr(class=service_color+' data-row')
+								td=service.service
+								td
+									a(name=host_name+'_'+name)=name
+								td
+									a(href="#host-name-"+host_name)=host_name
+								td=host.ip
+								td=health_enum_to_string(service.health)
+								td=format_time(service.timestamp)
+
+
+					tr(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+
+				h1 Hosts:
+
+				table.table#host-stats
+					tr#header
+						th hostname
+						th(colspan=2) services provided
+						th ip
+						th health
+						th last updated
+
+					for host, host_name in hosts
+						- var host_color = 'health-' + HEALTH_ENUM[host.health]
+						tr(class=host_color+' data-row')
+							td
+								a(name="host-name-"+host_name)=host_name
+							td(colspan=2)
+								-var services = Object.keys(host.services);
+								| [
+								for key in services
+									a(href='#'+host_name+'_'+key)=key
+									| ,<npsb>
+								| ]
+							td=host.ip
+							td=health_enum_to_string(host.health)
+							td=format_time(host.timestamp)
+
+					tr(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")
+						td(class="table-hack")

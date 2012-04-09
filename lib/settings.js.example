@@ -28,4 +28,25 @@ exports.external_creds = {
     }
 };
 
+// Keys used for the API server- these must exist to support push updates
+// Note: this path is from the root directory of the project
+//exports.private_key = './keys/key.pem';
+//exports.cert = './keys/cert.pem';
+
+// A list of [username, password] for authenticating basic auth requests to the api
+// This must be defined to support the API
+//exports.valid_users = [
+//    ['username', 'password']
+//];
+
+// show stack traces in errors to users when available
 exports.debug = true;
+
+// gutsy flushes the current state of services to disk this often (in ms)
+exports.flush_stats_interval = 10 * 1000;
+
+// testing flag- don't touch me
+exports.testing = false;
+
+exports.flush_file_path = '_service_stats.json';
+exports.testing_flush_file_path = exports.flush_file_path + '.testing';

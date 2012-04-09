@@ -29,11 +29,10 @@ exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
   devops_path = path.join(fixtures_path, devopsjson);
 
   var mock_req = {
-      params: {
-        project: devopsjson
-      },
-      url: view,
-      nocking: true
+    params: {
+      project: devopsjson
+    },
+    url: view
   };
 
   var res = new utils.mock_res();
@@ -49,17 +48,17 @@ exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
     });
   });
   async.series(
-      wrapped_middleware,
-      function() {
-        // this would get dumped in by express
-        _.extend(mock_req.devops, res._locals);
-        jade.renderFile(view_path, mock_req.devops, function(er, html) {
-          assert.ifError(er, er);
-          if (fn) {
-            fn(html);
-          }
-      });
-
-      test.finish();
+    wrapped_middleware,
+    function() {
+      // this would get dumped in by express
+      _.extend(mock_req.devops, res._locals);
+      jade.renderFile(view_path, mock_req.devops, function(er, html) {
+        assert.ifError(er, er);
+        if (fn) {
+          fn(html);
+        }
     });
+
+    test.finish();
+  });
 };

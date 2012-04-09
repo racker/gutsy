@@ -16,8 +16,9 @@
 
 basedir=`dirname $0`
 
-NODE_PATH=$NODE_PATH:${basedir}/../lib-cov ./node_modules/.bin/whiskey --coverage \
---tests "tests/middleware_tests/test_settings.js \
+NODE_PATH=$NODE_PATH:${basedir}/../lib-cov ./node_modules/.bin/whiskey --test-init-file \
+	"lib/init_tests.js" --real-time --coverage \
+	--tests "tests/middleware_tests/test_settings.js \
 tests/view_tests/test_index.js \
 tests/view_tests/test_defects.js \
 tests/view_tests/test_devhealth.js \
@@ -29,7 +30,9 @@ tests/middleware_tests/test_version_one.js \
 tests/middleware_tests/test_new_relic.js \
 tests/middleware_tests/test_pager_duty.js \
 tests/middleware_tests/test_injector.js \
-tests/middleware_tests/test_dreadnot.js"
+tests/middleware_tests/test_dreadnot.js \
+tests/test_basic_auth.js \
+tests/api_test.js"
 
 echo "Running linter..."
 ./bin/lint

@@ -21,12 +21,12 @@ exports.run_test = function(test, assert, devops_filename, middleware_name, fiel
   devops_path = path.join(fixtures_path, devops_filename);
 
   mock_req = {
-      params: {
-        project: devops_filename
-      },
-      url: '/p/' + devops_filename,
-      devops_directory: fixtures_path,
-      nocking: true
+    params: {
+      project: devops_filename
+    },
+    url: '/p/' + devops_filename,
+    devops_directory: fixtures_path,
+    nocking: true
   };
 
   async.series([function(cb) {

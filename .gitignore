@@ -4,3 +4,6 @@ settings.js
 lib-cov
 npm-debug.log
 .DS_Store
+lib/_service_stats.json
+lib/_service_stats.json.testing
+keys/
