@@ -1,37 +1,37 @@
 extends layout
+block append scripts
+  script(src='/static/js/defects.js')
+  script
+    $(function() {
+      $("table#defects").tablesorter();
+    });
 
 block content
-  | <script >
-  | $(function() {
-  |   $("table#defects").tablesorter();
-  | });
-  | </script>
   .container
     .content
       if version_one
-        h1 version_one
+        h1 VersionOne - Open Defects
         if version_one.error
           p The version_one API returned the following error:
           p.alert!=trace(version_one.error)
         else
           div
-            table#defects.sortable.table-striped
-              thead
-                tr
-                  th Priority
-                  th Status
-                  th Project
-                  th Created
-                  th Name
-              tbody
-                - each asset, i in version_one.data.defects
-                  tr
-                    - var statusName = asset.attributes['Status.Name'] || 'New';
-                    - var priority = asset.attributes['Priority.Name'] || 'Unset';
-                    // a hack.
-                    td #{priority}
-                    td #{statusName}
-                    td #{asset.attributes['Scope.Name']}
-                    td #{asset.formattedDate}
-                    td
-                      a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
+            - each v, k in version_one.data.byAge
+              hr
+              h2.title \u25B6 #{k} Day(s) old - #{v.length}
+              div.table.collapsible
+                table#defects.sortable.table-striped.hide
+                  thead
+                    tr
+                      th Created
+                      th Priority
+                      th Status
+                      th Name
+                  tbody
+                    - each asset in v
+                      tr
+                        td #{new Date(asset.attributes['CreateDate']).getMonth()+1}/#{new Date(asset.attributes['CreateDate']).getDate()}
+                        td #{asset.attributes['Priority.Name'] || '-'}
+                        td #{asset.attributes['Status.Name'] || '-'}
+                        td
+                          a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
