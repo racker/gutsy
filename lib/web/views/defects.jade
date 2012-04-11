@@ -24,14 +24,16 @@ block content
                   thead
                     tr
                       th Created
-                      th Priority
                       th Status
-                      th Name
+                      th Changed By
+                      th Owner
                   tbody
                     - each asset in v
                       tr
                         td #{new Date(asset.attributes['CreateDate']).getMonth()+1}/#{new Date(asset.attributes['CreateDate']).getDate()}
-                        td #{asset.attributes['Priority.Name'] || '-'}
                         td #{asset.attributes['Status.Name'] || '-'}
+                        td 
+                          a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
                         td
                           a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
+
