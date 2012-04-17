@@ -18,7 +18,19 @@ block content
           div
             - each v, k in version_one.data.byAge
               hr
-              h2.title \u25B6 #{k} Day(s) old - #{v.length}
+              h2.title \u25B6 #{k} Day(s) old: #{v.total_count}
+                for vcount, ksev in v.sev_count
+                  if vcount != 0
+                      if ksev === "1"
+                        span.sev.sev1(title="Severity 1") #{vcount}
+                      if ksev === "2"
+                        span.sev.sev2(title="Severity 2") #{vcount}
+                      if ksev === "3"
+                        span.sev.sev3(title="Severity 3") #{vcount}
+                      if ksev === "4"
+                        span.sev.sev4(title="Severity 4") #{vcount}
+                      if ksev === "?"
+                        span.sev.sevq(title="Severity Unknown") #{vcount}
               div.table.collapsible
                 table#defects.sortable.table-striped.hide
                   thead
@@ -27,14 +39,14 @@ block content
                       th Status
                       th Severity
                       th Changed By
-                      th Defect Name 
+                      th Defect Name
                   tbody
-                    - each asset in v
+                    - each asset in v.defects
                       tr
                         td #{new Date(asset.attributes['CreateDate']).getMonth()+1}/#{new Date(asset.attributes['CreateDate']).getDate()}
                         td #{asset.attributes['Status.Name'] || '-'}
-                        td #{asset.attributes['Custom_Severity.Name'] || '-'}
-                        td 
+                        td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'] || '-'}
+                        td
                           a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
                         td
                           a(href="http://#{related_apis.version_one.host}/#{related_apis.version_one.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
