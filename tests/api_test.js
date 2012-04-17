@@ -17,7 +17,7 @@ exports.test_api = function(test, assert){
 	fs.writeFileSync(file_path, JSON.stringify(sample_flush_payload));
 	api_cache = new utils.api_cache();
 	assert.isDefined(api_cache._projects["reach"]);
-	api_cache._flush_data(function(){
+	api_cache.flush_data(function(){
 		data = JSON.parse(fs.readFileSync(file_path));
 		assert.ok(_.isEqual(data,sample_flush_payload));
 		api_cache.handle_push("reach", sample_post_payload);
