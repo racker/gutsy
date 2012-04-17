@@ -1,5 +1,5 @@
-var utils = require('../lib/utils');
-var settings = require('../lib/settings');
+var utils = require('utils');
+var settings = require('settings');
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');

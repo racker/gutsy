@@ -1,4 +1,3 @@
-
 var settings = require('settings');
 var middleware = require('web/middleware');
 var _ = require('underscore');

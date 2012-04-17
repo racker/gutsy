@@ -1,6 +1,6 @@
 {
   "name": "gutsy",
-  "bin":"./bin/gutsy",
+  "bin": "./bin/gutsy",
   "contributors": [
     "Brandon Philips <brandon@ifup.org>",
     "Lucy Mendel <lucy.mendel@rackspace.com>",
@@ -20,11 +20,15 @@
     "request": "2.2.x",
     "newrelicapi": "0.0.2"
   },
+  "devDependencies": {
+    "jscoverage": "~0.1.4"
+  },
   "engines": {
     "node": ">=0.4.1 <0.7.0"
   },
   "scripts": {
     "test": "./bin/test",
-    "start": "./bin/gutsy"
+    "start": "./bin/gutsy",
+    "crawl": "./bin/gutsy --crawl"
   }
 }

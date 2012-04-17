@@ -16,7 +16,9 @@ exports.test_auth_fail_2 = function(test, assert){
 function run_test(test, assert, username, password, should_succeed){
 	var _valid_users = settings.valid_users;
 	var mock_req;
-
+  if (!settings.valid_users) {
+    throw new Error("Define exports.valid_users = ['username', 'password'] in your settings.js");
+  }
 	if (should_succeed){
 		settings.valid_users.push([username, password]);
 	}

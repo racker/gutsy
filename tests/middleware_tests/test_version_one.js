@@ -24,6 +24,23 @@ exports.test_example_full_error = function(test, assert) {
 
 function _create_mock(req, status, res) {
   var mock;
+  var selection = ["CreateDate",
+                  "Owners",
+                  "SecurityScope",
+                  "AssetState",
+                  "Owners",
+                  "AssetType",
+                  "Status",
+                  "Number",
+                  "Order",
+                  "Description",
+                  "Scope.Name",
+                  "Name",
+                  "ResolutionReason",
+                  "Timebox",
+                  "Resolution",
+                  "Scope",
+                  "Priority"];
 
   if (!req.devops.related_apis || !req.devops.related_apis.version_one) {
     mock = null;
@@ -33,11 +50,13 @@ function _create_mock(req, status, res) {
        '://',
        req.devops.related_apis.version_one.host].join(''));
     mock = mock.get(
-      ['/',
-       req.devops.related_apis.version_one.name,
-       "/rest-1.v1/Data/Defect?where=Scope='Scope:",
-       req.devops.related_apis.version_one.project,
-       "'"].join(""));
+        ['/',
+        req.devops.related_apis.version_one.name,
+        "/rest-1.v1/Data/Defect?sel=",
+        selection,
+        "&where=AssetState='0','64';Scope='Scope:",
+        req.devops.related_apis.version_one.project,
+        "'"].join(""));
     mock = mock.reply(status, res);
     //mock = mock.log(console.log);
   }
