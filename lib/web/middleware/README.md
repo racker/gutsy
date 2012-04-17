@@ -21,3 +21,15 @@ There are two kinds of middlewares:
     These middlewares are typically created via Utils.create_middleware which passes in two extra params: payload and api_config.
     api_config maps to req.devops[middleware_name] while payload contains the data and error objects.  Middlewares
     update the payload instead of setting the data and error fields on the devops object directly.
+
+Middlewares should set their payload to null when they discover they have no relevant credentials in the req.devops or api_config.
+
+```
+  // blank credentials test.
+  if (api_config === undefined ) {
+    payload = null ;
+    next();
+    return;
+  }
+```
+
