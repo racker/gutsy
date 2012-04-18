@@ -24,7 +24,9 @@ exports.test_example_full_error = function(test, assert) {
 
 function _create_mock(req, status, res) {
   var mock;
-  var selection = ["CreateDate",
+  var selection = ["Custom_Severity.Name",
+                  "ChangedBy",
+                  "CreateDate",
                   "Owners",
                   "SecurityScope",
                   "AssetState",
@@ -58,7 +60,7 @@ function _create_mock(req, status, res) {
         req.devops.related_apis.version_one.project,
         "'"].join(""));
     mock = mock.reply(status, res);
-    //mock = mock.log(console.log);
+//    mock = mock.log(console.log);
   }
   return mock;
 }

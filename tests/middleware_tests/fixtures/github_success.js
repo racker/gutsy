@@ -1,6 +1,4 @@
-{ "open":
-    {
-      "pulls": {
+{
         "issue_updated_at": "2012-02-29T21:45:24Z",
         "gravatar_id": "2222caaaaaa",
         "position": 1,
@@ -24,6 +22,4 @@
         "head": {},
         "html_url": "https: //github.com/racker/gutsy/pull/1764",
         "state": "open"
-        }
-    }
 }

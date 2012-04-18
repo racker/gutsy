@@ -26,20 +26,21 @@ function _create_mock(req, status, res) {
   var mock, path, parsed_url;
 
   if (!req.devops.related_apis || !req.devops.related_apis.github) {
-    mock = null;
-  } else {
-    path = ["/api/v2/json/pulls/",
-            req.devops.related_apis.github.org,
-            "/",
-            req.devops.related_apis.github.repo];
-    parsed_url = url.parse(req.devops.related_apis.github.url);
-    mock = nock(
-        [{80: 'http', 443: 'https'}[req.devops.related_apis.pager_duty.port],
-         '://',
-         parsed_url.host].join(''));
-    mock = mock.get(path.join(''));
-    mock = mock.reply(status, res);
+    return null;
   }
+
+  path = [
+    "/repos/",
+    req.devops.related_apis.github.org,
+    "/",
+    req.devops.related_apis.github.repo,
+    '/pulls'
+  ].join("");
+  mock = nock(req.devops.related_apis.github.url)
+    .get(path+'?state=open&per_page=150&page=1')
+    .reply(status, res)
+    .get(path+'?state=closed&per_page=150&page=1')
+    .reply(status, res);
   return mock;
 }
 
