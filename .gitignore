@@ -1,9 +1,10 @@
-fixtures/*
 !fixtures/README.md
-settings.js
-lib-cov
-npm-debug.log
 .DS_Store
+fixtures/*
+keys/
+lib-cov
 lib/_service_stats.json
 lib/_service_stats.json.testing
-keys/
+node_modules
+npm-debug.log
+settings.js
