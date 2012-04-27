@@ -7,8 +7,9 @@ block append scripts
   script(src='/static/js/contacts.js')
 
 block content
-  #timeline
-    include includes/timeline_event
+  if timeline.error || timeline.data
+    #timeline
+      include includes/timeline
 
   if errors.length
     #errors.alert.alert-error
@@ -45,15 +46,15 @@ block content
           #environments-block.ablock
             include includes/environments
 
-        if version_one
+        if version_one.error || version_one.data
           #versionone-block.ablock.middleware-block
             include includes/version_one
 
-        if new_relic
+        if new_relic.error || new_relic.data
           #newrelic-block.ablock.middleware-block
             include includes/new_relic
 
-        if dreadnot
+        if dreadnot.error || dreadnot.data
           #dreadnot-block.ablock.middleware-block
             include includes/dreadnot
 
