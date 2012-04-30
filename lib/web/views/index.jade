@@ -10,24 +10,17 @@ block content
   #timeline
     include includes/timeline_event
 
-  if errors.length
-    #errors.alert.alert-error
-      ul
-        for error in errors
-          li.error
-            #{error}
-
   .container-fluid
     .row-fluid
       .span3
         #banner-block.ablock
-          h1 #{name}
-          h3= description
+          h1=project.name
+          h3=project.description
 
         #links-block.ablock
           h1 Links
           ul
-            each uri, name in links
+            each uri, name in project.links
               li
                 a(href='#{uri}') #{name}
 
@@ -37,11 +30,11 @@ block content
             span#contacts-plus \u25B6
           .contacts
             ul
-              for team in contacts
+              for team in project.contacts
                 include includes/team_contacts
 
       .span3
-        if environments.length
+        if project.environments.length
           #environments-block.ablock
             include includes/environments
 

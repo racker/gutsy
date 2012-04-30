@@ -19,10 +19,10 @@ var async = require('async');
  * @param {boolean} data_error if True and if on_success is called, provide errorful data
  * @param {function} fn (optional) a callback that takes the rendered html response as an argument
  */
-exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
+exports.test_view = function(test, assert, view, devopsjson, fn) {
   var view_path, fixtures_path, devops_path;
 
-  middlewares.unshift(middleware.load_devops, middleware.injector.injector_middleware, middleware.navbar);
+  middlewares = [middleware.injector.injector_middleware];
 
   view_path = path.join(__dirname, '..', '..', 'lib', 'web', 'views', view);
   fixtures_path = path.join('extern', 'devopsjson', 'examples');
@@ -36,10 +36,6 @@ exports.test_view = function(test, assert, view, devopsjson, middlewares, fn) {
   };
 
   var res = new utils.mock_res();
-
-  // call default middleware
-  middleware.devops_directory_setter(fixtures_path)(mock_req, res, function() {});
-
   // call view-specific middleware
   var wrapped_middleware = [];
   _.each(middlewares, function(middleware) {

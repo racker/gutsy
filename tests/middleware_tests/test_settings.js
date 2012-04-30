@@ -1,5 +1,5 @@
 var settings = require('settings');
-var middleware = require('web/middleware');
+var load_devops = require('../../lib/web/load_devops');
 var _ = require('underscore');
 var utils = require('utils');
 var path = require('path');
@@ -30,19 +30,6 @@ exports.test_settings_against_spec = function(test, assert) {
     };
   };
 
-  for (var key in settings.devopsjson_uris){
-
-    devops_path = path.join('fixtures', key);
-
-    mock_req = {
-        params: {
-          project: key
-        },
-        devops_directory: 'fixtures'
-    };
-
-    middleware.load_devops(mock_req, null, test_devops(key));
-  }
-
+  load_devops();
   test.finish();
 };

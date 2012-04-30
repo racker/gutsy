@@ -5,7 +5,7 @@
   else if pager_duty.data.error
     p API returned the following error:
     p.alert #{pager_duty.data.error.code}: #{pager_duty.data.error.message}
-  else
+  else if pager_duty.data
     h4 Currently On Call:
     p
     ul
@@ -22,3 +22,5 @@
           strong  #{pager_duty.data.entries[1].user.name} <br>
           | from: #{pager_duty.data.entries[1].start}<br>
           | to: #{pager_duty.data.entries[1].end}
+  else
+    p

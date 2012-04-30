@@ -3,7 +3,7 @@
   if dreadnot.error
     p API returned the following error:
     p.alert #{dreadnot.error}
-  else
+  if dreadnot.data
     for stack in dreadnot.data
       p
         b #{stack.name}:
@@ -29,4 +29,6 @@
         |  (
         a(href=stack.github_href+'/compare/'+stack.deploy.from_revision+'...'+stack.deploy.to_revision) diff
         |  ) by #{stack.deploy.user}
+  else
+    p
 

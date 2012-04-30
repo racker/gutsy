@@ -18,8 +18,8 @@ block content
           p.alert!=trace(github.error)
         else
 
-          h2 Repo: #{github.data.repo}
+          h2 Repo: #{github.config.repo}
           hr
 
-          each metric in github.data.data
+          each metric in github.data
             include includes/github_stats

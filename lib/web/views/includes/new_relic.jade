@@ -3,11 +3,13 @@
   if new_relic.error
     p The new_relic API returned the following error:
     p.alert!=trace(new_relic.error)
-  else
+  if new_relic.data
     div
       ul
         - each metric in new_relic.data
           li
-            strong #{metric.name} 
+            strong #{metric.name}
             \- #{metric.formatted_metric_value}
+  else
+    p
 

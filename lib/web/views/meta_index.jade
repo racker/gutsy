@@ -8,8 +8,9 @@ block content
           ul.nav.nav-list
             li.nav-header Projects
             each name in projects
-              li
-                a(href='/p/#{name}') #{name}
+              if name !== 'dir'
+                li
+                  a(href='/p/#{name}') #{name}
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}

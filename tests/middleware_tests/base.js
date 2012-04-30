@@ -2,6 +2,7 @@ var middleware = require('web/middleware');
 var path = require('path');
 var async = require('async');
 
+var load_devops = require('../load_devops');
 /**
  * Runs a single API middleware test. Calls assert and test.finish().
  *
@@ -30,10 +31,9 @@ exports.run_test = function(test, assert, devops_filename, middleware_name, fiel
   };
 
   async.series([function(cb) {
-    middleware.load_devops(mock_req, null, cb);
-  }, function(cb) {
-    middleware.navbar(mock_req, null, cb);
-  }, function(cb) {
+    load_devops();
+    cb();
+  },function(cb) {
     mock = create_mock_fn(mock_req);
     middleware[middleware_name](mock_req, null, cb);
   }], function() {
