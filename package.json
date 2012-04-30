@@ -36,6 +36,7 @@
   "scripts": {
     "test": "./bin/test",
     "start": "./bin/gutsy",
-    "crawl": "./bin/gutsy --crawl"
+    "crawl": "./bin/gutsy --crawl",
+    "install": "./scripts/install.sh"
   }
 }
