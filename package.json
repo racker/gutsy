@@ -37,6 +37,6 @@
     "test": "./bin/test",
     "start": "./bin/gutsy",
     "crawl": "./bin/gutsy --crawl",
-    "install": "./scripts/install.sh"
+    "install_initd": "./scripts/install_initd.sh"
   }
 }
