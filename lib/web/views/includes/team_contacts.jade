@@ -2,15 +2,18 @@ li
   #{team.team_name}
   ul.unstyled.contact-team
     each contact in team.members
+      -var on_duty = is_on_duty(contact, pager_duty.data.entries)
+
       li
         span.plus \u25B6
+
         if contact.name
-          if contact.oncall
+          if on_duty
             span.contact-name.on-call #{contact.name}
           else
             span.contact-name #{contact.name}
         else
-          if contact.oncall
+          if on_duty
             span.contact-name.on-call #{contact.sso}
           else
             span.contact-name #{contact.sso}
