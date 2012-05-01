@@ -38,15 +38,15 @@ block content
           #environments-block.ablock
             include includes/environments
 
-        if version_one
+        if version_one.config
           #versionone-block.ablock.middleware-block
             include includes/version_one
 
-        if new_relic
+        if new_relic.config
           #newrelic-block.ablock.middleware-block
             include includes/new_relic
 
-        if dreadnot
+        if dreadnot.config
           #dreadnot-block.ablock.middleware-block
             include includes/dreadnot
 
