@@ -2,7 +2,10 @@ li
   #{team.team_name}
   ul.unstyled.contact-team
     each contact in team.members
-      -var on_duty = is_on_duty(contact, pager_duty.data.entries)
+      if pager_duty.config && pager_duty.data
+        -var on_duty = is_on_duty(contact, pager_duty.data.entries)
+      else
+        -var on_duty = false
 
       li
         span.plus \u25B6
