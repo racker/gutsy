@@ -23,7 +23,7 @@ DESC="gutsy dashboard"
 NAME=gutsy
 DAEMON=/data/gutsy/bin/$NAME
 PIDFILE=/var/run/$NAME.pid
-DAEMON_ARGS="-p 80"
+DAEMON_ARGS="-p 80 -D --log-file=/var/log/$NAME.log"
 SCRIPTNAME=/etc/init.d/$NAME
 
 # Exit if the package is not installed
