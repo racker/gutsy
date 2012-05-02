@@ -1,0 +1,64 @@
+{
+    "name": "Gutsy",
+    "description": "Gutsy makes dashboards from devop.json files.",
+    "tags": [
+        "node",
+        "dashboard"
+    ],
+    "contacts": [
+        {
+            "team_name": "Operations",
+            "members": [
+                {
+                    "name": "Geoff Greer",
+                    "sso": "geoffrey.greer",
+                    "github": "ggreer",
+                    "mailto": "geoffrey.greer@rackspace.com",
+                    "ircnick": "ggreer"
+                },
+                {
+                    "name": "Matt Kaniaris",
+                    "sso": "matt4795",
+                    "github": "kans",
+                    "mailto": "matthew.kaniaris@rackspace.com",
+                    "ircnick": "kansface"
+                },
+                {
+                    "name": "Lucy Mendel",
+                    "sso": "lucy.mendel",
+                    "github": "diN0bot",
+                    "mailto": "lucy.mendel@rackspace.com",
+                    "ircnick": "diN0bot"
+                }
+            ]
+        }
+    ],
+    "links": {
+        "Site - Production": "http://dashboard.rax.io/"
+    },
+    "dependent_services": ["highscores"],
+    "environments": [
+        {
+            "type": "Production",
+            "platforms": [
+                "Ubuntu 10.04"
+            ],
+            "regions": [],
+            "url": {
+                "url": "http://dashboard.rax.io/"
+            }
+        }
+    ],
+    "related_apis": {
+        "github": {
+            "url": "https://api.github.com",
+            "org": "racker",
+            "repo": "gutsy",
+            "username": "racker-api",
+            "apikey": "ahD5ohru5Tha3jei"
+        },
+        "highscores": {
+            "project": "gutsy"
+        }
+    }
+}

@@ -32,10 +32,10 @@ block content
             if pager_duty.config
               if pager_duty.error
                 p.alert!=trace(pager_duty.error)
-              else if pager_duty.data
-                ul
-                  for team in project.contacts
-                      include includes/team_contacts
+            ul
+              for team in project.contacts
+                include includes/team_contacts
+
 
       .span3
         if project.environments.length
