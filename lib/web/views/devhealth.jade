@@ -11,7 +11,7 @@ block content
   | </script>
   .container
     .content
-      if github
+      if github.config
         h1 Development Health
         if github.error
           p The github API returned the following error:

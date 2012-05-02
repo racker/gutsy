@@ -29,24 +29,28 @@ block content
           h1 Contacts
             span#contacts-plus \u25B6
           .contacts
-            ul
-              for team in project.contacts
-                include includes/team_contacts
+            if pager_duty.config
+              if pager_duty.error
+                p.alert!=trace(pager_duty.error)
+              else if pager_duty.data
+                ul
+                  for team in project.contacts
+                      include includes/team_contacts
 
       .span3
         if project.environments.length
           #environments-block.ablock
             include includes/environments
 
-        if version_one
+        if version_one.config
           #versionone-block.ablock.middleware-block
             include includes/version_one
 
-        if new_relic
+        if new_relic.config
           #newrelic-block.ablock.middleware-block
             include includes/new_relic
 
-        if dreadnot
+        if dreadnot.config
           #dreadnot-block.ablock.middleware-block
             include includes/dreadnot
 

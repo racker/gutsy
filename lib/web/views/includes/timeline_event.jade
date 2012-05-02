@@ -13,4 +13,4 @@ for event in events
             li
               a(href="#{link}") #{link}
       span.date-info
-        #{event.days_remaining} days left - !{(new Date(event.timestamp)).toDateString()}
+        #{event.days_remaining} days left - !{(new Date(event.timestamp * 1000)).toDateString()}

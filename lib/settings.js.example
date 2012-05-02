@@ -40,6 +40,14 @@ exports.external_creds = {
 //    ['username', 'password']
 //];
 
+// Location of high scores server
+/*
+exports.highscores = {
+    "url": "localhost",
+    "port": 3000
+}
+*/
+
 // show stack traces in errors to users when available
 exports.debug = true;
 

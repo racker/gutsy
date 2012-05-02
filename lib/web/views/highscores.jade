@@ -6,11 +6,13 @@ block append css
 block content
   .container
     .content
-      if highscores
+      if highscores.config
         h1 #{req.params.project} LEGENDS
         if highscores.error
-          p The highscores API returned the following error:
-          p.alert!=trace(highscores.error)
+          p.alert
+            |The highscores API returned the following error:
+            |<br />
+            !=trace(highscores.error)
         else
           table
             each row in highscores.data
