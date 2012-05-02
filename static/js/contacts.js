@@ -4,8 +4,8 @@
  * Red numbers indicate close deadlines.
  * Clicking on the numbers displays all event information.
  */
-$(document).ready(function() {
-  $(".contact-name").each(function() {
+$(document).ready(function () {
+  $(".contact-name").each(function () {
     var el = $(this);
     var toggle = el.prev();
     toggle.css("cursor", "pointer");
@@ -19,7 +19,7 @@ $(document).ready(function() {
     }
     info.css("padding", "5px");
 
-    toggle.click(function() {
+    toggle.click(function () {
       var toggle = $(this);
       var info = toggle.next().next();
       info.toggle();
@@ -34,7 +34,7 @@ $(document).ready(function() {
   var contacts_plus = $("#contacts-plus");
   contacts_plus.css("cursor", "pointer");
   contacts_plus.css("padding", "5px");
-  contacts_plus.click(function() {
+  contacts_plus.click(function () {
     var contact = $(this).parent().next().children().children().children().children();
     var infos = contact.children("ul");
     var plus = contact.children(".plus");
