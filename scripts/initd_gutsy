@@ -25,6 +25,7 @@ DAEMON=/data/gutsy/bin/$NAME
 PIDFILE=/var/run/$NAME.pid
 DAEMON_ARGS="-p 80"
 SCRIPTNAME=/etc/init.d/$NAME
+LOG_OPTIONS="-f /var/log/$NAME.log"
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -51,7 +52,7 @@ do_start()
     start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON --test > /dev/null \
         || return 1
     start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON -- \
-        $DAEMON_ARGS \
+        $DAEMON_ARGS 2>&1 | logger $LOG_OPTIONS 2> /dev/null \
         || return 2
 }
 
