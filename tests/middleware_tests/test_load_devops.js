@@ -13,7 +13,7 @@ exports.test_example_full = function (test, assert) {
   run_test(test, assert, 'example-full.json');
 };
 
-exports.test_all_endpoint_settings = function (test, assert){
+exports.test_all_endpoint_settings = function (test, assert) {
   test.finish();
 };
 /**
@@ -34,7 +34,7 @@ var run_test = function (test, assert, devops_filename) {
       devops_directory: fixtures_path
   };
 
-  middleware.load_devops(mock_req, null, function (){
+  middleware.load_devops(mock_req, null, function () {
     var devops = mock_req.devops;
     assert.isDefined(devops);
     assert.isDefined(devops.name);

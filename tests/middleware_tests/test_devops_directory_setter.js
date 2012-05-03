@@ -27,7 +27,7 @@ var run_test = function (test, assert, devops_filename) {
       }
   };
 
-  middleware.devops_directory_setter(fixtures_path)(mock_req, null, function (){
+  middleware.devops_directory_setter(fixtures_path)(mock_req, null, function () {
     assert.isDefined(mock_req.devops_directory);
     assert.equal(mock_req.devops_directory, fixtures_path);
     test.finish();

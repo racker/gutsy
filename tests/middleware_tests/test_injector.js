@@ -18,7 +18,7 @@ exports.test_trace_without_debug = function (test, assert) {
   test.finish();
 };
 
-function run_test(function_name, args, debug){
+function run_test(function_name, args, debug) {
   var fn = middleware.injector.jade_locals({params: null}, {})[function_name];
   var inital_debug_setting = settings.debug;
   var output = null;
@@ -31,12 +31,12 @@ function run_test(function_name, args, debug){
   }
 }
 
-function gen_error(){
+function gen_error() {
   var e = null;
   try{
     var error = new Error('hello');
     throw(error);
-  }catch(e){
+  }catch(e) {
     return e;
   }
 }

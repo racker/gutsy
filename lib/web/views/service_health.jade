@@ -8,8 +8,8 @@ block append scripts
         var klass = "";
         var healths = !{JSON.stringify(HEALTH_ENUM)};
         var iter;
-        if (selected == #{SHOW_ALL}){
-          $.each(healths, function (key, value){
+        if (selected == #{SHOW_ALL}) {
+          $.each(healths, function (key, value) {
             klass += '.health-' + value + ',';
           });
         }else{
@@ -17,14 +17,14 @@ block append scripts
         }
         $('.data-row').each(function (index, item) {
           item = $(item);
-          if (item.is(klass)){
+          if (item.is(klass)) {
             item.show();
           } else {
             item.hide();
           }
         })
       };
-      $('select#filter-health').change(function (e){
+      $('select#filter-health').change(function (e) {
         var selected = e.target;
         var option = selected.options[selected.selectedIndex];
         var to_filter = $(option).attr('class');
