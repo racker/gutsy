@@ -2,7 +2,7 @@
 var settings = require('settings');
 var middleware = require('web/middleware');
 
-exports.test_trace_with_debug = function(test, assert) {
+exports.test_trace_with_debug = function (test, assert) {
   var err = gen_error();
   var output = run_test('trace', err, true);
   assert.notEqual(output, err.message);
@@ -10,7 +10,7 @@ exports.test_trace_with_debug = function(test, assert) {
   test.finish();
 };
 
-exports.test_trace_without_debug = function(test, assert) {
+exports.test_trace_without_debug = function (test, assert) {
   var err = gen_error();
   var output = run_test('trace', err, false);
   //This test is stupid, but for the life of me I can't figure out a valid comparison

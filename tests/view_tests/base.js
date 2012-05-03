@@ -19,7 +19,7 @@ var async = require('async');
  * @param {boolean} data_error if True and if on_success is called, provide errorful data
  * @param {function} fn (optional) a callback that takes the rendered html response as an argument
  */
-exports.test_view = function(test, assert, view, devopsjson, fn) {
+exports.test_view = function (test, assert, view, devopsjson, fn) {
   var view_path, fixtures_path, devops_path;
 
   middlewares = [middleware.injector.injector_middleware];
@@ -38,17 +38,17 @@ exports.test_view = function(test, assert, view, devopsjson, fn) {
   var res = new utils.mock_res();
   // call view-specific middleware
   var wrapped_middleware = [];
-  _.each(middlewares, function(middleware) {
-    wrapped_middleware.push(function(cb) {
+  _.each(middlewares, function (middleware) {
+    wrapped_middleware.push(function (cb) {
       middleware(mock_req, res, cb);
     });
   });
   async.series(
     wrapped_middleware,
-    function() {
+    function () {
       // this would get dumped in by express
       _.extend(mock_req.devops, res._locals);
-      jade.renderFile(view_path, mock_req.devops, function(er, html) {
+      jade.renderFile(view_path, mock_req.devops, function (er, html) {
         assert.ifError(er, er);
         if (fn) {
           fn(html);

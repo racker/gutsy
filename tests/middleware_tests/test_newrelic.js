@@ -1,15 +1,15 @@
 var base = require('./base');
 var nock = require('nock');
 
-exports.test_example_minimum = function(test, assert) {
+exports.test_example_minimum = function (test, assert) {
   base.run_test(test, assert, 'example-minimum.json', 'new_relic', 'new_relic', _success_mock, false);
 };
 
-exports.test_example_simple = function(test, assert) {
+exports.test_example_simple = function (test, assert) {
   base.run_test(test, assert, 'example-simple.json', 'new_relic', 'new_relic', _success_mock, false);
 };
 
-exports.test_example_full_success = function(test, assert) {
+exports.test_example_full_success = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'new_relic', 'new_relic', _success_mock, true);
 };
 

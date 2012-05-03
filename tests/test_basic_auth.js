@@ -3,13 +3,13 @@ var settings = require('../lib/settings');
 var middleware = require('../lib/web/middleware');
 
 
-exports.test_auth_pass = function(test, assert){
+exports.test_auth_pass = function (test, assert){
   run_test(test, assert, 'aafsdaeafe', 'afaefijafijfe', true);
 };
-exports.test_auth_fail_1 = function(test, assert){
+exports.test_auth_fail_1 = function (test, assert){
   run_test(test, assert, 'aafsdaeafe', '', false);
 };
-exports.test_auth_fail_2 = function(test, assert){
+exports.test_auth_fail_2 = function (test, assert){
   run_test(test, assert, 'afae', '', false);
 };
 
@@ -24,7 +24,7 @@ function run_test(test, assert, username, password, should_succeed){
   }
 
   mock_req = create_mock_req(username, password);
-  middleware.basic_auth(mock_req, create_mock_res(function(){
+  middleware.basic_auth(mock_req, create_mock_res(function (){
     // this means we failed to auth
     if (should_succeed){
       assert.ok(false, 'Didn\'t auth when we should have');
@@ -33,7 +33,7 @@ function run_test(test, assert, username, password, should_succeed){
     }
     settings.valid_users = _valid_users;
     return test.finish();
-  }), function(){
+  }), function (){
     // this means we suceeded
     console.log('asdf');
     if (should_succeed){
@@ -49,7 +49,7 @@ function run_test(test, assert, username, password, should_succeed){
 
 function create_mock_req(username, password){
   return {
-    header: function(header_name){
+    header: function (header_name){
       if (header_name === 'Authorization'){
         return utils.create_basic_auth(username, password);
       }
@@ -59,7 +59,7 @@ function create_mock_req(username, password){
 function create_mock_res(cb){
   return {
     // only called when there is a failure
-    send: function(){
+    send: function (){
       cb();
     }
   };

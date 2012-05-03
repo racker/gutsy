@@ -4,7 +4,7 @@
  * Red numbers indicate close deadlines.
  * Clicking on the numbers displays all event information.
  */
-$(document).ready(function() {
+$(document).ready(function () {
   // list of {name:'', description:'', timestamp: converted to milliseconds!}
   // includes event representing "now".
   var events = [];
@@ -15,7 +15,7 @@ $(document).ready(function() {
     name: "now",
     description: ""
   }];
-  $("#events li").each(function(idx, el) {
+  $("#events li").each(function (idx, el) {
     var event = $(this);
     var timestamp = $(this).children(".timestamp").text();
     var name = $(this).children(".name");
@@ -35,7 +35,7 @@ $(document).ready(function() {
     }
   });
   if (events.length > 1) {
-    events.sort(function(x,y) {
+    events.sort(function (x,y) {
       return y.timestamp < x.timestamp;
       });
     var timeline = $("#timeline");
@@ -66,7 +66,7 @@ $(document).ready(function() {
             " days left - ",
             (new Date(event.timestamp)).toDateString()].join("")));
         el.append(tooltip);
-        el.click(function() {
+        el.click(function () {
           $(this).children().toggle();
         });
         timeline.append(el);

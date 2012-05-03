@@ -5,7 +5,7 @@ var utils = require('utils');
 var path = require('path');
 
 
-exports.test_settings_for_consistency = function(test, assert) {
+exports.test_settings_for_consistency = function (test, assert) {
   var external_creds  = settings.external_creds;
   var devopsjson_uris = settings.devopsjson_uris;
 
@@ -21,10 +21,10 @@ exports.test_settings_for_consistency = function(test, assert) {
   test.finish();
 };
 
-exports.test_settings_against_spec = function(test, assert) {
+exports.test_settings_against_spec = function (test, assert) {
   var fixtures_path, devops_path, mock_req;
-  var test_devops = function(devops){
-    return function(){
+  var test_devops = function (devops){
+    return function (){
       report = utils.validate_devops(mock_req.devops);
       assert.ok(report.errors.length <= 0, "A devops file did not validate: " + key);
     };

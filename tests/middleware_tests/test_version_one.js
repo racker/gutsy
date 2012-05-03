@@ -5,19 +5,19 @@ var path = require('path');
 
 var xml_fixture = fs.readFileSync(path.join(__dirname,'fixtures', 'version_one.xml'));
 
-exports.test_example_minimum = function(test, assert) {
+exports.test_example_minimum = function (test, assert) {
   base.run_test(test, assert, 'example-minimum.json', 'version_one', 'version_one', _success_mock, false);
 };
 
-exports.test_example_simple = function(test, assert) {
+exports.test_example_simple = function (test, assert) {
   base.run_test(test, assert, 'example-simple.json', 'version_one', 'version_one', _success_mock, false);
 };
 
-exports.test_example_full_success = function(test, assert) {
+exports.test_example_full_success = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'version_one', 'version_one', _success_mock, true);
 };
 
-exports.test_example_full_error = function(test, assert) {
+exports.test_example_full_error = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'version_one', 'version_one', _error_mock, true, true);
 };
 

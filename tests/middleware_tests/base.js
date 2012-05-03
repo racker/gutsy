@@ -15,7 +15,7 @@ var load_devops = require('../load_devops');
  * @param {boolean} is_field_expected True if the incoming devopsjson file is expected to generate a field via the middleware
  * @param {boolean} is_error True if the response from the mocked API call is an error
  */
-exports.run_test = function(test, assert, devops_filename, middleware_name, field_name, create_mock_fn, is_field_expected, is_error) {
+exports.run_test = function (test, assert, devops_filename, middleware_name, field_name, create_mock_fn, is_field_expected, is_error) {
   var fixtures_path, devops_path, mock_req, mock;
 
   fixtures_path = path.join('extern', 'devopsjson', 'examples');
@@ -30,13 +30,13 @@ exports.run_test = function(test, assert, devops_filename, middleware_name, fiel
     nocking: true
   };
 
-  async.series([function(cb) {
+  async.series([function (cb) {
     load_devops();
     cb();
-  },function(cb) {
+  },function (cb) {
     mock = create_mock_fn(mock_req);
     middleware[middleware_name](mock_req, null, cb);
-  }], function() {
+  }], function () {
     var this_devops = mock_req.devops[field_name];
     if (is_field_expected) {
       assert.isDefined(this_devops);
