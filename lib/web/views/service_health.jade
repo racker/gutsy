@@ -42,6 +42,7 @@ block append scripts
 
 block append css
   link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
+  link(href='/static/css/service_health.less', rel='stylesheet/less', type='text/css')
   style(type="text/css")
     .health-#{HEALTH_STRING_OK}{
       background-color: #B9FAEA;
@@ -122,14 +123,20 @@ block content
                 td=host.ip
                 td=health_enum_to_string(service.health)
                 td=format_time(service.timestamp)
-                td.metric_data.hidden
-                  - var service_metrics = service.metrics
-                  if service_metrics
-                    table
-                      for metric in service_metrics
-                        tr
-                          td=metric.name
-                          td=metric.value
+                td.hidden
+                  div.metric_data
+                    - var service_metrics = service.metrics
+                    if service_metrics
+                      table.table
+                        thead
+                          tr
+                            th name
+                            th value
+                        tbody
+                          for metric in service_metrics
+                            tr
+                              td=metric.name
+                              td=metric.value
 
           tr(class="table-hack")
             td(class="table-hack")
