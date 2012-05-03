@@ -33,7 +33,7 @@ block append scripts
       $('select#filter-health').val('#{HEALTH_STRING_ERROR}');
       update_table('#{HEALTH_ERROR}');
       $('.service-row').click(function() {
-        $(this).children('.hidden').toggle();
+        $(this).children().children('.metric_data').toggleClass('hidden');
       });
     });
     $(function() {
@@ -118,13 +118,7 @@ block content
                 td=service.service
                 td
                   a(name=host_name+'_'+name)=name
-                td
-                  a(href="#host-name-"+host_name)=host_name
-                td=host.ip
-                td=health_enum_to_string(service.health)
-                td=format_time(service.timestamp)
-                td.hidden
-                  div.metric_data
+                  div.metric_data.hidden
                     - var service_metrics = service.metrics
                     if service_metrics
                       table.table
@@ -137,6 +131,11 @@ block content
                             tr
                               td=metric.name
                               td=metric.value
+                td
+                  a(href="#host-name-"+host_name)=host_name
+                td=host.ip
+                td=health_enum_to_string(service.health)
+                td=format_time(service.timestamp)
 
           tr(class="table-hack")
             td(class="table-hack")
