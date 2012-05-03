@@ -1,25 +1,29 @@
 li
   #{team.team_name}
   ul.unstyled.contact-team
-    each contact in team.members
-      -var on_duty = is_on_duty(contact, pager_duty.data.entries)
-
-      li
-        span.plus \u25B6
-
-        if contact.name
-          if on_duty
-            span.contact-name.on-call #{contact.name}
-          else
-            span.contact-name #{contact.name}
+    if team && team.members
+      each contact in team.members
+        if pager_duty.config && pager_duty.data
+          -var on_duty = is_on_duty(contact, pager_duty.data.entries)
         else
-          if on_duty
-            span.contact-name.on-call #{contact.sso}
-          else
-            span.contact-name #{contact.sso}
-        ul
-          for uri,type in contact
-            if type == "github" || type == "mailto"
-              li #{type}: <a href=#{uri}>#{uri}</a>
+          -var on_duty = false
+
+        li
+          span.plus \u25B6
+
+          if contact.name
+            if on_duty
+              span.contact-name.on-call #{contact.name}
             else
-              li #{type}: #{uri}
+              span.contact-name #{contact.name}
+          else
+            if on_duty
+              span.contact-name.on-call #{contact.sso}
+            else
+              span.contact-name #{contact.sso}
+          ul
+            for uri,type in contact
+              if type == "github" || type == "mailto"
+                li #{type}: <a href=#{uri}>#{uri}</a>
+              else
+                li #{type}: #{uri}
