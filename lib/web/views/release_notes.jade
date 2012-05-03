@@ -53,6 +53,11 @@ block content
 
       -var notes = notes
 
+      -var latest_revision = dreadnot.data[0].deploy.to_revision;
+      #{latest_revision}
+
+      =humane_time(dreadnot.data[0].deploy.time)
+
       if notes
         each note in notes
           div.note
@@ -66,6 +71,10 @@ block content
                 | <nbsp/>
                 #{note.v1_type}
             div.body
+
+              if note.master_sha == latest_revision
+                h1 oh shit that worked
+               #{note.master_sha} #{latest_revision}
               !{markdown(note.body)}
               if note.v1.error
                 !{trace(note.v1.error)}
