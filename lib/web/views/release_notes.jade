@@ -59,7 +59,7 @@ block content
             p.title
               =note.title
               | <nbsp/> -
-              =format_time(note.merged_at)
+              =humane_time(note.merged_at)
               | <nbsp/>
               if note.v1_type
                 |  -
@@ -74,8 +74,7 @@ block content
               p.links
                 | - merged
                 nbsp
-                i
-                  #{note.merged_at.toUTCString()}
+                i=format_time(note.merged_at)
                 | <nbsp/>
                 a(href=note.link) on github
                 if note.v1.href
