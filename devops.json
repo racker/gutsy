@@ -41,7 +41,8 @@
         }
     ],
     "links": {
-        "Site - Production": "http://dashboard.rax.io/"
+        "Site - Example": "http://gutsy.nodejitsu.com/",
+        "Chat": "irc://irc.freenode.net:4443/gutsy"
     },
     "dependent_services": ["highscores"],
     "environments": [
