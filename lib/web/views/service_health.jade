@@ -3,28 +3,28 @@ extends layout
 block append scripts
   script(type='text/javascript')
     var hosts = !{JSON.stringify(hosts)};
-    $(document).ready(function(){
-      var update_table = function(selected){
+    $(document).ready(function () {
+      var update_table = function (selected) {
         var klass = "";
         var healths = !{JSON.stringify(HEALTH_ENUM)};
         var iter;
-        if (selected == #{SHOW_ALL}){
-          $.each(healths, function(key, value){
+        if (selected == #{SHOW_ALL}) {
+          $.each(healths, function (key, value) {
             klass += '.health-' + value + ',';
           });
         }else{
           klass = '.health-'+healths[selected];
         }
-        $('.data-row').each(function(index, item){
+        $('.data-row').each(function (index, item) {
           item = $(item);
-          if(item.is(klass)){
+          if (item.is(klass)) {
             item.show();
-          }else{
+          } else {
             item.hide();
           }
         })
       };
-      $('select#filter-health').change(function(e){
+      $('select#filter-health').change(function (e) {
         var selected = e.target;
         var option = selected.options[selected.selectedIndex];
         var to_filter = $(option).attr('class');
@@ -33,7 +33,7 @@ block append scripts
       $('select#filter-health').val('#{HEALTH_STRING_ERROR}');
       update_table('#{HEALTH_ERROR}');
     });
-    $(function() {
+    $(function () {
       $("table.table-stats").tablesorter();
     });
 

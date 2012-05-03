@@ -5,19 +5,19 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 
-exports.test_example_minimum = function(test, assert) {
+exports.test_example_minimum = function (test, assert) {
   base.run_test(test, assert, 'example-minimum.json', 'dreadnot', 'dreadnot', _success_mock, false);
 };
 
-exports.test_example_simple = function(test, assert) {
+exports.test_example_simple = function (test, assert) {
   base.run_test(test, assert, 'example-simple.json', 'dreadnot', 'dreadnot', _success_mock, false);
 };
 
-exports.test_example_full_success = function(test, assert) {
+exports.test_example_full_success = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'dreadnot', 'dreadnot', _success_mock, true);
 };
 
-exports.test_example_full_error = function(test, assert) {
+exports.test_example_full_error = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'dreadnot', 'dreadnot', _error_mock, true, true);
 };
 

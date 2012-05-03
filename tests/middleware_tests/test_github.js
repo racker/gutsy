@@ -6,19 +6,19 @@ var path = require('path');
 
 var success_data = fs.readFileSync(path.join(__dirname,'fixtures', 'github_success.js'));
 
-exports.test_example_minimum = function(test, assert) {
+exports.test_example_minimum = function (test, assert) {
   base.run_test(test, assert, 'example-minimum.json', 'github', 'github', _success_mock, false);
 };
 
-exports.test_example_simple = function(test, assert) {
+exports.test_example_simple = function (test, assert) {
   base.run_test(test, assert, 'example-simple.json', 'github', 'github', _success_mock, false);
 };
 
-exports.test_example_full_success = function(test, assert) {
+exports.test_example_full_success = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'github', 'github', _success_mock, true);
 };
 
-exports.test_example_full_error = function(test, assert) {
+exports.test_example_full_error = function (test, assert) {
   base.run_test(test, assert, 'example-full.json', 'github', 'github', _error_mock, true, true);
 };
 

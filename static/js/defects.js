@@ -4,12 +4,12 @@
  * Red numbers indicate close deadlines.
  * Clicking on the numbers displays all event information.
  */
-$(document).ready(function() {
+$(document).ready(function () {
   $(".title").css("cursor", "pointer").click(function () {
-    $(this).next().children().each(function() {
+    $(this).next().children().each(function () {
       $(this).toggle();
     });
-    $(this).children(".arrow").each(function() {
+    $(this).children(".arrow").each(function () {
       if ($(this).text() === "\u25B6") {
         $(this).text("\u25BC");
       } else {
