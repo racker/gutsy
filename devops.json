@@ -29,12 +29,20 @@
                     "github": "diN0bot",
                     "mailto": "lucy.mendel@rackspace.com",
                     "ircnick": "diN0bot"
+                },
+                {
+                    "name": "Felix Sargent",
+                    "sso": "felix.sargent",
+                    "github": "http://github.com/fsargent",
+                    "mailto": "felix.sargent@rackspace.com",
+                    "ircnick": "fsargent"
                 }
             ]
         }
     ],
     "links": {
-        "Site - Production": "http://dashboard.rax.io/"
+        "Site - Example": "http://gutsy.nodejitsu.com/",
+        "Chat": "irc://irc.freenode.net:4443/gutsy"
     },
     "dependent_services": ["highscores"],
     "environments": [
