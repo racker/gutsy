@@ -31,14 +31,14 @@ exports.external_creds = {
 
 // Keys used for the API server- these must exist to support push updates
 // Note: this path is from the root directory of the project
-//exports.private_key = './keys/key.pem';
-//exports.cert = './keys/cert.pem';
+exports.private_key = './keys/key.pem';
+exports.cert = './keys/cert.pem';
 
 // A list of [username, password] for authenticating basic auth requests to the api
 // This must be defined to support the API
-//exports.valid_users = [
-//    ['username', 'password']
-//];
+exports.valid_users = [
+    ['username', 'password']
+];
 
 // Location of high scores server
 /*
