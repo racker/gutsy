@@ -18,9 +18,9 @@
         else
           | didn't succeed
         | deploy
-        a(href="https://"+related_apis.dreadnot.url+'/stacks/'+stack.name+'/regions/'+stack.deploy.region+'/deployments/'+stack.deploy.name)=stack.deploy.name
+        a(href="https://"+#{dreadnot.host}+'/stacks/'+stack.name+'/regions/'+stack.deploy.region+'/deployments/'+stack.deploy.name)=stack.deploy.name
         |  at
-        =format_time(stack.deploy.time)
+        =humane_time(stack.deploy.time)
         |  in #{stack.deploy.region}
         br
         a(href=stack.github_href+'/commit/'+stack.deploy.from_revision)=stack.deploy.from_trunc
