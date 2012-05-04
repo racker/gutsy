@@ -2,7 +2,6 @@ extends layout
 
 block append scripts
   script(type='text/javascript')
-    var hosts = !{JSON.stringify(hosts)};
     $(document).ready(function(){
       var update_table = function(selected){
         var klass = "";
