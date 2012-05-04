@@ -26,6 +26,12 @@ block append css
   |   font-size: 11px;
   |   font-weight: bold;
   | }
+  | h3.deploy-info{
+  |   color: #f00;
+  |   background-color: #ffdfdf;
+  |   padding: 10px;
+  |   border: 1px solid #f00;
+  | }
   | </style>
 
 block content
@@ -33,6 +39,7 @@ block content
     .content
       h1 Release Notes
 
+      -var errors = errors
       if (errors)
         p.alert!=trace(errors)
 
@@ -49,17 +56,25 @@ block content
       p
         | NOTE: gutsy stops looking at pull requests when they were created one month before the start date since github returns pull requests in order of creation and doesn't allow filtering of any sort.
 
-      hr(style="margin-top: 20px; margin-bottom: 0;")
+      hr(style="margin-top: 20px; margin-bottom: 10px;")
 
       -var notes = notes
+      -var demarcator = false
 
       if notes
+        if notes[0] && notes[0].merged_at > to_revision_time
+          h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
+          if to_revision_time && !demarcator && to_revision_time >= note.merged_at
+            h3.deploy-info
+              a(href="https://"+dread_host) Deployed #{humane_time(to_revision_time)}
+              -demarcator = true;
+
           div.note
             p.title
               =note.title
               | <nbsp/> -
-              =format_time(note.merged_at)
+              =humane_time(note.merged_at)
               | <nbsp/>
               if note.v1_type
                 |  -
@@ -74,16 +89,14 @@ block content
               p.links
                 | - merged
                 nbsp
-                i
-                  #{note.merged_at.toUTCString()}
+                i=format_time(note.merged_at)
                 | <nbsp/>
                 a(href=note.link) on github
                 if note.v1.href
                   br
                   | - created
                   nbsp
-                  i
-                    #{note.v1.date.toUTCString()}
+                  i=format_time(note.v1.date)
                   | <nbsp/>
                   a(href='https://' + v1_host + note.v1.href) on V1
 
