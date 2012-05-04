@@ -41,7 +41,8 @@
         }
     ],
     "links": {
-        "Site - Production": "http://dashboard.rax.io/"
+        "Site - Example": "http://gutsy.nodejitsu.com/",
+        "Chat": "irc://irc.freenode.net:4443/gutsy"
     },
     "dependent_services": ["highscores"],
     "environments": [
@@ -52,7 +53,7 @@
             ],
             "regions": [],
             "url": {
-                "url": "http://dashboard.rax.io/"
+                "url": ""
             }
         }
     ],
@@ -62,7 +63,7 @@
             "org": "racker",
             "repo": "gutsy",
             "username": "racker-api",
-            "apikey": "ahD5ohru5Tha3jei"
+            "apikey": "__external__"
         },
         "highscores": {
             "project": "gutsy"

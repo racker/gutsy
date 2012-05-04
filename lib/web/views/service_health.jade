@@ -134,7 +134,7 @@ block content
                   a(href="#host-name-"+host_name)=host_name
                 td=host.ip
                 td=health_enum_to_string(service.health)
-                td=format_time(service.timestamp)
+                td=humane_time(service.timestamp)
 
           tr(class="table-hack")
             td(class="table-hack")
@@ -169,7 +169,7 @@ block content
                 | ]
               td=host.ip
               td=health_enum_to_string(host.health)
-              td=format_time(host.timestamp)
+              td=humane_time(host.timestamp)
 
           tr(class="table-hack")
             td(class="table-hack")
