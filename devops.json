@@ -55,7 +55,7 @@
             "org": "racker",
             "repo": "gutsy",
             "username": "racker-api",
-            "apikey": "ahD5ohru5Tha3jei"
+            "apikey": "__external__"
         },
         "highscores": {
             "project": "gutsy"
