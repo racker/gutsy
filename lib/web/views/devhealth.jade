@@ -21,5 +21,6 @@ block content
           h2 Repo: #{github.config.repo}
           hr
 
-          each metric in github.data
-            include includes/github_stats
+          if github.data
+            each metric in github.data
+              include includes/github_stats
