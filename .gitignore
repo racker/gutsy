@@ -8,3 +8,4 @@ lib/_service_stats.json.testing
 node_modules
 npm-debug.log
 settings.js
+idjson
