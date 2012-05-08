@@ -1,8 +1,10 @@
 !fixtures/README.md
 .DS_Store
 fixtures/*
+idjson
 keys/
 lib-cov
+lib/db.sqlite
 lib/_service_stats.json
 lib/_service_stats.json.testing
 node_modules

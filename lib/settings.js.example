@@ -59,3 +59,14 @@ exports.testing = false;
 
 exports.flush_file_path = '_service_stats.json';
 exports.testing_flush_file_path = exports.flush_file_path + '.testing';
+
+exports.external_ipv4 = '123.123.123.123';
+
+// see https://github.com/brianc/node-postgres for formatting the db connection
+// (you need a postgres db first of course!)
+exports.db = 'pg://username:password@localhost/database';
+
+exports.idjson_path = 'idjson';
+// where the crawled devopsjson data will end up
+
+exports.github_hook_listen_port = 3000;
