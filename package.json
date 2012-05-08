@@ -28,7 +28,7 @@
     "wordwrap": "0.x",
     "markdown-js": "0.x",
     "node-dev": "",
-    "pg": ""
+    "sqlite3": ""
   },
   "devDependencies": {
     "jscoverage": "~0.1.4"
