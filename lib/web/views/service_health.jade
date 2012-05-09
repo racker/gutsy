@@ -157,7 +157,7 @@ block content
                 | [
                 for key in services
                   a(href='#'+host_name+'_'+key)=key
-                  | ,<npsb>
+                  | ,&nbsp;
                 | ]
               td=host.ip
               td=(host.healthy ? 'healthy' : 'unhealthy')
