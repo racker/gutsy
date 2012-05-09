@@ -5,14 +5,11 @@ block append scripts
     $(document).ready(function(){
       var update_table = function(selected){
         var klass = "";
-        var healths = !{JSON.stringify(HEALTH_ENUM)};
         var iter;
         if (selected == #{SHOW_ALL}){
-          $.each(healths, function(key, value){
-            klass += '.health-' + value + ',';
-          });
+          klass = '.health-healthy, .health-unhealthy';
         }else{
-          klass = '.health-'+healths[selected];
+          klass = '.health-' + selected;
         }
         $('.data-row').each(function(index, item){
           item = $(item);
@@ -29,8 +26,8 @@ block append scripts
         var to_filter = $(option).attr('class');
         update_table(to_filter);
       });
-      $('select#filter-health').val('#{HEALTH_STRING_ERROR}');
-      update_table('#{HEALTH_ERROR}');
+      $('select#filter-health').val('unhealthy');
+      update_table('unhealthy');
       $('.service-row').click(function() {
         $(this).children().children('.metric_data').toggleClass('hidden');
       });
@@ -43,17 +40,11 @@ block append css
   link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
   link(href='/static/css/service_health.less', rel='stylesheet/less', type='text/css')
   style(type="text/css")
-    .health-#{HEALTH_STRING_OK}{
+    .health-healthy{
       background-color: #B9FAEA;
     }
-    .health-#{HEALTH_STRING_PROBLEM}{
-      background-color: #F8FAB9;
-    }
-    .health-#{HEALTH_STRING_ERROR}{
+    .health-uhealthy{
       background-color: #FF7D7D;
-    }
-    .health-#{HEALTH_STRING_UNKNOWN}{
-      background-color: #B8C5FC;
     }
     .table{
       border: 2px solid #000;
@@ -95,8 +86,8 @@ block content
       h3
         | filters: health:
         select(id='filter-health')
-          for key,value in HEALTH_ENUM
-            option(class=value)=key
+          option(class='Unhealthy')='unheathy'
+          option(class='Healthy')='heathy'
           option(class=SHOW_ALL) ALL
 
       h1 Services:
@@ -112,7 +103,7 @@ block content
         tbody
           for host in hosts
             for service,name in host.services
-              - var service_color = 'health-' + HEALTH_ENUM[service.health]
+              - var service_color = 'health-' + (service.healthy ? 'healthy' : 'unhealthy')
               tr(class=service_color+' data-row service-row')
                 td=service.service
                 td
@@ -133,7 +124,7 @@ block content
                 td
                   a(href="#host-name-"+host.service_name)=host.service_name
                 td=host.ip
-                td=health_enum_to_string(service.health)
+                td=(service.healthy ? 'healthy' : 'unhealthy')
                 td=humane_time(host.time)
 
           tr(class="table-hack")
@@ -156,8 +147,8 @@ block content
             th last updated
         tbody
           for host in hosts
-            -var host_name = host.service_name;
-            - var host_color = 'health-' + HEALTH_ENUM[host.health]
+            - var host_name = host.service_name;
+            - var host_color = 'health-' + (host.healthy ? 'healthy' : 'unhealthy')
             tr(class=host_color+' data-row host-row')
               td
                 a(name="host-name-"+host_name)=host_name
@@ -169,7 +160,7 @@ block content
                   | ,<npsb>
                 | ]
               td=host.ip
-              td=health_enum_to_string(host.health)
+              td=(host.healthy ? 'healthy' : 'unhealthy')
               td=humane_time(host.time)
 
           tr(class="table-hack")
