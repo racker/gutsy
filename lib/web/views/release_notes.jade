@@ -46,7 +46,7 @@ block content
       p
         | This will take some time, be patient.  The dates can be anyting that new Date() will parse and are inclusive.
 
-      form(method="post", id="notes-form")
+      form(method="GET", id="notes-form")
         label(for="start") Start
         input(type="text", name="start", value=start || new Date(new Date().valueOf() - 31 * 24 * 60 *60 * 1000))
         label(for="end") End
