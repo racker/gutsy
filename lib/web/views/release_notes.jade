@@ -48,9 +48,9 @@ block content
 
       form(method="GET", id="notes-form")
         label(for="start") Start
-        input(type="text", name="start", value=start || new Date(new Date().valueOf() - 31 * 24 * 60 *60 * 1000))
+        input(type="text", name="start", value=start)
         label(for="end") End
-        input(type="text", name="end", value=end || Date())
+        input(type="text", name="end", value=end)
         input(type="submit", value=" GO! ", style="margin-left: 50px; width: 70px; height: 30px;")
 
       p
