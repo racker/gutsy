@@ -110,13 +110,13 @@ block content
             th health
             th last updated
         tbody
-          for host, host_name in hosts
+          for host in hosts
             for service,name in host.services
               - var service_color = 'health-' + HEALTH_ENUM[service.health]
               tr(class=service_color+' data-row service-row')
                 td=service.service
                 td
-                  a(name=host_name+'_'+name)=name
+                  a(name=host.service_name+'_'+name)=host.service_name
                   div.metric_data.hidden
                     - var service_metrics = service.metrics
                     if service_metrics
@@ -131,10 +131,10 @@ block content
                               td=metric.name
                               td=metric.value
                 td
-                  a(href="#host-name-"+host_name)=host_name
+                  a(href="#host-name-"+host.service_name)=host.service_name
                 td=host.ip
                 td=health_enum_to_string(service.health)
-                td=humane_time(service.timestamp)
+                td=humane_time(host.time)
 
           tr(class="table-hack")
             td(class="table-hack")
@@ -155,7 +155,8 @@ block content
             th health
             th last updated
         tbody
-          for host, host_name in hosts
+          for host in hosts
+            -var host_name = host.service_name;
             - var host_color = 'health-' + HEALTH_ENUM[host.health]
             tr(class=host_color+' data-row host-row')
               td
@@ -169,7 +170,7 @@ block content
                 | ]
               td=host.ip
               td=health_enum_to_string(host.health)
-              td=humane_time(host.timestamp)
+              td=humane_time(host.time)
 
           tr(class="table-hack")
             td(class="table-hack")
