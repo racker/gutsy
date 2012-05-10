@@ -1,0 +1,14 @@
+extends layout
+
+block append css
+  link(href='/static/css/highscores.less', rel='stylesheet/less', type='text/css')
+
+block content
+  .container
+    .content
+      table
+        each row in events
+          tr
+            td.time=humane_time(row.time)
+            td.related_api=row.related_api
+            td.points=row.points
