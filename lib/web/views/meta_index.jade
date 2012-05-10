@@ -10,11 +10,10 @@ block content
             table
               tbody
                 each name in projects
-                  if name !== 'dir'
-                    tr
-                      td(width='50%')
-                        a(href='/p/#{name}') #{name}
-                      td(width='50%', style='text-align: right;') crawled #{humane_time(last_crawl_time[name])}
+                  tr
+                    td(width='50%')
+                      a(href='/p/#{name}') #{name}
+                    td(width='50%', style='text-align: right;') crawled #{humane_time(last_crawl_time[name])}
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}
