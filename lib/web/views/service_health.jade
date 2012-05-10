@@ -6,10 +6,10 @@ block append scripts
       var update_table = function(selected){
         var klass = "";
         var iter;
-        if (selected == #{SHOW_ALL}){
-          klass = '.health-healthy, .health-unhealthy';
+        if (selected == 'all'){
+          klass = '.#{health.healthy},.#{health.unhealthy}';
         }else{
-          klass = '.health-' + selected;
+          klass = '.' + selected;
         }
         $('.data-row').each(function(index, item){
           item = $(item);
@@ -26,8 +26,8 @@ block append scripts
         var to_filter = $(option).attr('class');
         update_table(to_filter);
       });
-      $('select#filter-health').val('unhealthy');
-      update_table('unhealthy');
+      $('select#filter-health').val('#{health.unhealthy}');
+      update_table('#{health.unhealthy}');
       $('.service-row').click(function() {
         $(this).children().children('.metric_data').toggleClass('hidden');
       });
@@ -40,10 +40,10 @@ block append css
   link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
   link(href='/static/css/service_health.less', rel='stylesheet/less', type='text/css')
   style(type="text/css")
-    .health-healthy{
+    .#{health.healthy}{
       background-color: #B9FAEA;
     }
-    .health-unhealthy{
+    .#{health.unhealthy}{
       background-color: #FF7D7D;
     }
     .table{
@@ -86,9 +86,9 @@ block content
       h3
         | filters: health:
         select(id='filter-health')
-          option(class='Unhealthy')='unheathy'
-          option(class='Healthy')='heathy'
-          option(class=SHOW_ALL) ALL
+          option(class='#{health.unhealthy}')='Unhealthy'
+          option(class='#{health.healthy}')='Healthy'
+          option(class='all')='All'
 
       h1 Services:
       table.table#service-stats.table-stats.sortable
@@ -103,7 +103,7 @@ block content
         tbody
           for host in hosts
             for service,name in host.services
-              - var service_color = 'health-' + (service.healthy ? 'healthy' : 'unhealthy')
+              - var service_color = service.healthy ? health.healthy : health.unhealthy
               tr(class=service_color+' data-row service-row')
                 td=service.service
                 td
@@ -148,7 +148,7 @@ block content
         tbody
           for host in hosts
             - var host_name = host.service_name;
-            - var host_color = 'health-' + (host.healthy ? 'healthy' : 'unhealthy')
+            - var host_color = host.healthy ? health.healthy : health.unhealthy
             tr(class=host_color+' data-row host-row')
               td
                 a(name="host-name-"+host_name)=host_name
