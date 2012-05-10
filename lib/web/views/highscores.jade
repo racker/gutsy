@@ -18,5 +18,6 @@ block content
             each row in data
               tr
                 td.place=row.place
-                td.name=row.username
+                td.name
+                  a(href='highscores/#{row.username}') #{row.username}
                 td.score=row.score
