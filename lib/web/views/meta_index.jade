@@ -18,6 +18,11 @@ block content
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}
+
+          #crawl-button
+            form(action='/crawl', method='POST')
+              input(type='submit', value='Crawl all the projects')
+
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Links
@@ -28,9 +33,6 @@ block content
         .hero-unit
           h1 All of the Dashboards
           h2
-
-    form(action='/crawl', method='POST')
-      input(type='submit', value='Crawl all the projects')
 
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
