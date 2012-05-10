@@ -11,6 +11,7 @@ block content
               if name !== 'dir'
                 li
                   a(href='/p/#{name}') #{name}
+                  | last crawled #{humane_time(last_crawl_time[name])}
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}
