@@ -1,5 +1,6 @@
 extends layout
 block append scripts
+  link(href="/static/css/burndown.css", type="text/css", rel="stylesheet")
   script(src='/static/js/defects.js')
   script
     $(function() {
@@ -9,14 +10,23 @@ block append scripts
   script(src='/static/js/burndown.js', type="text/javascript")
   |<script type="text/javascript">
   |    var burndown_data = !{JSON.stringify(burndown.data)};
-  |</script>
+  |</script
 
 block content
   .container
     .content
-      div#chart_div
+      if burndown.error
+
+        p The version_one API returned the following error (for burndown ):
+        p.alert!=trace(burndown.error)
+      else if burndown.data
+        h1 VersionOne - The Burndown
+        div#tasks-chart.burndown-chart
+        div#defects-chart.burndown-chart
+        div(style="clear:both")
+
       if version_one
-        h1 VersionOne - Number of Open Defects
+        h1 VersionOne - Defects
         if version_one.error
           p The version_one API returned the following error:
           p.alert!=trace(version_one.error)
