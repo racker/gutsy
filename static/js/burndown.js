@@ -40,7 +40,15 @@ function drawChart() {
         chart[i].push(value);
       }
     });
-    options = {'title': title + " Burndown",'width': 550,'height':350};
+    options = {
+      title: title,
+      width: 550,
+      height:350,
+      hAxis: {
+        title: 'days into sprint'
+      },vAxis: {
+        title: 'points'
+      }};
     // Instantiate and draw our chart, passing in some options.
     _chart = new google.visualization.LineChart($(location)[0]);
     _chart.draw(google.visualization.arrayToDataTable(chart), options);
