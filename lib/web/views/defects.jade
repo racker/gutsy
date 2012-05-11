@@ -5,10 +5,16 @@ block append scripts
     $(function() {
       $("table#defects").tablesorter();
     });
+  script(src='https://www.google.com/jsapi', type="text/javascript")
+  script(src='/static/js/burndown.js', type="text/javascript")
+  |<script type="text/javascript">
+  |    var burndown_data = !{JSON.stringify(burndown.data)};
+  |</script>
 
 block content
   .container
     .content
+      div#chart_div
       if version_one
         h1 VersionOne - Number of Open Defects
         if version_one.error
