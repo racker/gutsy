@@ -7,13 +7,21 @@ block content
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Projects
-            each name in projects
-              if name !== 'dir'
-                li
-                  a(href='/p/#{name}') #{name}
+            table
+              tbody
+                each name in projects
+                  tr
+                    td(width='50%')
+                      a(href='/p/#{name}') #{name}
+                    td(width='50%', style='text-align: right;') crawled #{humane_time(last_crawl_time[name])}
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}
+
+          #crawl-button
+            form(action='/crawl', method='POST')
+              input(type='submit', value='Crawl all the projects')
+
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Links
