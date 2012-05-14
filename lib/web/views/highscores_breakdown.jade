@@ -7,11 +7,11 @@ block content
   .container
     .content
       h2.title #{username} Score Breakdown
-      table
+      table(style="font-size: 20px;")
         thead
           tr
             th Time
-            th API
+            th Title
             th Points
             th x
             th Total
@@ -19,7 +19,8 @@ block content
           each row in events
             tr
               td.time=humane_time(row.time)
-              td.related_api=row.related_api
+              td.title
+                a(href=row.url) #{row.title}
               td.story_ponits=row.story_points
               td.multiplier=row.multiplier
               td.points=row.points
