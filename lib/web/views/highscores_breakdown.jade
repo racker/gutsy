@@ -12,9 +12,9 @@ block content
           tr
             th Time
             th API
-            th Story Points
-            th Multiplier
             th Points
+            th x
+            th Total
         tbody
           each row in events
             tr
@@ -23,3 +23,4 @@ block content
               td.story_ponits=row.story_points
               td.multiplier=row.multiplier
               td.points=row.points
+      include includes/time_form

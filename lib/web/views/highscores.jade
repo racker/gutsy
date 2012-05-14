@@ -19,5 +19,7 @@ block content
               tr
                 td.place=row.place
                 td.name
-                  a(href='highscores/#{row.username}') #{row.username}
+                  a(href='#{row.href}') #{row.username}
                 td.score=row.score
+        include includes/time_form
+        a(href="#{req.path}?all=true") Show all
