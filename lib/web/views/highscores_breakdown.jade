@@ -8,8 +8,18 @@ block content
     .content
       h2.title #{username} Score Breakdown
       table
-        each row in events
+        thead
           tr
-            td.time=humane_time(row.time)
-            td.related_api=row.related_api
-            td.points=row.points
+            th Time
+            th API
+            th Story Points
+            th Multiplier
+            th Points
+        tbody
+          each row in events
+            tr
+              td.time=humane_time(row.time)
+              td.related_api=row.related_api
+              td.story_ponits=row.story_points
+              td.multiplier=row.multiplier
+              td.points=row.points
