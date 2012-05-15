@@ -7,16 +7,30 @@ block content
   .container
     .content
       if highscores.config
-        h1 #{req.params.project} LEGENDS
+        h1.title #{req.params.project} LEGENDS
         if highscores.error
           p.alert
             |The highscores API returned the following error:
             |<br />
             !=trace(highscores.error)
+        else if errors
+          p.alert
+            !=trace(errors)
         else
           table
-            each row in data
-              tr
-                td.place=row.place
-                td.name=row.username
+            each row,i in data
+              -var href=req.path + "/" + encodeURI(row.name) + "?" + query_string;
+              tr(onclick="window.location.href='"+href+"';", style="cursor: pointer;")
+                td.place=number_to_place(i)
+                td.name=row.name
                 td.score=row.score
+                td.modifier
+                  if i === 0
+                    |!!!
+                  else if i === 1
+                    |!!
+                  else if i === 2
+                    |!
+
+        include includes/time_form
+        a(href="#{req.path}?all=true") Show all

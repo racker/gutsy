@@ -1,54 +1,71 @@
-
 @font-face{
-	/* credit to JOIRO.THE3DSTUDIO.COM */
-	font-family: "eight-bit";
-	src: url('/static/eight-bit-wonder.ttf');
+  /* credit to http://www.kreativekorp.com/software/fonts/c64.shtml */
+  font-family: "commodore";
+  src: url('/static/fonts/PetMe.ttf');
 }
 body{
-	color: #eee;
-	background-color: #000;
+  color: #eee;
+  background-color: #000;
 }
-h1{
-	font-size: 72px;
-	color: #fff;
-	padding-top: 80px;
-	text-shadow: 5px 5px 2px #f00;
+.title {
+  color: #fff;
+  text-shadow: 5px 5px 2px #f00;
   line-height: 1em;
   margin-bottom: 0.5em;
 }
+h1{
+  font-size: 72px;
+  padding-top: 80px;
+}
+h2{
+  font-size: 36px;
+}
+label {
+  color: #eee;
+}
+form input.form-submit {
+  margin-left: 15px;
+}
 .content{
-	font-family: "eight-bit";
-	width: 100%;
-	text-align: center;
-	margin: 0 auto;
+  font-family: "commodore";
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
 }
 table{
-	width: 900px;
-	margin: 50px 0;
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 28px;
+  width: 1100px;
+  margin: 50px 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 28px;
 }
 tr{
-	line-height: 125%;
+  line-height: 125%;
 }
 td.place{
-	text-align: right;
-	width: 150px;
-	padding-right: 50px;
+  text-align: right;
+  width: 150px;
+  padding-right: 25px;
+  padding-left: 20px;
 }
 td.name{
-	text-align: left;
-	width: 400px;
+  text-align: left;
+  width: 460px;
+  overflow: hidden;
 }
 td.score{
-	text-align: right;
-	width: 250px;
-	padding-right: 50px;
+  text-align: right;
+  width: 250px;
+}
+td.multiplier, td.points, td.story_ponits {
+  text-align: right;
 }
 td.modifier{
-	text-align: left;
+  text-align: left;
+  font-style: italic;
+  font-weight: bold;
 }
-td{
-	text-shadow: 3px 3px 1px #f00;
+td, td a {
+  text-shadow: 3px 3px 2px #f00;
+  color: #eee;
 }

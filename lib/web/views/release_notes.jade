@@ -5,6 +5,9 @@ block append css
   | #notes-form input{
   |   width: 300px;
   | }
+  | #notes-form .form-submit {
+  |   margin-left: 50px;
+  | }
   | .note{
   |   border-bottom: 1px dashed #ddd;
   |   padding: 16px 0;
@@ -46,12 +49,8 @@ block content
       p
         | This will take some time, be patient.  The dates can be anyting that new Date() will parse and are inclusive.
 
-      form(method="GET", id="notes-form")
-        label(for="start") Start
-        input(type="text", name="start", value=start)
-        label(for="end") End
-        input(type="text", name="end", value=end)
-        input(type="submit", value=" GO! ", style="margin-left: 50px; width: 70px; height: 30px;")
+      -var id = "notes-form"
+      include includes/time_form
 
       p
         | NOTE: gutsy stops looking at pull requests when they were created one month before the start date since github returns pull requests in order of creation and doesn't allow filtering of any sort.
