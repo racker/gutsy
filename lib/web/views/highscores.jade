@@ -13,6 +13,9 @@ block content
             |The highscores API returned the following error:
             |<br />
             !=trace(highscores.error)
+        else if errors
+          p.alert
+            !=trace(errors)
         else
           table
             each row,i in data
