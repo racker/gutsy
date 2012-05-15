@@ -9,19 +9,21 @@ block content
             li.nav-header Projects
             table
               tbody
-                each name in projects
+                each project in projects
                   tr
                     td(width='50%')
-                      a(href='/p/#{name}') #{name}
-                    td(width='50%', style='text-align: right;') crawled #{humane_time(last_crawl_time[name])}
+                      a(href='/p/#{project.name.toLowerCase()}', title='#{project.tags}') #{project.name}
+                    td(width='50%', style='text-align: right;')
+                      |crawled #{humane_time(last_crawl_time[project.name.toLowerCase()])}
+                  tr
+                    td(colspan=2)
+                      #meta-description #{project.description}
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}
-
           #crawl-button
             form(action='/crawl', method='POST')
               input(type='submit', value='Crawl all the projects')
-
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Links
@@ -32,6 +34,5 @@ block content
         .hero-unit
           h1 All of the Dashboards
           h2
-
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
