@@ -16,10 +16,9 @@ block content
         else
           table
             each row in data
-              tr
+              tr(onclick="window.location.href='"+row.href+"';", style="cursor: pointer;")
                 td.place=row.place
-                td.name
-                  a(href='#{row.href}') #{row.username}
+                td.name=row.username
                 td.score=row.score
         include includes/time_form
         a(href="#{req.path}?all=true") Show all
