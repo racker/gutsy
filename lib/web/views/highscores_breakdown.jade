@@ -1,0 +1,28 @@
+extends layout
+
+block append css
+  link(href='/static/css/highscores.less', rel='stylesheet/less', type='text/css')
+
+block content
+  .container
+    .content
+      h2.title #{username} Score Breakdown
+      table(style="font-size: 20px;")
+        thead
+          tr
+            th Time
+            th Title
+            th Points
+            th x
+            th Total
+        tbody
+          each row in events
+            tr
+              td.time=humane_time(row.time)
+              td.title
+                a(href=row.url) #{row.title}
+              td.story_ponits=row.story_points
+              td.multiplier
+                |x#{row.multiplier}
+              td.points=row.points
+      include includes/time_form
