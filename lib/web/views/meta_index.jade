@@ -19,7 +19,7 @@ block content
                 a(href='#{uri}') #{name}
 
           #crawl-button
-            form(action='/crawl', method='POST')
+            form(action='/crawl', method='POST', onsubmit='setTimeout(function (){window.location.reload();}, 1000);')
               input(type='submit', value='Crawl all the projects')
 
         .well.sidebar-nav
