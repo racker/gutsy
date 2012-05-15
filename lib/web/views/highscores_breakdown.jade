@@ -7,14 +7,24 @@ block content
   .container
     .content
       h2.title FEATS OF #{username.toUpperCase()}
+      h3.title OF
+        | <nbsp/>
+        i  #{req.params.project.toUpperCase()},
+      if aliases
+        h3.title KNOWN AS
+          | <nbsp/>
+          i #{aliases}
+      else
+        h3.title THE UNKNOWN
+
       table(style="font-size: 20px;")
         thead
           tr
-            th Time
-            th Title
-            th Points
-            th x
-            th Total
+            th HOUR
+            th FEAT
+            th POINTS
+            th X
+            th TOTAL
         tbody
           each row in events
             tr
@@ -29,5 +39,4 @@ block content
       -var label_end = "END";
       include includes/time_form
       h2
-        a(href="#{req.path}?all=true")
-          Show all
+        a(href="#{req.path}?all=true") SHOW ALL GLORIOUS FEATS
