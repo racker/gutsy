@@ -6,16 +6,17 @@ block append css
 block content
   .container
     .content
-      h2.title FEATS OF #{username.toUpperCase()}
+      h2.title FEATS OF #{display_name.toUpperCase()}
       h3.title OF
         | <nbsp/>
         i  #{req.params.project.toUpperCase()},
-      if aliases
-        h3.title KNOWN AS
-          | <nbsp/>
-          i #{aliases}
-      else
-        h3.title THE UNKNOWN
+
+      h3.title
+        i
+          if alias
+            | THE #{alias}
+          else
+            | THE UNKNOWN
 
       table(style="font-size: 20px;")
         thead

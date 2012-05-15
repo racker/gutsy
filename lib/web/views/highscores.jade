@@ -19,7 +19,7 @@ block content
         else
           table
             each row,i in data
-              -var href=req.path + "/" + encodeURI(row.name) + "?" + query_string;
+              -var href=req.path + "/" + encodeURI(row.username) + "?" + query_string;
               tr(onclick="window.location.href='"+href+"';", style="cursor: pointer;")
                 td.place=number_to_place(i)
                 td.name
