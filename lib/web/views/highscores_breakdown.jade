@@ -22,6 +22,7 @@ block content
               td.title
                 a(href=row.url) #{row.title}
               td.story_ponits=row.story_points
-              td.multiplier=row.multiplier
+              td.multiplier
+                |x#{row.multiplier}
               td.points=row.points
       include includes/time_form
