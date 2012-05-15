@@ -22,7 +22,8 @@ block content
               -var href=req.path + "/" + encodeURI(row.name) + "?" + query_string;
               tr(onclick="window.location.href='"+href+"';", style="cursor: pointer;")
                 td.place=number_to_place(i)
-                td.name=row.name
+                td.name
+                  div=row.name
                 td.score=row.score
                 td.modifier
                   if i === 0
