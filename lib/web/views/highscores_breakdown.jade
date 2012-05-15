@@ -6,7 +6,7 @@ block append css
 block content
   .container
     .content
-      h2.title #{username} Score Breakdown
+      h2.title FEATS OF #{username.toUpperCase()}
       table(style="font-size: 20px;")
         thead
           tr
@@ -25,4 +25,9 @@ block content
               td.multiplier
                 |x#{row.multiplier}
               td.points=row.points
+      -var label_start = "BEGIN";
+      -var label_end = "END";
       include includes/time_form
+      h2
+        a(href="#{req.path}?all=true")
+          Show all

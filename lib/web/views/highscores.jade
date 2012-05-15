@@ -7,7 +7,7 @@ block content
   .container
     .content
       if highscores.config || github.config
-        h1.title #{req.params.project} LEGENDS
+        h1.title #{req.params.project.toUpperCase()} LEGENDS
         if highscores.error
           p.alert
             |The highscores API returned the following error:
@@ -32,5 +32,10 @@ block content
                     |!!
                   else if i === 2
                     |!
-        include includes/time_form
-        a(href="#{req.path}?all=true") Show all
+        hr
+        -var label_start = "BEGIN";
+        -var label_end = "END";
+          include includes/time_form
+          h2
+            a(href="#{req.path}?all=true")
+              Show all
