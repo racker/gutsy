@@ -6,7 +6,7 @@ block append css
 block content
   .container
     .content
-      if highscores.config
+      if highscores.config || github.config
         h1.title #{req.params.project} LEGENDS
         if highscores.error
           p.alert
