@@ -15,10 +15,11 @@ block content
             !=trace(highscores.error)
         else
           table
-            each row in data
-              tr(onclick="window.location.href='"+row.href+"';", style="cursor: pointer;")
-                td.place=row.place
-                td.name=row.username
+            each row,i in data
+              -var href=req.path + "/" + encodeURI(row.name) + "?" + query_string;
+              tr(onclick="window.location.href='"+href+"';", style="cursor: pointer;")
+                td.place=number_to_place(i)
+                td.name=row.name
                 td.score=row.score
         include includes/time_form
         a(href="#{req.path}?all=true") Show all
