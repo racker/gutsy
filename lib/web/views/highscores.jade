@@ -17,7 +17,7 @@ block content
           p.alert
             !=trace(errors)
         else
-          table
+          table(class="feats-table")
             each row,i in data
               -var href=req.path + "/" + encodeURI(row.username) + "?" + query_string;
               tr(onclick="window.location.href='"+href+"';", style="cursor: pointer;")
@@ -32,8 +32,8 @@ block content
                     |!!
                   else if i === 2
                     |!
+        h2
+          a(href="#{req.path}?all=true") SHOW ALL GLORIOUS FEATS
         -var label_start = "BEGIN";
         -var label_end = "END";
           include includes/time_form
-          h2
-            a(href="#{req.path}?all=true") SHOW ALL GLORIOUS FEATS

@@ -10,28 +10,30 @@ block content
   .container
     .content
       h2.title FEATS OF #{display_name.toUpperCase()}
+      h3.title#lordly-title
+        i
+          a
+            if aliases
+              |  THE #{aliases}
+            else
+              |  THE UNKNOWN
       h3.title OF THE REALM
         | <nbsp/>
         a(href="../highscores") #{req.params.project.toUpperCase()}
-        |,
-
-      h3.title#lordly-title
-        i
-          if alias
-            |  THE #{alias}
-          else
-            |  THE UNKNOWN
 
       div#title-maker
-        form
-          h3.title.center ADD A NOBLE TITLE
-          label(for="version-one") version-one:
-          input(name="version-one", type="text", value=display_name)
-          label(for="github") github:
-          input(name="github", type="text", value=alias)
-          input(name="submit", type="submit", value=" submit ")
+        h3.title.center SUBMIT A NOBLE TITLE
+        form(method="POST", action='/add-title')
+          label(for="display_name") TITLE:
+          input(name="display_name", type="text", value=display_name)
+          for api in supported_apis
+            -var alias = aliases[api] || {alias: null}
+            label(for=api) #{api.toUpperCase().replace('_', " ", 1)}:
+            input(name=api, type="text", value=alias.alias)
 
-      table(style="font-size: 20px;")
+          input(name="submit", type="submit", value=" SUBMIT ")
+
+      table(style="font-size: 20px;", class="feats-table")
         thead
           tr
             th.left HOUR
@@ -51,6 +53,6 @@ block content
               td.points.right=row.points
       -var label_start = "BEGIN";
       -var label_end = "END";
-      include includes/time_form
       h2
         a(href="#{req.path}?all=true") SHOW ALL GLORIOUS FEATS
+      include includes/time_form
