@@ -14,7 +14,7 @@ block content
                     td(width='50%')
                       a(href='/p/#{project.name}', title='#{project.tags}') #{project.name}
                     td(width='50%', style='text-align: right;')
-                      |crawled #{humane_time(last_crawl_time[project.name.toLowerCase()])}
+                      |crawled #{humane_time(last_crawl_time[project.name])}
                   tr
                     td(colspan=2)
                       #meta-description #{project.description}
