@@ -10,13 +10,14 @@ block content
   .container
     .content
       h2.title FEATS OF #{display_name.toUpperCase()}
-      h3.title#lordly-title
+      div.title#lordly-title
         i
-          a
-            if aliases
-              |  THE #{aliases}
-            else
-              |  THE UNKNOWN
+          if aliases
+            for alias,key in aliases
+              h3
+                a LORD #{alias.toUpperCase()} OF #{key.toUpperCase().replace('_', " ", 1)}
+          else
+            |  THE UNKNOWN
       h3.title OF THE REALM
         | <nbsp/>
         a(href="../highscores") #{req.params.project.toUpperCase()}
@@ -27,9 +28,9 @@ block content
           label(for="display_name") TITLE:
           input(name="display_name", type="text", value=display_name)
           for api in supported_apis
-            -var alias = aliases[api] || {alias: null}
+            -var alias = aliases[api]
             label(for=api) #{api.toUpperCase().replace('_', " ", 1)}:
-            input(name=api, type="text", value=alias.alias)
+            input(name=api, type="text", value=alias)
 
           input(name="submit", type="submit", value=" SUBMIT ")
 
@@ -51,8 +52,4 @@ block content
               td.multiplier
                 |x#{row.multiplier}
               td.points.right=row.points
-      -var label_start = "BEGIN";
-      -var label_end = "END";
-      h2
-        a(href="#{req.path}?all=true") SHOW ALL GLORIOUS FEATS
-      include includes/time_form
+      include includes/highscores_footer
