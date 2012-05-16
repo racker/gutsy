@@ -2,40 +2,53 @@ extends layout
 
 block append css
   link(href='/static/css/highscores.less', rel='stylesheet/less', type='text/css')
+block append scripts
+  script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
+  script(src="/static/js/highscores.js", type="text/javascript")
 
 block content
   .container
     .content
       h2.title FEATS OF #{display_name.toUpperCase()}
-      h3.title OF
+      h3.title OF THE REALM
         | <nbsp/>
-        i  #{req.params.project.toUpperCase()},
+        a(href="../highscores") #{req.params.project.toUpperCase()}
+        |,
 
-      h3.title
+      h3.title#lordly-title
         i
           if alias
-            | THE #{alias}
+            |  THE #{alias}
           else
-            | THE UNKNOWN
+            |  THE UNKNOWN
+
+      div#title-maker
+        form
+          h3.title.center ADD A NOBLE TITLE
+          label(for="version-one") version-one:
+          input(name="version-one", type="text", value=display_name)
+          label(for="github") github:
+          input(name="github", type="text", value=alias)
+          input(name="submit", type="submit", value=" submit ")
 
       table(style="font-size: 20px;")
         thead
           tr
-            th HOUR
+            th.left HOUR
             th FEAT
             th POINTS
             th X
-            th TOTAL
+            th.right TOTAL
         tbody
           each row in events
             tr
-              td.time=humane_time(row.time)
+              td.time.left=humane_time(row.time)
               td.title
                 a(href=row.url) #{row.title}
               td.story_ponits=row.story_points
               td.multiplier
                 |x#{row.multiplier}
-              td.points=row.points
+              td.points.right=row.points
       -var label_start = "BEGIN";
       -var label_end = "END";
       include includes/time_form
