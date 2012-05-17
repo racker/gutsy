@@ -12,9 +12,9 @@ block content
                 each project in projects
                   tr
                     td(width='50%')
-                      a(href='/p/#{project.name}', title='#{project.tags}') #{project.name}
+                      a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
                     td(width='50%', style='text-align: right;')
-                      |crawled #{humane_time(last_crawl_time[project.name])}
+                      |crawled #{humane_time(last_crawl_time[project.project])}
                   tr
                     td(colspan=2)
                       #meta-description #{project.description}

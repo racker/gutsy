@@ -1,0 +1,6 @@
+-var label_start = "BEGIN";
+-var label_end = "END";
+if !req.query.all
+  h2
+    a(href="#{req.path}?all=true") SHOW ALL GLORIOUS FEATS
+include time_form

@@ -2,27 +2,55 @@ extends layout
 
 block append css
   link(href='/static/css/highscores.less', rel='stylesheet/less', type='text/css')
+block append scripts
+  script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
+  script(src="/static/js/highscores.js", type="text/javascript")
 
 block content
   .container
     .content
-      h2.title #{username} Score Breakdown
-      table(style="font-size: 20px;")
+      h2.title FEATS OF #{display_name.toUpperCase()}
+      div.title#lordly-title
+        i
+          if aliases
+            for alias,key in aliases
+              h3
+                a LORD #{alias.toUpperCase()} OF #{key.toUpperCase().replace('_', " ", 1)}
+          else
+            |  THE UNKNOWN
+      h3.title OF THE REALM
+        | <nbsp/>
+        a(href="../highscores") #{req.params.project.toUpperCase()}
+
+      div#title-maker
+        h3.title.center SUBMIT A NOBLE TITLE
+        form(method="POST", action='/add-title')
+          input(name="alias_display_id", type="hidden", value=alias_display_id)
+          label(for="display_name") TITLE:
+          input(name="display_name", type="text", value=display_name)
+          for api in supported_apis
+            -var alias = aliases[api]
+            label(for=api) #{api.toUpperCase().replace('_', " ", 1)}:
+            input(name=api, type="text", value=alias)
+
+          input(name="submit", type="submit", value=" SUBMIT ")
+
+      table(style="font-size: 20px;", class="feats-table")
         thead
           tr
-            th Time
-            th Title
-            th Points
-            th x
-            th Total
+            th.left HOUR
+            th FEAT
+            th POINTS
+            th X
+            th.right TOTAL
         tbody
           each row in events
             tr
-              td.time=humane_time(row.time)
+              td.time.left=humane_time(row.time)
               td.title
                 a(href=row.url) #{row.title}
               td.story_ponits=row.story_points
               td.multiplier
                 |x#{row.multiplier}
-              td.points=row.points
-      include includes/time_form
+              td.points.right=row.points
+      include includes/highscores_footer

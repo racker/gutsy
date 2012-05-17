@@ -69,6 +69,6 @@ block content
                           td
                             a(href="http://#{version_one.config.host}/#{version_one.config.name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
                           td
-                            a(href="http://#{version_one.config.host}/#{version_one.config.name}/defect.mvc/Summary?oidToken=#{asset.id}") #{asset.attributes['Name']}
+                            a(href=utils.v1_id_to_url(version_one.config, asset.id)) #{asset.attributes['Name']}
                     else
                       p No defects!
