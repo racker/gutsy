@@ -3,8 +3,12 @@
 exports.devopsjson_uris = {
     "Full": "https://raw.github.com/racker/devopsjson/master/examples/example-full.json",
     "Simple": "https://raw.github.com/racker/devopsjson/master/examples/example-simple.json",
-    "Min": "https://raw.github.com/racker/devopsjson/master/examples/example-minimum.json",
+    "Min": "https://raw.github.com/racker/devopsjson/master/examples/example-minimum.json"
 };
+
+logging_ignore_paths = [
+  "/static/"
+];
 
 // where the crawled devopsjson data will end up
 // on production deployments, this may need to be an absolute path
