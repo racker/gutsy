@@ -2,7 +2,7 @@
   h1 DreadNot
   if dreadnot.error
     p API returned the following error:
-    p.alert #{dreadnot.error}
+    p.alert!=trace(dreadnot.error)
   if dreadnot.data
     for stack in dreadnot.data
       p
