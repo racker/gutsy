@@ -6,7 +6,7 @@ exports.devopsjson_uris = {
     "Min": "https://raw.github.com/racker/devopsjson/master/examples/example-minimum.json"
 };
 
-logging_ignore_paths = [
+exports.logging_ignore_paths = [
   "/static/"
 ];
 
