@@ -35,22 +35,24 @@ block content
 
           input(name="submit", type="submit", value=" SUBMIT ")
 
-      table(style="font-size: 20px;", class="feats-table")
+      table(style="font-size: 16px;", class="feats-table")
         thead
           tr
-            th.left WHEN
-            th FEAT
-            th POINTS
-            th X
-            th.right TOTAL
+            th THE HOUR
+            th(colspan=2) FEAT
+            th(colspan=3) POINTS
         tbody
           each row in events
             tr
               td.time.left=humane_time(row.time)
-              td.title
-                a(href=row.url) #{row.title}
-              td.story_ponits=row.story_points
-              td.multiplier
-                |x#{row.multiplier}
-              td.points.right=row.points
+              td.right=describe(row.event)
+              td.left.feat
+                div
+                  a(href=row.url)=row.title
+              td.right
+                |(#{row.points}
+              td.left x#{row.multiplier})
+              td.score
+               #{row.score}
+
       include includes/highscores_footer
