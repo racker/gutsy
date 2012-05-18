@@ -35,7 +35,7 @@ block content
 
           input(name="submit", type="submit", value=" SUBMIT ")
 
-      table(style="font-size: 20px;", class="feats-table")
+      table(style="font-size: 16px;", class="feats-table")
         thead
           tr
             th THE HOUR
@@ -46,11 +46,12 @@ block content
             tr
               td.time.left=humane_time(row.time)
               td.right=describe(row.event)
-              td.left(style="padding-left: 1em;")
-                a(href=row.url)=row.title
+              td.left.feat
+                div
+                  a(href=row.url)=row.title
               td.right
-                #{row.points}
-              td.left x#{row.multiplier}
+                |(#{row.points}
+              td.left x#{row.multiplier})
               td.score
                #{row.score}
 
