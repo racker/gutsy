@@ -26,7 +26,8 @@ block content
         div(style="clear:both")
 
       if version_one
-        h1 VersionOne - Defects
+        h1.title VersionOne - Defects   
+          span.sevcount #{version_one.data.total}
         if version_one.error
           p The version_one API returned the following error:
           p.alert!=trace(version_one.error)
