@@ -16,7 +16,6 @@ block content
   .container
     .content
       if burndown.error
-
         p The version_one API returned the following error (for burndown ):
         p.alert!=trace(burndown.error)
       else if burndown.data
