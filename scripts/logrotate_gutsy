@@ -1,0 +1,8 @@
+"/var/log/gutsy/access.log" /var/log/gutsy/error.log
+{
+    rotate 5
+    daily
+    postrotate
+        /etc/init.d/gutsy restart
+   endscript
+}
