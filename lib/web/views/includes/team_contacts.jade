@@ -3,8 +3,8 @@ li
   ul.unstyled.contact-team
     if team && team.members
       each contact in team.members
-        if pager_duty.config && pager_duty.data
-          -var on_duty = is_on_duty(contact, pager_duty.data.entries)
+        if pager_duty && pager_duty.get_data()
+          -var on_duty = is_on_duty(contact, pager_duty.get_data().entries)
         else
           -var on_duty = false
 
