@@ -9,17 +9,17 @@ block append scripts
   script(src='https://www.google.com/jsapi', type="text/javascript")
   script(src='/static/js/burndown.js', type="text/javascript")
   |<script type="text/javascript">
-  |    var burndown_data = !{JSON.stringify(burndown.data)};
+  |    var burndown_data = !{JSON.stringify(burndown.get_data())};
   |</script
 
 block content
   .container
     .content
-      if burndown.error
+      if burndown.get_err()
 
         p The version_one API returned the following error (for burndown ):
-        p.alert!=trace(burndown.error)
-      else if burndown.data
+        p.alert!=trace(burndown.get_err())
+      else if burndown.get_data()
         h1 VersionOne - The Burndown
         div#tasks-chart.burndown-chart
         div#defects-chart.burndown-chart
@@ -27,13 +27,13 @@ block content
 
       if version_one
         h1.title VersionOne - Defects   
-          span.sevcount #{version_one.data.total}
-        if version_one.error
+          span.sevcount #{version_one.get_data().total}
+        if version_one.get_err()
           p The version_one API returned the following error:
-          p.alert!=trace(version_one.error)
+          p.alert!=trace(version_one.get_err())
         else
           div
-            - each v, k in version_one.data.byAge
+            - each v, k in version_one.get_data().byAge
               hr
               h2.title
                 span.arrow \u25B6
@@ -68,8 +68,8 @@ block content
                           td #{asset.attributes['Status.Name'] || '-'}
                           td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'] || '-'}
                           td
-                            a(href="http://#{version_one.config.host}/#{version_one.config.name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
+                            a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
                           td
-                            a(href=utils.v1_id_to_url(version_one.config, asset.id)) #{asset.attributes['Name']}
+                            a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name']}
                     else
                       p No defects!

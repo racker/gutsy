@@ -1,10 +1,10 @@
 .versionone
   h1 Code Health
-  if version_one.error
+  if version_one.get_err()
     p The version_one API returned the following error:
-    p.alert!=trace(version_one.error)
+    p.alert!=trace(version_one.get_err())
   else
-    if version_one.data
-      p Number of defects: #{version_one.data.total}
+    if version_one.get_data()
+      p Number of defects: #{version_one.get_data().total}
     else
       p
