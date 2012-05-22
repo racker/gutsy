@@ -6,13 +6,13 @@ block append css
 block content
   .container
     .content
-      if highscores.config || github.config
+      if highscores || github
         h1.title #{req.params.project.toUpperCase()} LEGENDS
-        if highscores.error
+        if highscores.get_err()
           p.alert
             |The highscores API returned the following error:
             |<br />
-            !=trace(highscores.error)
+            !=trace(highscores.get_err())
         else if errors
           p.alert
             !=trace(errors)

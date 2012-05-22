@@ -1,12 +1,12 @@
 .new_relic
   h1 NewRelic
-  if new_relic.error
+  if new_relic.get_err()
     p The new_relic API returned the following error:
-    p.alert!=trace(new_relic.error)
-  if new_relic.data
+    p.alert!=trace(new_relic.get_err())
+  if new_relic.get_data()
     div
       ul
-        - each metric in new_relic.data
+        - each metric in new_relic.get_data()
           li
             strong #{metric.name}
             \- #{metric.formatted_metric_value}

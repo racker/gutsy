@@ -11,16 +11,16 @@ block content
   | </script>
   .container
     .content
-      if github.config
+      if github
         h1 Development Health
-        if github.error
+        if github.get_err()
           p The github API returned the following error:
-          p.alert!=trace(github.error)
+          p.alert!=trace(github.get_err())
         else
 
-          h2 Repo: #{github.config.repo}
+          h2 Repo: #{github.get_config().repo}
           hr
 
-          if github.data
-            each metric in github.data
+          if github.get_data()
+            each metric in github.get_data()
               include includes/github_stats

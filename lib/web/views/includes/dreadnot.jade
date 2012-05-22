@@ -1,10 +1,10 @@
 .dreadnot
   h1 DreadNot
-  if dreadnot.error
+  if dreadnot.get_err()
     p API returned the following error:
-    p.alert!=trace(dreadnot.error)
-  if dreadnot.data
-    for stack in dreadnot.data
+    p.alert!=trace(dreadnot.get_err())
+  if dreadnot.get_data()
+    for stack in dreadnot.get_data()
       p
         b #{stack.name}:
         br
@@ -31,4 +31,3 @@
         |  ) by #{stack.deploy.user}
   else
     p
-
