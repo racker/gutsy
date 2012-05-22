@@ -2,22 +2,25 @@ extends layout
 
 block content
   .container-fluid
-    .row-fluid
-      .span3
+     .span12
+        .hero-unit
+          h1 All of the Dashboards
+          h2
+      .span12
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Projects
-            table
+            table(style="width: 100%;")
               tbody
                 each project in projects
                   tr
-                    td(width='50%')
+                    td(style="width: 30%")
                       a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
-                    td(width='50%', style='text-align: right;')
+                    td
+                      #{project.description}
+                    td(style='text-align: right;')
                       |crawled #{humane_time(last_crawl_time[project.project])}
-                  tr
-                    td(colspan=2)
-                      #meta-description #{project.description}
+
             each uri, name in external_projects
               li
                 a(href='#{uri}') #{name}
@@ -30,9 +33,6 @@ block content
             each uri, name in links
               li
                 a(href='#{uri}') #{name}
-      .span9
-        .hero-unit
-          h1 All of the Dashboards
-          h2
+
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
