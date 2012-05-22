@@ -8,7 +8,7 @@ block content
     .content
       if highscores || github
         h1.title #{req.params.project.toUpperCase()} LEGENDS
-        if highscores.get_err()
+        if highscores && highscores.get_err()
           p.alert
             |The highscores API returned the following error:
             |<br />
