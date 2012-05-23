@@ -109,18 +109,23 @@ block content
                 td
                   a(name=host.service_name+'_'+name)=host.service_name
                   div.metric_data.hidden
+                    - var service_error_msg = service.error_msg
                     - var service_metrics = service.metrics
-                    if service_metrics
+                    if service_metrics || service_error_msg
                       table.table
                         thead
                           tr
                             th name
                             th value
                         tbody
-                          for metric in service_metrics
+                          if service_error_msg
                             tr
-                              td=metric.name
-                              td=metric.value
+                              td.alert-danger(colspan=2)=service_error_msg
+                          if service_metrics
+                            for metric in service_metrics
+                              tr
+                                td=metric.name
+                                td=metric.value
                 td
                   a(href="#host-name-"+host.service_name)=host.service_name
                 td=host.ip
