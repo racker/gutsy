@@ -7,32 +7,41 @@ block content
           h1 All of the Dashboards
           h2
       .span12
-        .well.sidebar-nav
-          ul.nav.nav-list
-            li.nav-header Projects
-            table(style="width: 100%;")
-              tbody
-                each project in projects
-                  tr
-                    td(style="width: 30%")
-                      a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
-                    td
-                      #{project.description}
-                    td(style='text-align: right;')
-                      |crawled #{humane_time(last_crawl_time[project.project])}
-
-            each uri, name in external_projects
-              li
-                a(href='#{uri}') #{name}
+        .well
+          table(style="width: 100%;")
+            thead
+              th(style="width: 30").left Projects
+              th.left Description
+              th.left Tags
+              th.right Crawled
+            tbody
+              each project in projects
+                tr
+                  td(style="width: 30%")
+                    a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
+                  td
+                    #{project.description}
+                  td
+                    if project.tags
+                      #{project.tags.join(' ')}
+                  td(style='text-align: right;')
+                    |crawled #{humane_time(last_crawl_time[project.project])}
           #crawl-button
             form(action='/crawl', method='POST', onsubmit='setTimeout(function (){window.location.reload();}, 1000);')
               input(type='submit', value='Crawl all the projects')
+          ul
+            each uri, name in external_projects
+              li
+                a(href='#{uri}') #{name}
+
         .well.sidebar-nav
           ul.nav.nav-list
             li.nav-header Links
             each uri, name in links
               li
                 a(href='#{uri}') #{name}
+            li
+              a(href='/about') About
 
     script(src='/static/jquery/jquery-1.7.1.min.js')
     script(src='/static/bootstrap/js/bootstrap.min.js')
