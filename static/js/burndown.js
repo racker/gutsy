@@ -47,7 +47,11 @@ function drawChart() {
       hAxis: {
         title: 'days into sprint'
       },vAxis: {
-        title: 'points'
+        title: 'points',
+        viewWindowMode: 'explicit',
+        viewWindow: {
+          min: 0
+        }
       }};
     // Instantiate and draw our chart, passing in some options.
     _chart = new google.visualization.LineChart($(location)[0]);
