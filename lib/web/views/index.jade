@@ -7,9 +7,9 @@ block append scripts
   script(src='/static/js/contacts.js')
 
 block content
-  if project.links.Code
-    a(href="#{project.links.Code}")
-      img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
+  if project.devopsJSON_URL
+    a(href="#{project.devopsJSON_URL}")
+      img(style="position: absolute; top: 42px; right: 0; border: 0;", src="/static/images/edit-devops-right.png")
   #timeline
     include includes/timeline_event
 
