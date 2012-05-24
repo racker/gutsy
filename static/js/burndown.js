@@ -54,9 +54,7 @@ function drawChart() {
     _chart.draw(google.visualization.arrayToDataTable(chart), options);
   };
   if (burndown_data){
-    console.log(burndown_data.defects);
     make_chart("Defects", burndown_data.defects, "#defects-chart");
-    console.log(burndown_data.tasks);
     make_chart("Tasks", burndown_data.tasks, "#tasks-chart");
   }
 }
