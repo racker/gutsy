@@ -26,7 +26,9 @@ block content
         div(style="clear:both")
 
       if version_one
-        h1.title VersionOne - Defects   
+        h1.title
+          span.arrow ▼
+          |  VersionOne - Defects
           span.sevcount #{version_one.get_data().total}
         if version_one.get_err()
           p The version_one API returned the following error:
@@ -64,12 +66,12 @@ block content
                     if v.defects.length
                       - each asset in v.defects
                         tr
-                          td #{new Date(asset.attributes['CreateDate']).getMonth()+1}/#{new Date(asset.attributes['CreateDate']).getDate()}
+                          -var create_date = new Date(asset.attributes['CreateDate']);
+                          td #{create_date.getMonth()+1}/#{create_date.getDate()}
                           td #{asset.attributes['Status.Name'] || '-'}
                           td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'] || '-'}
                           td
                             a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
                           td
                             a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name']}
-                    else
-                      p No defects!
+
