@@ -12,10 +12,12 @@ function drawChart() {
   var make_chart = function(asset_type, scope, data, location){
     var chart = [];
     var last_value = [];
-    var i;
+    var i, j;
     var max = 0;
     var _chart;
     var title = scope + " " + asset_type;
+    var sorted_keys;
+    var sprint;
     var options = {
       title: title,
       width: 550,
@@ -24,11 +26,6 @@ function drawChart() {
         title: 'days into sprint'
       },vAxis: {
         title: 'points'
-      },
-      series: {
-        "Iteration 21": {"color": "black"},
-        "Iteration 22": {"color": "black"},
-        "Iteration 23": {"color": "black"}
       }
     };
 
@@ -49,16 +46,19 @@ function drawChart() {
     }
     // push data
     chart[0] = ['Day'];
-    $.each(data, function(sprint, values){
-      var value = 0;
+    sorted_keys = Object.keys(data).sort();
+    for (i = 0; i < sorted_keys.length; i++) {
+      sprint = sorted_keys[i];
+      values = data[sprint];
       chart[0].push(sprint);
-      for (i =1; i < max; i++){
-        if (values[i]){
-          value = values[i];
+      for (j = 1; j < max; j++){
+        if (values[j]){
+          value = values[j];
         }
-        chart[i].push(value);
+        chart[j].push(value);
       }
-    });
+    }
+
     // Instantiate and draw our chart, passing in some options.
     _chart = new google.visualization.LineChart($("#" + location)[0]);
     _chart.draw(google.visualization.arrayToDataTable(chart), options);
