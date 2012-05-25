@@ -7,18 +7,20 @@
 var collapsed = "\u25B6";
 var expanded = "\u25BC";
 
+function toggle_arrows() {
+  if ($(this).text() === collapsed) {
+    $(this).text(expanded);
+  } else {
+    $(this).text(collapsed);
+  }
+}
+
 $(document).ready(function() {
   $("#defects").children(".bucket").css("cursor", "pointer").click(function () {
     $(this).next().children().each(function() {
       $(this).toggle();
     });
-    $(this).children(".arrow").each(function() {
-      if ($(this).text() === collapsed) {
-        $(this).text(expanded);
-      } else {
-        $(this).text(collapsed);
-      }
-    });
+    $(this).children(".arrow").each(toggle_arrows);
   });
   $(".title").css("cursor", "pointer").click(function () {
     $(this).children(".arrow").each(function() {

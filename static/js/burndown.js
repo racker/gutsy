@@ -63,11 +63,18 @@ function drawChart() {
     $.each(burndown_data, function (scope, data) {
       $.each(data, function (asset_type, assets) {
         var div_id;
-        div_id = asset_type + "-chart-" + scope.replace(/\W/g, "-");
-        $("#charts").append("<div id='" + div_id +"' class='burndown-chart " + div_id + "-chart'></div>");
+        var scope_name = scope.replace(/\W/g, "-").toLowerCase();
+        var arrow_html = "<h2 class='bucket' style='cursor: pointer;'><span class='arrow'>▶</span>" + asset_type + " " + scope + "</h2>";
+        div_id = asset_type + "-chart-" + scope_name;
+        $("#charts").append(arrow_html + "<div id='" + div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
         make_chart(asset_type, scope, assets, div_id);
       });
     });
   }
+
+  $("#charts").children(".bucket").css("cursor", "pointer").click(function () {
+    $(this).next().toggle();
+    $(this).children(".arrow").each(toggle_arrows);
+  });
 }
 

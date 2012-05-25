@@ -1,6 +1,10 @@
 
 .burndown-chart{
-  float: left;
   height: 350px;
   width: 550px;
+  display: none;
+}
+
+.total-chart {
+  display: block;
 }
