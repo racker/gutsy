@@ -2,7 +2,7 @@
     "name": "Gutsy",
     "description": "Gutsy makes dashboards from devop.json files.",
     "devops_version": "0.2",
-    "devopsJSON_URL": "https://www.github.com/Racker/gutsy/blob/master/devops.json",
+    "devopsJSON_URL": "https://github.com/Racker/gutsy/edit/master/devops.json",
     "tags": [
         "node",
         "dashboard"
@@ -45,7 +45,9 @@
     "links": {
         "Site - Example": "http://gutsy.nodejitsu.com/",
         "Chat": "irc://irc.freenode.net:4443/gutsy",
-        "Email List": "gutsy@lists.rackspace.com"
+        "Email List": "gutsy@lists.rackspace.com",
+        "Code": "https://github.com/racker/gutsy",
+        "Bug Tracker and Roadmap": "https://github.com/racker/gutsy/issues"
     },
     "dependent_services": ["highscores"],
     "environments": [
