@@ -4,10 +4,11 @@
  * Red numbers indicate close deadlines.
  * Clicking on the numbers displays all event information.
  */
+var collapsed = "\u25B6";
+var expanded = "\u25BC";
+
 $(document).ready(function() {
-  var collapsed = "\u25B6";
-  var expanded = "\u25BC";
-  $(".bucket").css("cursor", "pointer").click(function () {
+  $("#defects").children(".bucket").css("cursor", "pointer").click(function () {
     $(this).next().children().each(function() {
       $(this).toggle();
     });

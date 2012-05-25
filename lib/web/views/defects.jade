@@ -33,7 +33,7 @@ block content
           p The version_one API returned the following error:
           p.alert!=trace(version_one.get_err())
         else
-          div
+          div#defects
             - each v, k in version_one.get_data().byAge
               hr
               h2.bucket
@@ -53,7 +53,7 @@ block content
                       if ksev === "?"
                         span.sev.sevq(title="Severity Unknown") #{vcount}
               div.table.collapsible
-                table#defects.sortable.table-striped.hide
+                table.defects.sortable.table-striped.hide
                   thead
                     tr
                       th Created
