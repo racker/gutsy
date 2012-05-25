@@ -1,6 +1,8 @@
 {
     "name": "Gutsy",
     "description": "Gutsy makes dashboards from devop.json files.",
+    "devops_version": "0.2",
+    "devopsJSON_URL": "https://www.github.com/Racker/gutsy/blob/master/devops.json",
     "tags": [
         "node",
         "dashboard"

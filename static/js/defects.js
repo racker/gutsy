@@ -5,7 +5,7 @@
  * Clicking on the numbers displays all event information.
  */
 $(document).ready(function() {
-  $(".title").css("cursor", "pointer").click(function () {
+  $(".bucket").css("cursor", "pointer").click(function () {
     $(this).next().children().each(function() {
       $(this).toggle();
     });
@@ -15,6 +15,11 @@ $(document).ready(function() {
       } else {
         $(this).text("\u25B6");
       }
+    });
+  });
+  $(".title").css("cursor", "pointer").click(function () {
+    $(this).next().children().children().each(function() {
+      $(this).show();
     });
   });
 });
