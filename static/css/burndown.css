@@ -1,4 +1,15 @@
 
 .burndown-chart{
+  height: 350px;
+  width: 550px;
+  display: none;
   float: left;
+}
+
+.total-chart {
+  display: block;
+}
+
+#graph-picker {
+  padding-left: 10px;
 }
