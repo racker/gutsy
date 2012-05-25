@@ -8,20 +8,34 @@ google.setOnLoadCallback(drawChart);
 // instantiates the pie chart, passes in the data and
 // draws it.
 function drawChart() {
-
   //find max length
-  var make_chart = function(title, data, location){
+  var make_chart = function(asset_type, scope, data, location){
     var chart = [];
-    var options;
     var last_value = [];
     var i;
     var max = 0;
     var _chart;
+    var title = asset_type + " " + scope;
+    var options = {
+      title: title,
+      width: 550,
+      height: 350,
+      hAxis: {
+        title: 'days into sprint'
+      },vAxis: {
+        title: 'points'
+      }
+    };
+
     $.each(data, function(sprint, values){
       if (values.length > max){
         max = values.length;
       }
     });
+
+    if (max <= 0) {
+      return;
+    }
     //push arrays onto charts
     i = max -1;
     while (i>=0){
@@ -31,7 +45,7 @@ function drawChart() {
     // push data
     chart[0] = ['Day'];
     $.each(data, function(sprint, values){
-      var value;
+      var value = 0;
       chart[0].push(sprint);
       for (i =1; i < max; i++){
         if (values[i]){
@@ -40,22 +54,21 @@ function drawChart() {
         chart[i].push(value);
       }
     });
-    options = {
-      title: title,
-      width: 550,
-      height:350,
-      hAxis: {
-        title: 'days into sprint'
-      },vAxis: {
-        title: 'points'
-      }};
     // Instantiate and draw our chart, passing in some options.
-    _chart = new google.visualization.LineChart($(location)[0]);
+    _chart = new google.visualization.LineChart($("#" + location)[0]);
     _chart.draw(google.visualization.arrayToDataTable(chart), options);
   };
+
   if (burndown_data){
-    make_chart("Defects", burndown_data.defects, "#defects-chart");
-    make_chart("Tasks", burndown_data.tasks, "#tasks-chart");
+    $.each(burndown_data, function (scope, data) {
+      $.each(data, function (asset_type, assets) {
+        var div_id;
+        div_id = asset_type + "-chart-" + scope.replace(/\W/g, "-");
+        $("#charts").append("<div id='" + div_id +"' class='burndown-chart'></div>");
+        make_chart(asset_type, scope, assets, div_id);
+        console.log("making chart", asset_type, scope);
+      });
+    });
   }
 }
 

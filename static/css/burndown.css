@@ -1,4 +1,6 @@
 
 .burndown-chart{
   float: left;
+  height: 350px;
+  width: 550px;
 }

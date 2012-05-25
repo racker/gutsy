@@ -21,8 +21,7 @@ block content
         p.alert!=trace(burndown.get_err())
       else if burndown.get_data()
         h1 VersionOne - The Burndown
-        div#tasks-chart.burndown-chart
-        div#defects-chart.burndown-chart
+        div#charts
         div(style="clear:both")
 
       if version_one
@@ -66,12 +65,12 @@ block content
                     if v.defects.length
                       - each asset in v.defects
                         tr
-                          -var create_date = new Date(asset.attributes['CreateDate']);
+                          -var create_date = new Date(asset.attributes['CreateDate'].text);
                           td #{create_date.getMonth()+1}/#{create_date.getDate()}
-                          td #{asset.attributes['Status.Name'] || '-'}
-                          td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'] || '-'}
+                          td #{asset.attributes['Status.Name'].text || '-'}
+                          td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
                           td
-                            a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
+                            a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                           td
-                            a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name']}
+                            a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
 
