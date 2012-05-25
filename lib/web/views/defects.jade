@@ -21,18 +21,22 @@ block content
         p.alert!=trace(burndown.get_err())
       else if burndown.get_data()
         h1 VersionOne - The Burndown
-        div#tasks-chart.burndown-chart
-        div#defects-chart.burndown-chart
+        h3(style="margin-top: 20px;")
+          | Select project
+          select#graph-picker
+        div#charts
         div(style="clear:both")
 
       if version_one
-        h1.title VersionOne - Defects   
+        h1.title
+          span.arrow ▶
+          |  VersionOne - Defects
           span.sevcount #{version_one.get_data().total}
         if version_one.get_err()
           p The version_one API returned the following error:
           p.alert!=trace(version_one.get_err())
         else
-          div
+          div#defects
             - each v, k in version_one.get_data().byAge
               hr
               h2.bucket
@@ -52,7 +56,7 @@ block content
                       if ksev === "?"
                         span.sev.sevq(title="Severity Unknown") #{vcount}
               div.table.collapsible
-                table#defects.sortable.table-striped.hide
+                table.defects.sortable.table-striped.hide
                   thead
                     tr
                       th Created
@@ -64,12 +68,12 @@ block content
                     if v.defects.length
                       - each asset in v.defects
                         tr
-                          td #{new Date(asset.attributes['CreateDate']).getMonth()+1}/#{new Date(asset.attributes['CreateDate']).getDate()}
-                          td #{asset.attributes['Status.Name'] || '-'}
-                          td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'] || '-'}
+                          -var create_date = new Date(asset.attributes['CreateDate'].text);
+                          td #{create_date.getMonth()+1}/#{create_date.getDate()}
+                          td #{asset.attributes['Status.Name'].text || '-'}
+                          td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
                           td
-                            a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'].idref}") #{asset.attributes['ChangedBy.Name'] || '-'}
+                            a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                           td
-                            a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name']}
-                    else
-                      p No defects!
+                            a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+
