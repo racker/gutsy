@@ -21,6 +21,9 @@ block content
         p.alert!=trace(burndown.get_err())
       else if burndown.get_data()
         h1 VersionOne - The Burndown
+        h3(style="margin-top: 20px;")
+          | Select project
+          select#graph-picker
         div#charts
         div(style="clear:both")
 

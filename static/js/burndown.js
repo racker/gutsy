@@ -15,7 +15,7 @@ function drawChart() {
     var i;
     var max = 0;
     var _chart;
-    var title = asset_type + " " + scope;
+    var title = scope + " " + asset_type;
     var options = {
       title: title,
       width: 550,
@@ -24,6 +24,11 @@ function drawChart() {
         title: 'days into sprint'
       },vAxis: {
         title: 'points'
+      },
+      series: {
+        "Iteration 21": {"color": "black"},
+        "Iteration 22": {"color": "black"},
+        "Iteration 23": {"color": "black"}
       }
     };
 
@@ -59,16 +64,29 @@ function drawChart() {
     _chart.draw(google.visualization.arrayToDataTable(chart), options);
   };
 
+  var select_options = {};
   if (burndown_data){
     $.each(burndown_data, function (scope, data) {
       $.each(data, function (asset_type, assets) {
         var div_id;
         var scope_name = scope.replace(/\W/g, "-").toLowerCase();
-        var arrow_html = "<h2 class='bucket' style='cursor: pointer;'><span class='arrow'>▶</span>" + asset_type + " " + scope + "</h2>";
+        select_options[scope_name] = scope;
         div_id = asset_type + "-chart-" + scope_name;
-        $("#charts").append(arrow_html + "<div id='" + div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
+        $("#charts").append("<div id='" + div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
         make_chart(asset_type, scope, assets, div_id);
       });
+    });
+    for (var key in select_options) {
+      var option = $("<option value='" + key + "'>" + select_options[key] + "</option>");
+      if (key === "total") {
+        option.attr("selected", "selected");
+      }
+      $("#graph-picker").append(option);
+    }
+    $("#graph-picker").append("<option value='burndown'>Show all</option>");
+    $("#graph-picker").change(function (event) {
+      $(".burndown-chart").hide();
+      $("." + $(this).val() + "-chart").show();
     });
   }
 
