@@ -64,9 +64,8 @@ function drawChart() {
       $.each(data, function (asset_type, assets) {
         var div_id;
         div_id = asset_type + "-chart-" + scope.replace(/\W/g, "-");
-        $("#charts").append("<div id='" + div_id +"' class='burndown-chart'></div>");
+        $("#charts").append("<div id='" + div_id +"' class='burndown-chart " + div_id + "-chart'></div>");
         make_chart(asset_type, scope, assets, div_id);
-        console.log("making chart", asset_type, scope);
       });
     });
   }
