@@ -26,9 +26,6 @@ block content
                       #{project.tags.join(' ')}
                   td(style='text-align: right;')
                     |crawled #{humane_time(last_crawl_time[project.project])}
-          #crawl-button
-            form(action='/crawl', method='POST', onsubmit='setTimeout(function (){window.location.reload();}, 1000);')
-              input(type='submit', value='Crawl all the projects')
           ul
             each uri, name in external_projects
               li
