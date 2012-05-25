@@ -45,7 +45,9 @@
     "links": {
         "Site - Example": "http://gutsy.nodejitsu.com/",
         "Chat": "irc://irc.freenode.net:4443/gutsy",
-        "Email List": "gutsy@lists.rackspace.com"
+        "Email List": "gutsy@lists.rackspace.com",
+        "Code": "https://github.com/racker/gutsy",
+        "Bug Tracker and Roadmap": "https://github.com/racker/gutsy/issues"
     },
     "dependent_services": ["highscores"],
     "environments": [
