@@ -81,6 +81,7 @@ block append css
     }
 
 block content
+  -var hosts = service_health.get_data();
   .container
     if hosts
       h3
