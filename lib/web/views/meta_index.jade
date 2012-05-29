@@ -26,6 +26,7 @@ block content
                       #{project.tags.join(' ')}
                   td(style='text-align: right;')
                     |crawled #{humane_time(last_crawl_time[project.project])}
+          hr
           ul
             each uri, name in external_projects
               li
