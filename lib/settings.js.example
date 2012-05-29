@@ -6,6 +6,11 @@ exports.devopsjson_uris = {
     "Min": "https://raw.github.com/racker/devopsjson/master/examples/example-minimum.json"
 };
 
+//exports.log_level = "debug";
+exports.log_level = "log";
+//exports.log_level = "warn";
+//exports.log_level = "error";
+
 exports.logging_ignore_paths = [
   "/static/"
 ];
