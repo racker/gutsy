@@ -2,7 +2,8 @@
 {
     rotate 5
     daily
+    maxsize 5000k
     postrotate
         /etc/init.d/gutsy restart
-   endscript
+    endscript
 }
