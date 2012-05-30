@@ -37,14 +37,14 @@ block content
                         input(type="submit", value="Save")
                     button(class="btn", value="#{project.project}") Edit
                   td(style="width: 30%")
-                    a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
+                    a(href='/p/#{project.project}', title='#{project.tags}') #{project.project}
                   td
                     #{project.description}
                   td
                     if project.tags
                       #{project.tags.join(' ')}
                   td(style='text-align: right;')
-                    |crawled #{humane_time(last_crawl_time[project.project])}
+                    |crawled #{humane_time(project.updated_at)}
           hr
           div(class="devops_url_editor", id="devops_url_editor-new-project")
             h2 Add project
