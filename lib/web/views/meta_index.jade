@@ -31,7 +31,7 @@ block content
                       h2 Edit
                       form(method="POST")
                         label(for="name") Name
-                        input(type="text", name="name", value=project.project)
+                        input(type="text", name="name", value=project.name)
                         label(for="url") URL
                         input(type="text", name="url", value=project.url)
                         input(type="submit", value="Save")
@@ -50,7 +50,7 @@ block content
             h2 Add project
             form(method="POST")
               label(for="project") Name
-              input(type="text", name="project")
+              input(type="text", name="name")
               label(for="url") URL
               input(type="text", name="url")
               input(type="submit", value="Save")
