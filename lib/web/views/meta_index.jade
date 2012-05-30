@@ -12,12 +12,6 @@ block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
   .container-fluid
-      div#devops_url_editor
-        h2 Edit
-        form(method="POST")
-          label(for="url", value="URL")
-          input(type="text", name="url")
-          input(type="submit", value="Save")
       .span12
         .well
           .hero-unit
@@ -33,6 +27,14 @@ block content
               each project in projects
                 tr
                   td
+                    div(class="devops_url_editor", id="devops_url_editor-" + project.project)
+                      h2 Edit
+                      form(method="POST")
+                        label(for="name") Name
+                        input(type="text", name="name", value=project.project)
+                        label(for="url") URL
+                        input(type="text", name="url", value=project.url)
+                        input(type="submit", value="Save")
                     button(class="btn", value="#{project.project}") Edit
                   td(style="width: 30%")
                     a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
