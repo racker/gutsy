@@ -46,6 +46,16 @@ block content
                   td(style='text-align: right;')
                     |crawled #{humane_time(last_crawl_time[project.project])}
           hr
+          div(class="devops_url_editor", id="devops_url_editor-new-project")
+            h2 Add project
+            form(method="POST")
+              label(for="project") Name
+              input(type="text", name="project")
+              label(for="url") URL
+              input(type="text", name="url")
+              input(type="submit", value="Save")
+          button(class="btn", value="new-project") Add Project
+          hr
           ul
             each uri, name in external_projects
               li
