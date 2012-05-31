@@ -35,7 +35,8 @@ block content
                         input(type="text", name="name", value=project.name)
                         label(for="url") URL
                         input(type="text", name="url", value=project.url)
-                        input(type="submit", value="Save")
+                        br
+                        input(class="btn", type="submit", value="Save")
                     button(class="btn", value="#{project.name}") Edit
                   td(style="width: 30%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
@@ -54,7 +55,8 @@ block content
               input(type="text", name="name")
               label(for="url") URL
               input(type="text", name="url")
-              input(type="submit", value="Save")
+              br
+              input(class="btn", type="submit", value="Save")
           button(class="btn", value="new-project") Add Project
           form(method="POST", action=urls.CRAWL)
             input(class="btn", type="submit", value="Crawl Projects")
