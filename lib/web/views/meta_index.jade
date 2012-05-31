@@ -19,7 +19,7 @@ block content
           table(style="width: 100%;")
             thead
               th
-              th(style="width: 30").left Projects
+              th.left Project
               th.left Description
               th.left Tags
               th.right Crawled
@@ -38,15 +38,14 @@ block content
                         br
                         input(class="btn", type="submit", value="Save")
                     button(class="btn", value="#{project.name}") Edit
-                  td(style="width: 30%")
+                  td(style="width: 25%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
                   td
                     #{project.devops.description}
                   td
                     if project.devops.tags
-                      #{project.devops.tags.join(' ')}
-                  td(style='text-align: right;')
-                    |crawled #{humane_time(project.updated_at)}
+                      #{project.devops.tags.join(', ')}
+                  td(style='text-align: right;')=humane_time(project.updated_at)
           hr
           div(class="devops_url_editor", id="devops_url_editor-new-project")
             h2 Add project
