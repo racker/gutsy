@@ -30,6 +30,7 @@ block content
                     div(class="devops_url_editor", id="devops_url_editor-" + project.name)
                       h2 Edit
                       form(method="POST")
+                        input(type="hidden", name="id", value=project.id)
                         label(for="name") Name
                         input(type="text", name="name", value=project.name)
                         label(for="url") URL
