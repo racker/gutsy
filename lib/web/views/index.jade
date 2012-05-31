@@ -7,8 +7,8 @@ block append scripts
   script(src='/static/js/contacts.js')
 
 block content
-  if project.devopsJSON_URL
-    a(href="#{project.devopsJSON_URL}")
+  if devops.devopsJSON_URL
+    a(href="#{devops.devopsJSON_URL}")
       img(style="position: absolute; top: 42px; right: 0; border: 0;", src="/static/images/edit-devops-right.png")
   #timeline
     include includes/timeline_event
@@ -17,13 +17,13 @@ block content
     .row-fluid
       .span3
         #banner-block.ablock
-          h1=project.name
-          h3=project.description
+          h1=devops.name
+          h3=devops.description
 
         #links-block.ablock
           h1 Links
           ul
-            each uri, name in project.links
+            each uri, name in devops.links
               li
                 a(href='#{uri}') #{name}
 
@@ -36,12 +36,12 @@ block content
               if pager_duty.get_err()
                 p.alert!=trace(pager_duty.get_err())
             ul
-              for team in project.contacts
+              for team in devops.contacts
                 include includes/team_contacts
 
 
       .span3
-        if project.environments.length
+        if devops.environments.length
           #environments-block.ablock
             include includes/environments
 
