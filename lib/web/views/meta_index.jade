@@ -37,6 +37,10 @@ block content
                         input(type="text", name="url", value=project.url)
                         br
                         input(class="btn", type="submit", value="Save")
+                      form(method="POST", style="text-align: right;")
+                        input(type="hidden", name="method", value="delete")
+                        input(type="hidden", name="id", value=project.id)
+                        input(class="btn btn-danger", style="align: right;", type="submit", value="Delete")
                     button(class="btn", value="#{project.name}") Edit
                   td(style="width: 25%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
