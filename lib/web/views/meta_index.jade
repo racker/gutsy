@@ -44,8 +44,8 @@ block content
                         input(type="hidden", name="method", value="delete")
                         input(type="hidden", name="id", value=project.id)
                         input(class="btn btn-danger", style="align: right;", type="submit", value="Delete")
-                  button(class="btn", value="#{project.name}") Edit
-                  td(style="width: 25%")
+                    button(class="btn", value="#{project.name}") Edit
+                  td(style="width: 15%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
                   td
                     #{project.devops.description}
