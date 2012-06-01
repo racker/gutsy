@@ -22,7 +22,7 @@ block content
               th.left Project
               th.left Description
               th.left Tags
-              th.right Crawled
+              th.right Status
             tbody
               each project in projects
                 tr
@@ -35,7 +35,7 @@ block content
                         input(type="text", name="name", value=project.name)
                         label(for="url") Devops.json URL
                         input(type="text", name="url", value=project.url)
-                        label(for="creds") External credentials
+                        label(for="creds") External credentials 
                           a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
                         textarea(name="creds")
                         br
@@ -52,7 +52,13 @@ block content
                   td
                     if project.devops.tags
                       #{project.devops.tags.join(', ')}
-                  td(style='text-align: right;')=humane_time(project.updated_at)
+                  td(style='text-align: right;')
+                    if project.crawl_error
+                      div.alert.dialog
+                        |Error #{humane_time(project.updated_at)}
+                        div(style="display: none;")=project.crawl_error
+                    else
+                      p=humane_time(project.updated_at)
           hr
           div(class="devops_url_editor", id="devops_url_editor-new-project")
             h2 Add project
