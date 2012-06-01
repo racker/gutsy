@@ -6,7 +6,9 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   $(".dialog").click(function(){
-    var node = $(this).children("div:hidden");
-    $(node).val().dialog({modal: true, width: '256px'});
+    if (!this.node) {
+      this.node = $(this).children("div:hidden");
+    }
+    $(this.node).dialog({modal: true, width: '256px'});
   });
 });
