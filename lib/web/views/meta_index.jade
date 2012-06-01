@@ -35,7 +35,7 @@ block content
                         input(type="text", name="name", value=project.name)
                         label(for="url") Devops.json URL
                         input(type="text", name="url", value=project.url)
-                        label(for="creds") External credentials 
+                        label(for="creds") External credentials
                           a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
                         textarea(name="creds")
                         br
@@ -44,7 +44,7 @@ block content
                         input(type="hidden", name="method", value="delete")
                         input(type="hidden", name="id", value=project.id)
                         input(class="btn btn-danger", style="align: right;", type="submit", value="Delete")
-                    button(class="btn", value="#{project.name}") Edit
+                  button(class="btn", value="#{project.name}") Edit
                   td(style="width: 25%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
                   td

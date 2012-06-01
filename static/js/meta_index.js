@@ -1,5 +1,5 @@
 $(document).ready(function(){
   $(".btn").click(function(){
-    $("div#devops_url_editor-" + $(this).val()).dialog({modal: true,  width: 225});
+    $("div#devops_url_editor-" + $(this).val()).dialog({modal: true, width: '256px'});
   });
 });
