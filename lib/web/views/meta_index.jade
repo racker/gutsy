@@ -31,10 +31,13 @@ block content
                       h2 Edit
                       form(method="POST")
                         input(type="hidden", name="id", value=project.id)
-                        label(for="name") Name
+                        label(for="name") Project Name
                         input(type="text", name="name", value=project.name)
-                        label(for="url") URL
+                        label(for="url") Devops.json URL
                         input(type="text", name="url", value=project.url)
+                        label(for="creds") External credentials 
+                          a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
+                        textarea(name="creds")
                         br
                         input(class="btn", type="submit", value="Save")
                       form(method="POST", style="text-align: right;")
@@ -54,10 +57,12 @@ block content
           div(class="devops_url_editor", id="devops_url_editor-new-project")
             h2 Add project
             form(method="POST")
-              label(for="project") Name
+              label(for="project") Project Name
               input(type="text", name="name")
-              label(for="url") URL
+              label(for="url") Devops.json URL
               input(type="text", name="url")
+              label(for="creds") External creds
+              input(type="text", name="creds")
               br
               input(class="btn", type="submit", value="Save")
           button(class="btn", value="new-project", style="float: left; margin-right: 10px;") Add Project
