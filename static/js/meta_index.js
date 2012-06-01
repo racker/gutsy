@@ -9,6 +9,6 @@ $(document).ready(function(){
     if (!this.node) {
       this.node = $(this).children("div:hidden");
     }
-    $(this.node).dialog({modal: true, width: '256px'});
+    $(this.node).dialog({modal: true});
   });
 });
