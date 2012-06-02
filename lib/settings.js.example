@@ -15,10 +15,6 @@ exports.logging_ignore_paths = [
   "/static/"
 ];
 
-// where the crawled devopsjson data will end up
-// on production deployments, this may need to be an absolute path
-exports.saved_crawls_path = "fixtures";
-
 // external projects
 exports.external_projects = {
     //"another project": "https://anotherproject.example.com/_dashboard"

@@ -1,5 +1,13 @@
 extends layout
 
+block append css
+  link(href="/static/css/meta_index.less", rel='stylesheet/less', type='text/css')
+
+block append scripts
+  script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
+  script(src="/static/js/meta_index.js", type="text/javascript")
+  script(src='/static/bootstrap/js/bootstrap.min.js')
+
 block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
@@ -10,27 +18,61 @@ block content
             h1 All of the Dashboards
           table(style="width: 100%;")
             thead
-              th(style="width: 30").left Projects
+              th
+              th.left Project
               th.left Description
               th.left Tags
-              th.right Crawled
+              th.right Status
             tbody
               each project in projects
                 tr
-                  td(style="width: 30%")
-                    a(href='/p/#{project.project}', title='#{project.tags}') #{project.name}
                   td
-                    #{project.description}
+                    div(class="devops_url_editor modal_dialog", id="devops_url_editor-" + project.name)
+                      h2 Edit
+                      form(method="POST")
+                        input(type="hidden", name="id", value=project.id)
+                        label(for="name") Project Name
+                        input(type="text", name="name", value=project.name)
+                        label(for="url") Devops.json URL
+                        input(type="text", name="url", value=project.url)
+                        label(for="creds") External credentials
+                          a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
+                        textarea(name="creds")
+                        br
+                        input(class="btn", name="action", type="submit", value="Save")
+                        input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
+
+                    button(class="btn", value="#{project.name}") Edit
+                  td(style="width: 15%")
+                    a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
                   td
-                    if project.tags
-                      #{project.tags.join(' ')}
+                    #{project.devops.description}
+                  td
+                    if project.devops.tags
+                      #{project.devops.tags.join(', ')}
                   td(style='text-align: right;')
-                    |crawled #{humane_time(last_crawl_time[project.project])}
+                    if project.crawl_error
+                      div.alert.dialog
+                        |Error #{humane_time(project.updated_at)}
+                        div.modal_dialog(style="display: none;")=project.crawl_error
+                    else
+                      p Crawled #{humane_time(project.updated_at)}
           hr
-          ul
-            each uri, name in external_projects
-              li
-                a(href='#{uri}') #{name}
+          div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
+            h2 Add project
+            form(method="POST")
+              label(for="project") Project Name
+              input(type="text", name="name")
+              label(for="url") Devops.json URL
+              input(type="text", name="url")
+              label(for="creds") External credentials
+                a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
+              textarea(name="creds")
+              br
+              input(class="btn", type="submit", value="Save")
+          button(class="btn", value="new-project", style="float: left; margin-right: 10px;") Add Project
+          form(method="POST", action=urls.CRAWL)
+            input(class="btn", type="submit", value="Crawl Projects")
 
         .well.sidebar-nav
           ul.nav.nav-list
@@ -38,8 +80,8 @@ block content
             each uri, name in links
               li
                 a(href='#{uri}') #{name}
+            each uri, name in external_projects
+              li
+                a(href='#{uri}') #{name}
             li
               a(href='/about') About
-
-    script(src='/static/jquery/jquery-1.7.1.min.js')
-    script(src='/static/bootstrap/js/bootstrap.min.js')
