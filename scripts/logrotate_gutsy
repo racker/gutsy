@@ -1,9 +1,8 @@
 "/var/log/gutsy/access.log" /var/log/gutsy/error.log
 {
-    rotate 5
-    daily
-    maxsize 5000k
-    postrotate
+  rotate 5
+  daily
+  postrotate
         /etc/init.d/gutsy restart
-    endscript
+   endscript
 }

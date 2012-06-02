@@ -24,7 +24,7 @@ block content
 
       div#title-maker
         h3.title.center SUBMIT A NOBLE TITLE
-        form(method="POST", action='/add-title')
+        form(method="POST", action=urls.ADD_TITLE)
           input(name="alias_display_id", type="hidden", value=alias_display_id)
           label(for="display_name") TITLE:
           input(name="display_name", type="text", value=display_name)
