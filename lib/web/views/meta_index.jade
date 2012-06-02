@@ -27,7 +27,7 @@ block content
               each project in projects
                 tr
                   td
-                    div(class="devops_url_editor", id="devops_url_editor-" + project.name)
+                    div(class="devops_url_editor modal_dialog", id="devops_url_editor-" + project.name)
                       h2 Edit
                       form(method="POST")
                         input(type="hidden", name="id", value=project.id)
@@ -54,11 +54,11 @@ block content
                     if project.crawl_error
                       div.alert.dialog
                         |Error #{humane_time(project.updated_at)}
-                        div(style="display: none;")=project.crawl_error
+                        div.modal_dialog(style="display: none;")=project.crawl_error
                     else
-                      p=humane_time(project.updated_at)
+                      p Crawled #{humane_time(project.updated_at)}
           hr
-          div(class="devops_url_editor", id="devops_url_editor-new-project")
+          div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
             h2 Add project
             form(method="POST")
               label(for="project") Project Name
