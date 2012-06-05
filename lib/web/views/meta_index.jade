@@ -52,7 +52,7 @@ block content
                       #{project.devops.tags.join(', ')}
                   td(style='text-align: right;')
                     if project.crawl_error
-                      div.alert.dialog
+                      div.alert.dialog(style="cursor: pointer;")
                         |Error #{humane_time(project.updated_at)}
                         div.modal_dialog(style="display: none;")=project.crawl_error
                     else
