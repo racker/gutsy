@@ -61,17 +61,18 @@ block content
       -var demarcator = false
 
       if notes
+        h3 #{to_revision_time} 
         if notes[0] && notes[0].merged_at > to_revision_time
           h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
-          if to_revision_time && !demarcator && to_revision_time >= note.merged_at
+          if to_revision_time && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
             h3.deploy-info
               a(href="https://"+dread_host) Deployed #{humane_time(to_revision_time)}
               -demarcator = true;
 
           div.note
             p.title
-              =note.title
+              =note.merged_at
               | <nbsp/> -
               =humane_time(note.merged_at)
               | <nbsp/>
