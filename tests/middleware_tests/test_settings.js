@@ -1,7 +1,7 @@
 var settings = require('settings');
 var load_devops = require('../../lib/web/load_devops');
 var _ = require('underscore');
-var utils = require('utils/common');
+var utils = require('utils').common;
 var path = require('path');
 
 

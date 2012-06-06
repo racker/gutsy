@@ -1,4 +1,4 @@
-var utils = require('../lib/utils/common');
+var utils = require('../lib/utils').common;
 var settings = require('../lib/settings');
 var middleware = require('../lib/web/middleware');
 

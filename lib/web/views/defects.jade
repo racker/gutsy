@@ -75,5 +75,4 @@ block content
                           td
                             a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                           td
-                            a(href=utils.v1_id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
-
+                            a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
