@@ -61,7 +61,7 @@ block content
       -var demarcator = false
 
       if notes
-        if notes[0] && notes[0].merged_at > to_revision_time
+        if notes[0] && notes[0].merged_at > (to_revision_time + 5000)
           h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
           if to_revision_time && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
