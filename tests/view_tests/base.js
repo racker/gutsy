@@ -2,7 +2,7 @@ var path = require('path');
 var jade = require('jade');
 var middleware = require('web/middleware');
 var _ = require('underscore');
-var utils = require('utils');
+var utils = require('utils/common');
 var async = require('async');
 
 /**

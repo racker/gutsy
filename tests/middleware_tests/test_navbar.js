@@ -1,5 +1,5 @@
 var middleware = require('web/middleware');
-var utils = require('utils');
+var utils = require('utils/common');
 var path = require('path');
 var async = require('async');
 
