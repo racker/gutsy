@@ -1,18 +1,17 @@
 {
-    "maxerr"        : 100,
-    "node"          : true,
     "curly"         : true,
     "eqeqeq"        : true,
-    "latedef"       : false,
-    "undef"         : true,
-    "newcap"        : true,
-    "nonew"         : true,
-    "onevar"        : false,
-    "trailing"      : true,
-    "white"         : false,
-    "sub"           : true,
-    "evil"          : true,
     "es5"           : true,
-    "onecase"       : true
+    "latedef"       : false,
+    "loopfunc"      : true,
+    "maxerr"        : 100,
+    "newcap"        : false,
+    "node"          : true,
+    "nonew"         : true,
+    "onecase"       : false,
+    "onevar"        : false,
+    "sub"           : true,
+    "trailing"      : true,
+    "undef"         : true,
+    "white"         : false
 }
-
