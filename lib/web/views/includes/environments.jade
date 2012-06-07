@@ -1,11 +1,10 @@
 .environment
   h1 Environments
-  ul
     for environ in devops.environments
-      li #{environ.type}
-        ul
-          li #{environ.platforms} #{environ.regions}
-          if environ.url.auth
-            li <a href=#{environ.url.auth.username}:#{environ.url.auth.username}@#{environ.url.url} >#{environ.url.url}</a>
-          else
-            a(href='#{environ.url.url}') #{environ.url.url}
+      h4 #{environ.type} 
+      h6 #{environ.platforms} #{environ.regions}
+      if environ.links
+        ul 
+          for link,name in environ.links
+            li
+              a(href=link) #{name}
