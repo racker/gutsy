@@ -29,6 +29,8 @@ block append scripts
       $('select#filter-health').val('#{health.unhealthy}');
       update_table('#{health.unhealthy}');
     });
+});
+
 
 block append css
   link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
@@ -37,12 +39,10 @@ block append css
     .health-healthycolor {
       background-color: green;
       font-size: 300%;
-      text-align: center;
     }
     .health-unhealthycolor {
       background-color: red;
       font-size: 300%;
-      text-align: center;
     }
     table.table .table-hack{
       margin: 0; padding: 0; line-height: 0; height: 0; border: 0 none; empty-cells: hide;
@@ -59,7 +59,7 @@ block content
           option(class='all')='All'
           option(class='#{health.healthy}')='Healthy'
           option(class='#{health.unhealthy}')='Unhealthy'
-     section(id='services')     
+    section(id='services')
       div.page-header
         h1 Services
       table.table.table-bordered.table-sort#service-stats
@@ -78,8 +78,8 @@ block content
               - var service_error_msg = service.error_msg
               - var service_metrics = service.metrics
               - var service_id = host.service_name.replace(/\./g,'\_')
-                tr(class=service_health, data-toggle='collapse', data-target='#'+service_id+service.service)
-                  td(class=service_health+'color')=(service.health ? '☺' : '☹')
+                tr(class=service_health+' data-row', data-toggle='collapse', data-target='#'+service_id+service.service)
+                  td(class=service_health+'color', style='text-align: center')=(service.health ? '☺' : '☹')
                   td
                     button.btn.btn-info
                       =host.service_name
@@ -89,7 +89,7 @@ block content
                     =service.service
                   td=host.ip
                   td=humane_time(host.time)
-                tr
+                tr(class=service_health+' data-row')
                  td(colspan=6)
                     if service_metrics || service_error_msg
                       div(id=service_id+service.service, class='collapse')
@@ -129,8 +129,8 @@ block content
           for host in hosts
             - var host_name = host.service_name;
             - var host_health = host.healthy ? health.healthy : health.unhealthy
-            tr
-              td(class=host_health+'color host-row', style='text-align: center;')=(host.healthy ? '☺' : '☹')
+            tr(class=host_health+' host-row data-row')
+              td(class=host_health+'color', style='text-align: center;')=(host.healthy ? '☺' : '☹')
               td
                 a(name="host-name-"+host_name)=host_name
               td(colspan=2)
