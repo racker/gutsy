@@ -28,12 +28,9 @@ block append scripts
       });
       $('select#filter-health').val('#{health.unhealthy}');
       update_table('#{health.unhealthy}');
-      $('.service-row').click(function() {
-        $(this).children().children('.metric_data').toggleClass('hidden');
-      });
     });
     $(function() {
-      $("table.table-stats").tablesorter();
+      $("table.table-sort").tablesorter();
     });
 
 block append css
@@ -64,9 +61,9 @@ block content
           option(class='#{health.healthy}')='Healthy'
           option(class='#{health.unhealthy}')='Unhealthy'
      section(id='services')     
-      h1 Services
-      hr
-      table.table.table-bordered#service-stats.sortable
+      div.page-header
+        h1 Services
+      table.table.table-bordered.table-sort#service-stats
         thead
           tr#header
             th Health
@@ -77,39 +74,39 @@ block content
             th Last Updated
         tbody
           for host in hosts
-            for service,name in host.services
+            for service, name in host.services
               - var service_color = service.healthy ? health.healthy : health.unhealthy
-              tr
-                td(class=service_color+' data-row service-row', style='text-align: center;')=(service.healthy ? '☺' : '☹')
-                  div.metric_data.hidden
-                    - var service_error_msg = service.error_msg
-                    - var service_metrics = service.metrics
+              - var service_error_msg = service.error_msg
+              - var service_metrics = service.metrics
+                tr
+                  td(class=service_color+' data-row', style='text-align: center;')=(service.healthy ? '☺' : '☹')
+                  td
+                    button(data-toggle='collapse', data-target='#'+service.service+'_metric_data').btn.btn-info
+                      =service.service
+                  td
+                    a(name=host.service_name+'_'+name)=host.service_name
+                  td
+                    a(href='#host-name-'+host.service_name)=host.service_name
+                  td=host.ip
+                  td=humane_time(host.time)
+                tr
+                 td(colspan=6)
                     if service_metrics || service_error_msg
-                      table.table
-                        thead
-                          tr
-                            th name
-                            th value
-                        tbody
-                          if service_error_msg
+                      div(id=service.service+'_metric_data', class='collapse')
+                        table.table
+                          thead
                             tr
-                              td.alert-danger(colspan=2)=service_error_msg
-                          if service_metrics
-                            for metric in service_metrics
+                              th Name
+                              th Value
+                          tbody
+                            if service_error_msg
                               tr
-                                td=metric.name
-                                td=metric.value
-                
-                td=service.service
-
-                td
-                  a(name=host.service_name+'_'+name)=host.service_name
-                td
-                  a(href="#host-name-"+host.service_name)=host.service_name
-                td=host.ip
-                
-                td=humane_time(host.time)
-
+                                td.alert-danger(colspan=2)=service_error_msg
+                            if service_metrics
+                              for metric in service_metrics
+                                tr
+                                  td=metric.name
+                                  td=metric.value
           tr(class="table-hack")
             td(class="table-hack")
             td(class="table-hack")
@@ -118,9 +115,9 @@ block content
             td(class="table-hack")
             td(class="table-hack")
     section(id='hosts')
-      h1 Hosts
-      hr
-      table.table.table-bordered#host-stats.sortable
+      div.page-header
+        h1 Hosts
+      table.table.table-bordered.table-sort#host-stats
         thead
           tr#header
             th Health
@@ -145,7 +142,6 @@ block content
                 | ]
               td=host.ip
               td=humane_time(host.time)
-
           tr(class="table-hack")
             td(class="table-hack")
             td(class="table-hack")
