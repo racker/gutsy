@@ -61,44 +61,44 @@ block content
       -var demarcator = false
 
       if notes
-        if notes[0] && notes[0].merged_at > to_revision_time
+        if notes[0] && notes[0].merged_at > (to_revision_time + 5000)
           h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
-          if to_revision_time && !demarcator && to_revision_time >= note.merged_at
+          if to_revision_time && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
             h3.deploy-info
-              a(href="https://"+dread_host) Deployed #{humane_time(to_revision_time)}
+              a(href=dreadnot_deploy_href) Deployed #{humane_time(dreadnot_deploy_time)}
               -demarcator = true;
 
           div.note
             p.title
               =note.title
               | <nbsp/> -
-              =humane_time(note.merged_at)
+              =humane_time(note.merged_at || note.v1.change_date)
               | <nbsp/>
-              if note.v1_type
+              if note.v1.type
                 |  -
                 | <nbsp/>
-                #{note.v1_type}
+                #{note.v1.type}
             div.body
               !{markdown(note.body)}
               if note.v1.error
                 !{trace(note.v1.error)}
-              if note.v1.data
-                !{note.v1.data}
+              if note.v1.body
+                !{note.v1.body}
               p.links
-                | - merged
-                nbsp
-                i=format_time(note.merged_at)
-                | <nbsp/>
-                a(href=note.get_github_href()) on github
-                if note.get_v1_href()
+                if note.merged_at !== undefined
+                  | - merged
+                  nbsp
+                  i=format_time(note.merged_at)
+                  | <nbsp/>
+                  a(href=note.github_pr_href) on github
+                if note.v1.id !== undefined
                   br
                   | - created
                   nbsp
-                  i=format_time(note.v1.date)
+                  i=format_time(note.v1.create_date)
                   | <nbsp/>
-                  a(href=note.get_v1_href()) on V1
-
+                  a(href=v1.id_to_url(version_one.get_config(), note.v1.id)) on V1
 
       -var start = start;
       -var end = end;
