@@ -66,7 +66,7 @@ block content
         each note in notes
           if to_revision_time && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
             h3.deploy-info
-              a(href="https://"+dread_host) Deployed #{humane_time(to_revision_time)}
+              a(href=dreadnot_deploy_href) Deployed #{humane_time(dreadnot_deploy_time)}
               -demarcator = true;
 
           div.note
