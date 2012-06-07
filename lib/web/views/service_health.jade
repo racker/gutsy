@@ -78,42 +78,42 @@ block content
               - var service_error_msg = service.error_msg
               - var service_metrics = service.metrics
               - var service_id = host.service_name.replace(/\./g,'\_')
-                tr(class=service_health+' data-row', data-toggle='collapse', data-target='#'+service_id+service.service)
-                  td(class=service_health+'color', style='text-align: center')=(service.health ? '☺' : '☹')
-                  td
-                    button.btn.btn-info
-                      =host.service_name
-                  td
-                    a(href='#host-name-'+host.service_name)=host.service_name
-                  td
-                    =service.service
-                  td=host.ip
-                  td=humane_time(host.time)
-                tr(class=service_health+' data-row')
-                 td(colspan=6)
-                    if service_metrics || service_error_msg
-                      div(id=service_id+service.service, class='collapse')
-                        table.table
-                          thead
+              tr(class=service_health+' data-row', data-toggle='collapse', data-target='#'+service_id+service.service)
+                td(class=service_health+'color', style='text-align: center')=(service.healthy ? '☺' : '☹')
+                td
+                  button.btn.btn-info
+                    =host.service_name
+                td
+                  a(href='#host-name-'+host.service_name)=host.service_name
+                td
+                  =service.service
+                td=host.ip
+                td=humane_time(host.time)
+              tr(class=service_health+' data-row')
+               td(colspan=6)
+                  if service_metrics || service_error_msg
+                    div(id=service_id+service.service, class='collapse')
+                      table.table
+                        thead
+                          tr
+                            th Name
+                            th Value
+                        tbody
+                          if service_error_msg
                             tr
-                              th Name
-                              th Value
-                          tbody
-                            if service_error_msg
+                              td.alert-danger(colspan=2)=service_error_msg
+                          if service_metrics
+                            for metric in service_metrics
                               tr
-                                td.alert-danger(colspan=2)=service_error_msg
-                            if service_metrics
-                              for metric in service_metrics
-                                tr
-                                  td=metric.name
-                                  td=metric.value
-          tr(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
+                                td=metric.name
+                                td=metric.value
+              tr(class="table-hack")
+                td(class="table-hack")
+                td(class="table-hack")
+                td(class="table-hack")
+                td(class="table-hack")
+                td(class="table-hack")
+                td(class="table-hack")
     section(id='hosts')
       div.page-header
         h1 Hosts
@@ -142,10 +142,10 @@ block content
                 | ]
               td=host.ip
               td=humane_time(host.time)
-          tr(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
-            td(class="table-hack")
+            tr(class="table-hack")
+              td(class="table-hack")
+              td(class="table-hack")
+              td(class="table-hack")
+              td(class="table-hack")
+              td(class="table-hack")
+              td(class="table-hack")
