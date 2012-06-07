@@ -34,16 +34,18 @@ block append css
   link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
   link(href='/static/css/service_health.less', rel='stylesheet/less', type='text/css')
   style(type="text/css")
-    .#{health.healthy}{
+    .health-healthycolor {
       background-color: green;
-      font-size: 200%;
+      font-size: 300%;
+      text-align: center;
     }
-    .#{health.unhealthy}{
+    .health-unhealthycolor {
       background-color: red;
-      font-size: 200%;
+      font-size: 300%;
+      text-align: center;
     }
     table.table .table-hack{
-      margin: 0; padding: 0; line-height: 0; height: 0; border: 0 none;
+      margin: 0; padding: 0; line-height: 0; height: 0; border: 0 none; empty-cells: hide;
     }
 
    
@@ -72,12 +74,12 @@ block content
         tbody
           for host in hosts
             for service, name in host.services
-              - var service_color = service.healthy ? health.healthy : health.unhealthy
+              - var service_health = service.healthy ? health.healthy : health.unhealthy
               - var service_error_msg = service.error_msg
               - var service_metrics = service.metrics
               - var service_id = host.service_name.replace(/\./g,'\_')
-                tr(data-toggle='collapse', data-target='#'+service_id+service.service)
-                  td(class=service_color, style='text-align: center;')=(service.healthy ? '☺' : '☹')
+                tr(class=service_health, data-toggle='collapse', data-target='#'+service_id+service.service)
+                  td(class=service_health+'color')=(service.health ? '☺' : '☹')
                   td
                     button.btn.btn-info
                       =host.service_name
@@ -126,9 +128,9 @@ block content
         tbody
           for host in hosts
             - var host_name = host.service_name;
-            - var host_color = host.healthy ? health.healthy : health.unhealthy
+            - var host_health = host.healthy ? health.healthy : health.unhealthy
             tr
-              td(class=host_color+' data-row host-row', style='text-align: center;')=(host.healthy ? '☺' : '☹')
+              td(class=host_health+'color host-row', style='text-align: center;')=(host.healthy ? '☺' : '☹')
               td
                 a(name="host-name-"+host_name)=host_name
               td(colspan=2)
