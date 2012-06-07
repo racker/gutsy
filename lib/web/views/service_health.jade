@@ -26,8 +26,6 @@ block append scripts
         var to_filter = $(option).attr('class');
         update_table(to_filter);
       });
-      $('select#filter-health').val('#{health.unhealthy}');
-      update_table('#{health.unhealthy}');
     });
 });
 
