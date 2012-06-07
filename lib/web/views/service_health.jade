@@ -29,9 +29,6 @@ block append scripts
       $('select#filter-health').val('#{health.unhealthy}');
       update_table('#{health.unhealthy}');
     });
-    $(function() {
-      $("table.table-sort").tablesorter();
-    });
 
 block append css
   link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
@@ -67,9 +64,9 @@ block content
         thead
           tr#header
             th Health
-            th Type
             th Name
             th Host
+            th Type
             th IP Address
             th Last Updated
         tbody
@@ -78,21 +75,22 @@ block content
               - var service_color = service.healthy ? health.healthy : health.unhealthy
               - var service_error_msg = service.error_msg
               - var service_metrics = service.metrics
-                tr
-                  td(class=service_color+' data-row', style='text-align: center;')=(service.healthy ? '☺' : '☹')
+              - var service_id = host.service_name.replace(/\./g,'\_')
+                tr(data-toggle='collapse', data-target='#'+service_id+service.service)
+                  td(class=service_color, style='text-align: center;')=(service.healthy ? '☺' : '☹')
                   td
-                    button(data-toggle='collapse', data-target='#'+service.service+'_metric_data').btn.btn-info
-                      =service.service
-                  td
-                    a(name=host.service_name+'_'+name)=host.service_name
+                    button.btn.btn-info
+                      =host.service_name
                   td
                     a(href='#host-name-'+host.service_name)=host.service_name
+                  td
+                    =service.service
                   td=host.ip
                   td=humane_time(host.time)
                 tr
                  td(colspan=6)
                     if service_metrics || service_error_msg
-                      div(id=service.service+'_metric_data', class='collapse')
+                      div(id=service_id+service.service, class='collapse')
                         table.table
                           thead
                             tr
@@ -117,7 +115,7 @@ block content
     section(id='hosts')
       div.page-header
         h1 Hosts
-      table.table.table-bordered.table-sort#host-stats
+      table.table.table-bordered#host-stats
         thead
           tr#header
             th Health
