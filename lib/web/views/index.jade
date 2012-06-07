@@ -28,16 +28,14 @@ block content
                 a(href='#{uri}') #{name}
 
       .span3
-        #contacts-block.ablock
-          h1 Contacts
-            span#contacts-plus \u25B6
+        .ablock#contacts-block
+          h1#contacts-header Contacts \u25B6
           .contacts
             if pager_duty
               if pager_duty.get_err()
                 p.alert!=trace(pager_duty.get_err())
-            ul
-              for team in devops.contacts
-                include includes/team_contacts
+            for team in devops.contacts
+              include includes/team_contacts
 
 
       .span3
