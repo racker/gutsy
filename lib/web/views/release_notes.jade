@@ -2,11 +2,8 @@ extends layout
 
 block append css
   | <style type="text/css">
-  | #notes-form input{
-  |   width: 300px;
-  | }
-  | #notes-form .form-submit {
-  |   margin-left: 50px;
+  | #notes-form input[type=text]{
+  |   width: 200px;
   | }
   | .note{
   |   border-bottom: 1px dashed #ddd;
@@ -30,30 +27,29 @@ block append css
   |   font-weight: bold;
   | }
   | h3.deploy-info{
-  |   color: #f00;
-  |   background-color: #ffdfdf;
+  |   background-color: #e2ffdf;
   |   padding: 10px;
-  |   border: 1px solid #f00;
+  |   border: 2px solid rgba(173, 0, 255, 0.51);
   | }
   | </style>
 
 block content
   .container
     .content
-      h1 Release Notes
+      h1
+        a(href="?") Release Notes
 
       -var errors = errors
       if (errors)
         p.alert!=trace(errors)
-
+      hr
       p
-        | This will take some time, be patient.  The dates can be anyting that new Date() will parse and are inclusive.
+        | NOTE: gutsy stops looking at pull requests when they were created one month before the start date since github returns pull requests in order of creation and doesn't allow filtering of any sort.
 
       -var id = "notes-form"
       include includes/time_form
-
       p
-        | NOTE: gutsy stops looking at pull requests when they were created one month before the start date since github returns pull requests in order of creation and doesn't allow filtering of any sort.
+        | This will take some time, be patient.  The dates can be anyting that new Date() will parse and are inclusive.
 
       hr(style="margin-top: 20px; margin-bottom: 10px;")
 
@@ -64,21 +60,23 @@ block content
         if notes[0] && notes[0].merged_at > (to_revision_time + 5000)
           h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
-          if to_revision_time && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
+          if to_revision_time && note.merged_at && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
             h3.deploy-info
               a(href=dreadnot_deploy_href) Deployed #{humane_time(dreadnot_deploy_time)}
               -demarcator = true;
 
           div.note
             p.title
-              =note.title
-              | <nbsp/> -
-              =humane_time(note.merged_at || note.v1.change_date)
-              | <nbsp/>
+              if note.merged_at !== undefined
+                a(href=note.github_pr_href)=note.title
+              else
+                #{note.title}
+              |  → <nbsp/>
               if note.v1.type
-                |  -
-                | <nbsp/>
-                #{note.v1.type}
+                a(href=v1.id_to_url(version_one.get_config(), note.v1.id))
+                  | V1 #{note.v1.type}
+                | →
+              =humane_time(note.merged_at || note.v1.change_date)
             div.body
               !{markdown(note.body)}
               if note.v1.error
@@ -86,19 +84,17 @@ block content
               if note.v1.body
                 !{note.v1.body}
               p.links
-                if note.merged_at !== undefined
-                  | - merged
-                  nbsp
-                  i=format_time(note.merged_at)
-                  | <nbsp/>
-                  a(href=note.github_pr_href) on github
-                if note.v1.id !== undefined
-                  br
-                  | - created
-                  nbsp
-                  i=format_time(note.v1.create_date)
-                  | <nbsp/>
-                  a(href=v1.id_to_url(version_one.get_config(), note.v1.id)) on V1
+                ul
+                  if note.merged_at !== undefined
+                    li
+                      |merged
+                      i=format_time(note.merged_at)
+                      |  on github
+                  if note.v1.id !== undefined
+                    li
+                      |created
+                      i=format_time(note.v1.create_date)
+                      |  on V1
 
       -var start = start;
       -var end = end;
