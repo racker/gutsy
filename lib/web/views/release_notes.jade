@@ -2,7 +2,7 @@ extends layout
 
 block append css
   | <style type="text/css">
-  | #notes-form input{
+  | #notes-form input[type=text]{
   |   width: 300px;
   | }
   | #notes-form .form-submit {
@@ -40,7 +40,8 @@ block append css
 block content
   .container
     .content
-      h1 Release Notes
+      h1
+        a(href="?") Release Notes
 
       -var errors = errors
       if (errors)
