@@ -3,6 +3,7 @@
 -var end = end;
 -var label_start = label_start
 -var label_end = label_end
+-var time_title = time_title
 script
   function flash_input(time) {
     $('#start').val(time);
@@ -12,6 +13,8 @@ script
   }
 div
   form(method="GET", id=id, class="time-form")
+    if time_title
+      h2=time_title
     div
       label(for="start")
         if label_start
