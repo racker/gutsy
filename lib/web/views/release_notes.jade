@@ -29,7 +29,7 @@ block append css
   | h3.deploy-info{
   |   background-color: #e2ffdf;
   |   padding: 10px;
-  |   border: 1px solid rgba(173, 0, 255, 0.51);
+  |   border: 2px solid rgba(173, 0, 255, 0.51);
   | }
   | </style>
 
@@ -61,14 +61,17 @@ block content
         if notes[0] && notes[0].merged_at > (to_revision_time + 5000)
           h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
-          if to_revision_time && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
+          if to_revision_time && note.merged_at && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
             h3.deploy-info
               a(href=dreadnot_deploy_href) Deployed #{humane_time(dreadnot_deploy_time)}
               -demarcator = true;
 
           div.note
             p.title
-              a(href=note.github_pr_href)=note.title
+              if note.merged_at !== undefined
+                a(href=note.github_pr_href)=note.title
+              else
+                #{note.title}
               |  → <nbsp/>
               if note.v1.type
                 a(href=v1.id_to_url(version_one.get_config(), note.v1.id))
