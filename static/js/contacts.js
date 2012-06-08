@@ -31,21 +31,21 @@ $(document).ready(function() {
     });
   });
 
-  var contacts_plus = $("#contacts-plus");
-  contacts_plus.css("cursor", "pointer");
-  contacts_plus.css("padding", "5px");
-  contacts_plus.click(function() {
-    var contact = $(this).parent().next().children().children().children().children();
+  var contacts_header = $("#contacts-header");
+  contacts_header.css("cursor", "pointer");
+  contacts_header.css("padding", "5px");
+  contacts_header.click(function() {
+    var contact = $(this).next().children().children();
     var infos = contact.children("ul");
     var plus = contact.children(".plus");
-    if ($(this).text() === "\u25B6") {
+    if ($(this).text() === "Contacts \u25B6") {
       infos.css("display", "block");
       plus.text("\u25BC");
-      $(this).text("\u25BC");
+      $(this).text("Contacts \u25BC");
     } else {
       infos.css("display", "none");
       plus.text("\u25B6");
-      $(this).text("\u25B6");
+      $(this).text("Contacts \u25B6");
     }
   });
 });

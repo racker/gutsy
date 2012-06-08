@@ -8,16 +8,14 @@
       p
         b #{stack.name}:
         br
+        | Deploy
         if stack.deploy.finished
-          |  finished
+          if stack.deploy.success
+            | succeeded
+          else
+            | FAILED
         else
-          |  didn't finish
-        | and
-        if stack.deploy.success
-          | succeeded
-        else
-          | didn't succeed
-        | deploy
+          | in progress
         a(href="https://"+dreadnot.get_config().host+'/stacks/'+stack.name+'/regions/'+stack.deploy.region+'/deployments/'+stack.deploy.name)=stack.deploy.name
         |  #{humane_time(stack.deploy.time)}
         |  in #{stack.deploy.region}
