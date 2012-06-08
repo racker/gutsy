@@ -5,7 +5,10 @@
 -var label_end = label_end
 script
   function flash_input(time) {
-    $('#start').val(time);$('#start').focus();
+    $('#start').val(time);
+    $('#start').animate({'opacity': 0.0}, 100, function () {
+      $('#start').animate({'opacity': 1.0}, {duration: 100});
+    });
   }
 div
   form(method="GET", id=id, class="time-form")
@@ -34,6 +37,5 @@ div
     input(type="button", class="btn-info time-button", onclick="flash_input('#{start}')", value="Past 24 hours")
     -start = moment(end).subtract('days', 7).toDate().toISOString()
     input(type="button", class="btn-info time-button", onclick="flash_input('#{start}')", value="Past week")
-    -start = moment(end).subtract('month', 1).toDate().toISOString()
+    -start = moment(end).subtract('months', 1).toDate().toISOString()
     input(type="button", class="btn-info time-button", onclick="flash_input('#{start}')", value="Past month")
-
