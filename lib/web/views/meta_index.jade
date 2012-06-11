@@ -61,10 +61,10 @@ block content
                                 -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
                                 label(for=field_name)
                                   | #{api_name} #{field}
+                                  a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
+                                  br
                                 -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
                                 input(type="text", name=field_name, value=value)
-                          a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
-                          br
                         input(class="btn", name="action", type="submit", value="Save")
                         input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
 
