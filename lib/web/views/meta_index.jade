@@ -5,22 +5,25 @@ block append css
 
 block append scripts
   script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
-  script(src="/static/js/meta_index.js", type="text/javascript")
   script(src='/static/bootstrap/js/bootstrap.min.js', type="text/javascript")
   script(type="text/javascript")
     $(document).ready(function(){
       var edit_project = #{req.query.edit_project || "undefined"};
+      var dialog_open = false;
 
       $(".btn").click(function(){
-        $("div#devops_url_editor-" + $(this).val()).dialog({modal: true, width: '256px'});
+        if (!dialog_open) {
+          $("div#devops_url_editor-" + $(this).val()).dialog({modal: true,
+            width: '256px',
+            close: function() {
+              dialog_open = false;
+            },
+            closeOnEscape: true
+          });
+          dialog_open = true;
+        }
       });
 
-      $(".dialog").click(function(){
-        if (!this.node) {
-          this.node = $(this).children("div:hidden");
-        }
-        $(this.node).dialog({modal: true});
-      });
       if (edit_project !== undefined){
         $('#project-'+edit_project).click();
       }
