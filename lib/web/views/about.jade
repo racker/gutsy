@@ -20,7 +20,66 @@ block content
 
       a(name="service-health")
       h2 Service health
-      p To add service health, simply post the following JSON to gutsy.k1k.me/api/project/servicehealth
+      p To add service health, simply post JSON to
+        pre http://gutsy.k1k.me/p/project_name/api
+
+      p It should have this structure:
+
+      pre
+        |{
+        |    "service-1": {
+        |        "healthy": true,
+        |        "metrics": [{
+        |            "type": "int",
+        |            "name": "call_provider_method_calls_pending",
+        |            "value": 0
+        |        },
+        |        {
+        |            "type": "gauge",
+        |            "name": "call_provider_method_calls_total",
+        |            "value": 1081
+        |        },
+        |        {
+        |            "type": "float",
+        |            "name": "call_provider_method_time_ms_avg",
+        |            "value": 1466.1632126729648
+        |        },
+        |        {
+        |            "comment": "received data/heartbeat within interval",
+        |            "type": "boolean",
+        |            "name": "rabbitmq.consuming",
+        |            "value": true
+        |        }],
+        |        "state_from_metrics": ["rabbitmq.consuming"],
+        |        "service": "service_category"
+        |    },
+        |    "stats_proxy": {
+        |        "healthy": true,
+        |        "metrics": [{
+        |            "type": "int",
+        |            "name": "gutsy_stats_post_fail",
+        |            "value": 4
+        |        },
+        |        {
+        |            "type": "int",
+        |            "name": "gutsy_stats_post_success",
+        |            "value": 137
+        |        },
+        |        {
+        |            "type": "float",
+        |            "name": "uptime",
+        |            "value": 8460.4172270298
+        |        },
+        |        {
+        |            "comment": "ok",
+        |            "type": "boolean",
+        |            "name": "ok",
+        |            "value": true
+        |        }],
+        |        "state_from_metrics": ["ok"],
+        |        "service": "stats_proxy"
+        |    }
+        |}
 
       a(name="creds")
       h2 External credentials
