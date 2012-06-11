@@ -46,7 +46,7 @@ block append css
       margin: 0; padding: 0; line-height: 0; height: 0; border: 0 none; empty-cells: hide;
     }
 
-   
+
 block content
   -var hosts = service_health.get_data();
   .container
@@ -77,7 +77,7 @@ block content
               - var service_metrics = service.metrics
               - var service_id = host.service_name.replace(/\./g,'\_')
               tr(class=service_health+' data-row', data-toggle='collapse', data-target='#'+service_id+service.service)
-                td(class=service_health+'color', style='text-align: center')=(service.healthy ? '☺' : '☹')
+                td(class=service_health+'color', style='text-align: center; line-height: 25px;')=(service.healthy ? '☺' : '☹')
                 td
                   button.btn.btn-info
                     =host.service_name

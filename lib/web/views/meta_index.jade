@@ -6,8 +6,25 @@ block append css
 block append scripts
   script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
   script(src="/static/js/meta_index.js", type="text/javascript")
-  script(src='/static/bootstrap/js/bootstrap.min.js')
+  script(src='/static/bootstrap/js/bootstrap.min.js', type="text/javascript")
+  script(type="text/javascript")
+    $(document).ready(function(){
+      var edit_project = #{req.query.edit_project || "undefined"};
 
+      $(".btn").click(function(){
+        $("div#devops_url_editor-" + $(this).val()).dialog({modal: true, width: '256px'});
+      });
+
+      $(".dialog").click(function(){
+        if (!this.node) {
+          this.node = $(this).children("div:hidden");
+        }
+        $(this.node).dialog({modal: true});
+      });
+      if (edit_project !== undefined){
+        $('#project-'+edit_project).click();
+      }
+    });
 block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
@@ -42,7 +59,7 @@ block content
                         input(class="btn", name="action", type="submit", value="Save")
                         input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
 
-                    button(class="btn", value="#{project.name}") Edit
+                    button(class="btn", value="#{project.name}", id="project-#{project.id}") Edit
                   td(style="width: 15%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
                   td
