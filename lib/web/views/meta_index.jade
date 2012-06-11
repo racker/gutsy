@@ -54,7 +54,7 @@ block content
                         label(for="url") Devops.json URL
                         input(type="text", name="url", value=project.url)
                         -var devops_json = JSON.parse(project.devops_json)
-                        if devops_json.related_apis
+                        if devops_json && devops_json.related_apis
                           for api,api_name in devops_json.related_apis
                             for value,field in api
                               if value === constants.EXTERNAL_TOKEN
