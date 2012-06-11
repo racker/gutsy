@@ -55,11 +55,11 @@ block content
                         input(type="text", name="url", value=project.url)
                         for api,api_name in JSON.parse(project.devops_json).related_apis
                           for value,field in api
-                            if value === "__external__"
-                              -var field_name="external_cred" + "▼" + api_name + "▼" + field;
+                            if value === constants.EXTERNAL_TOKEN
+                              -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
                               label(for=field_name)
                                 | #{api_name} #{field}
-                              -var value=project.devops.related_apis[api_name][field] == "__external__" ? '' : "**********"
+                              -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
                               input(type="text", name=field_name, value=value)
                         a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
                         br
