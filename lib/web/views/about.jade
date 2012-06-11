@@ -18,6 +18,11 @@ block content
 
       p Please send questions and feedback to <a href="mailto:gutsy@lists.rackspace.com">gutsy@lists.rackspace.com</a>.
 
+      a(name="creds")
+      h2 External credentials
+      p If your devops.json is publicly viewable, you can hide sensitive information such as credentials by setting their values to "#{constants.EXTERNAL_TOKEN}". To enter credentials into Gutsy, simply edit your project and fill in the field.
+      p This field is write-only. It will always be asterisks if you edit it.
+
       a(name="service-health")
       h2 Service health
       p To add service health, simply post JSON to
@@ -81,29 +86,3 @@ block content
         |    }
         |}
 
-      a(name="creds")
-      h2 External credentials
-      p This field is not required, but it's useful if your devops.json is publicly viewable. A public devops.json can't contain sensitive information such as credentials.  To enter credentials into Gutsy, simply edit your project and toss some JSON in the credentials field.
-        img(src="/static/images/example_creds.png", style="float: right;")
-        br
-        | Here's some example JSON to make editing easier:
-      pre(style="width: 50%;")
-        |{
-        |    "new_relic": {
-        |        "apikey": "1234567890234567",
-        |        "accountId": "12345",
-        |        "appid": "1234567"
-        |    }
-        |    "version_one": {
-        |        "host": "www42.v1host.com",
-        |        "port": 443,
-        |        "name": "COMPANY",
-        |        "project": [2501],
-        |        "auth": "Username:password"
-        |    },
-        |    "github": {
-        |      "username": "username",
-        |      "apikey": "1234567890abc"
-        |    }
-        |}
-      p This field is write-only. It will always be blank if you edit the project.

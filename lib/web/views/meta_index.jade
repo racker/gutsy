@@ -5,9 +5,29 @@ block append css
 
 block append scripts
   script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
-  script(src="/static/js/meta_index.js", type="text/javascript")
-  script(src='/static/bootstrap/js/bootstrap.min.js')
+  script(src='/static/bootstrap/js/bootstrap.min.js', type="text/javascript")
+  script(type="text/javascript")
+    $(document).ready(function(){
+      var edit_project = #{req.query.edit_project || "undefined"};
+      var dialog_open = false;
 
+      $(".btn").click(function(){
+        if (!dialog_open) {
+          $("div#devops_url_editor-" + $(this).val()).dialog({modal: true,
+            width: '256px',
+            close: function() {
+              dialog_open = false;
+            },
+            closeOnEscape: true
+          });
+          dialog_open = true;
+        }
+      });
+
+      if (edit_project !== undefined){
+        $('#project-'+edit_project).click();
+      }
+    });
 block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
@@ -31,18 +51,27 @@ block content
                       h2 Edit
                       form(method="POST")
                         input(type="hidden", name="id", value=project.id)
+                        input(type="hidden", name="old_name", value=project.name)
                         label(for="name") Project Name
                         input(type="text", name="name", value=project.name)
                         label(for="url") Devops.json URL
                         input(type="text", name="url", value=project.url)
-                        label(for="creds") External credentials
-                          a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
-                        textarea(name="creds")
-                        br
+                        -var devops_json = JSON.parse(project.devops_json)
+                        if devops_json && devops_json.related_apis
+                          for api,api_name in devops_json.related_apis
+                            for value,field in api
+                              if value === constants.EXTERNAL_TOKEN
+                                -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
+                                label(for=field_name)
+                                  | #{api_name} #{field}
+                                  a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
+                                  br
+                                -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
+                                input(type="text", name=field_name, value=value)
                         input(class="btn", name="action", type="submit", value="Save")
                         input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
 
-                    button(class="btn", value="#{project.name}") Edit
+                    button(class="btn", value="#{project.name}", id="project-#{project.id}") Edit
                   td(style="width: 15%")
                     a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
                   td
@@ -65,9 +94,6 @@ block content
               input(type="text", name="name")
               label(for="url") Devops.json URL
               input(type="text", name="url")
-              label(for="creds") External credentials
-                a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
-              textarea(name="creds")
               br
               input(class="btn", type="submit", value="Save")
           button(class="btn", value="new-project", style="float: left; margin-right: 10px;") Add Project
