@@ -11,6 +11,9 @@ exports.log_level = "log";
 //exports.log_level = "warn";
 //exports.log_level = "error";
 
+// Log exceptions instead of crashing
+exports.pokemon = true;
+
 exports.logging_ignore_paths = [
   "/static/"
 ];
