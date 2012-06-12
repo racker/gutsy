@@ -1,6 +1,6 @@
 -var id = id;
--var end = end ? moment(end) : moment();
--var start = start ? moment(start) : end.subtract('days', 1)
+-var _end = end ? moment(end) : moment();
+-var start = (start ? moment(start) : _end.clone().subtract('days', 1)).toDate().toISOString();
 -var label_start = label_start
 -var label_end = label_end
 -var time_title = time_title
@@ -21,20 +21,20 @@ div
           #{label_start}
         else
           | Start
-      input(id="start", type="text", name="start", value=start.toDate().toISOString(), style="margin-right: 15px;")
+      input(id="start", type="text", name="start", value=start, style="margin-right: 15px;")
     div(style="float:right;")
       label(for="end")
         if label_end
           #{label_end}
         else
           | End
-      input(id="end", type="text", name="end", value=end.toDate().toISOString())
+      input(id="end", type="text", name="end", value=_end.toDate().toISOString())
     div(style="float:none; clear:both;")
     div
       input(type="button", class="btn-info time-button", onclick="flash_input('#{start}')", value=" Past 24 hours ")
-      -start = end.subtract('days', 7).toDate().toISOString()
+      -start = _end.clone().subtract('days', 7).toDate().toISOString()
       input(type="button", class="btn-info time-button", onclick="flash_input('#{start}')", value=" Past week ")
-      -start = end.subtract('months', 1).toDate().toISOString()
+      -start = _end.clone().subtract('months', 1).toDate().toISOString()
       input(type="button", class="btn-info time-button", onclick="flash_input('#{start}')", value=" Past month ")
       input(type="submit", value=" GO! ", class="form-submit btn-success time-button", style="margin-right: 0; float: right;")
     br(style="clear:both;")
