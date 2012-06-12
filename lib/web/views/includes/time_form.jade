@@ -1,6 +1,6 @@
 -var id = id;
 -var end = end ? moment(end) : moment();
--var start = start ? moment(start) : moment(end.toISOString()).subtract('days', 1)
+-var start = start ? moment(start) : end.subtract('days', 1)
 -var label_start = label_start
 -var label_end = label_end
 -var time_title = time_title
