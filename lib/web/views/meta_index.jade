@@ -27,6 +27,13 @@ block append scripts
       if (edit_project !== undefined){
         $('#project-'+edit_project).click();
       }
+
+      $(".dialog").click(function(){
+        if (!this.node) {
+          this.node = $(this).children("div:hidden");
+        }
+        $(this.node).dialog({modal: true});
+      });
     });
 block content
   a(href="https://github.com/racker/gutsy")
