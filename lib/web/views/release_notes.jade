@@ -57,7 +57,7 @@ block content
       -var demarcator = false
 
       if notes
-        if notes[0] && (notes[0].merged_at || notes[0].v1.change_date) > (to_revision_time + 5000)
+        if notes[0] && (notes[0].get_changed_date()) > (to_revision_time + 5000)
           h3.deploy-info Undeployed, Merged Pull Requests
         each note in notes
           if to_revision_time && note.merged_at && !demarcator && to_revision_time.valueOf() > (note.merged_at.valueOf() - 5000)
@@ -76,7 +76,7 @@ block content
                 a(href=v1.id_to_url(version_one.get_config(), note.v1.id))
                   | V1 #{note.v1.type}
                 | →
-              =humane_time(note.merged_at || note.v1.change_date)
+              =humane_time(note.get_changed_date())
             div.body
               !{markdown(note.body)}
               if note.v1.error
