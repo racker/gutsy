@@ -62,6 +62,8 @@ block content
                       th Created
                       th Status
                       th Severity
+                      if (version_one.get_data().project_count > 1)
+                        th Project
                       th Changed By
                       th Defect Name
                   tbody
@@ -72,6 +74,8 @@ block content
                           td #{create_date.getMonth()+1}/#{create_date.getDate()}
                           td #{asset.attributes['Status.Name'].text || '-'}
                           td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
+                          if (version_one.get_data().project_count > 1)
+                            td #{asset.attributes['Scope.Name'].text || '-'}
                           td
                             a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                           td
