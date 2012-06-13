@@ -1,17 +1,23 @@
-|<?xml version="1.0" encoding="utf-8"?>
+-var base_url = "https://" + req.headers.host + req.path;
+-base_url += "?start=" + start
+-base_url += "&end=" + end;
 |<feed xmlns="http://www.w3.org/2005/Atom">
 |    <title type="text" xml:lang="en">Gutsy Release Notes</title>
 |    <author><name>Gutsy</name></author>
 |    <link type="application/atom+xml" href="https://#{ req.headers.host }#{ req.path }" rel="self"/>
 |    <link href="https://#{ req.headers.host }" rel="alternate"/>
-|    <updated>#{ last_crawl_time }</updated>
+|    <updated>#{ last_crawl_time.toISOString() }</updated>
 |    <id>https://#{ req.headers.host }#{ req.path }</id>
 for note in notes
   |<entry>
   |    <title>#{ note.title }</title>
   |    <link href=""/>
-  |    <updated>#{ note.get_changed_date() }</updated>
-  |    <id>#{ note.get_id() }</id>
-  |    <summary type="html">#{ note.get_body() }</summary>
+  |    <updated>#{ note.get_changed_date().toISOString() }</updated>
+  |    <id>https://#{ req.headers.host}/#{ note.get_id() }</id>
+  |    <summary type="html">
+  |    <![CDATA[
+  |    !{ note.get_body() }
+  |    ]]>
+  |    </summary>
   |</entry>
 |</feed>
