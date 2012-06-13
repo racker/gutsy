@@ -36,9 +36,13 @@ html(lang='en')
       .notbootstrap-navbar-inner
         .notbootstrap-container-fluid
           if '/' == url
-            a.active.brand(href='/') Dashboards
+            a.active.brand(href='/')
+              img(src='/static/images/gutsy-grey-25px.png', width='17px', height='10px')
+              |  Dashboards
           else
-            a.brand(href='/') Dashboards
+            a.brand(href='/')
+              img(src='/static/images/gutsy-grey-25px.png', width='17px', height='10px')
+              |  Dashboards
           ul.internal
             -var navbar_obj = navbar(this)
             each _url, text in navbar_obj
