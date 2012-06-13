@@ -14,6 +14,7 @@ html(lang='en')
       link(href='/static/bootstrap/css/bootstrap.css', rel='stylesheet')
       link(href='/static/bootstrap/css/bootstrap-responsive.css', rel='stylesheet')
       link(href='/static/css/all.less', rel='stylesheet/less', type='text/css')
+      link(id="page_favicon", href="/static/images/favicon.png", rel="icon", type="image/x-icon")
 
     block scripts
       script(src='/static/html5.js')
@@ -36,9 +37,13 @@ html(lang='en')
       .notbootstrap-navbar-inner
         .notbootstrap-container-fluid
           if '/' == url
-            a.active.brand(href='/') Dashboards
+            a.active.brand(href='/')
+              img(src='/static/images/gutsy-grey-25px.png', width='17px', height='10px')
+              |  Dashboards
           else
-            a.brand(href='/') Dashboards
+            a.brand(href='/')
+              img(src='/static/images/gutsy-grey-25px.png', width='17px', height='10px')
+              |  Dashboards
           ul.internal
             -var navbar_obj = navbar(this)
             each _url, text in navbar_obj
