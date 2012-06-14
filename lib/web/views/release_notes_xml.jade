@@ -9,14 +9,28 @@
 |    <updated>#{ last_crawl_time.toISOString() }</updated>
 |    <id>https://#{ req.headers.host }#{ req.path }</id>
 for note in notes
+  -var v1_url = v1.id_to_url(version_one.get_config(), note.v1.id);
   |<entry>
   |    <title>#{ note.title }</title>
-  |    <link href=""/>
+  |    <link href="#{ note.github_pr_href || v1_url }"/>
   |    <updated>#{ note.get_changed_date().toISOString() }</updated>
-  |    <id>https://#{ req.headers.host}/#{ note.get_id() }</id>
+  |    <id>#{ note.github_pr_href || v1_url }</id>
   |    <summary type="html">
   |    <![CDATA[
-  |    !{ note.get_body() }
+  |    !{ markdown(note.get_body()) }
+  ul
+    if note.merged_at !== undefined
+      li
+        |merged
+        i=format_time(note.merged_at)
+        |  <nbsp />on<nbsp />
+        a(href=note.github_pr_href) github
+    if note.v1.id !== undefined
+      li
+        |created
+        i=format_time(note.v1.create_date)
+        |  <nbsp />on<nbsp />
+        a(href=v1_url) V1
   |    ]]>
   |    </summary>
   |</entry>
