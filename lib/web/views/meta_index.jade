@@ -89,16 +89,18 @@ block content
                     if project.devops.tags
                       #{project.devops.tags.join(', ')}
                   td(style='text-align: right;')
-                    if project.crawl_error
+                    -var crawl_data = project.pollers.crawler.get_data()
+                    -var crawl_err = project.pollers.crawler.get_err()
+                    if crawl_err
                       div.alert.dialog(style="cursor: pointer;")
-                        |Error #{humane_time(project.updated_at)}
-                        div.modal_dialog(style="display: none;")=project.crawl_error
+                        |Error #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
+                        div.modal_dialog(style="display: none;")=crawl_err
                     else if project.devops.needs_creds
                       div.alert.dialog(style="cursor: pointer;")
-                        |Error #{humane_time(project.updated_at)}
+                        |Error #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
                         div.modal_dialog(style="display: none;") Some credentials aren't set. Edit your project and add the correct credentials.
                     else
-                      p Crawled #{humane_time(project.updated_at)}
+                      p Crawled #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
           hr
           div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
             h2 Add project
@@ -110,8 +112,9 @@ block content
               br
               input(class="btn", type="submit", value="Save")
           button(class="btn", value="new-project", style="float: left; margin-right: 10px;") Add Project
-          form(method="POST", action=urls.CRAWL)
-            input(class="btn", type="submit", value="Crawl Projects")
+          if settings.debug
+            form(method="POST", action=urls.CRAWL)
+              input(class="btn", type="submit", value="Crawl Projects")
 
         .well.sidebar-nav
           ul.nav.nav-list
