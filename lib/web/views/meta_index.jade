@@ -89,8 +89,8 @@ block content
                     if project.devops.tags
                       #{project.devops.tags.join(', ')}
                   td(style='text-align: right;')
-                    -var crawl_data = project.pollers.crawler.get_data()
-                    -var crawl_err = project.pollers.crawler.get_err()
+                    -var crawl_data = project.data.crawler.get_data()
+                    -var crawl_err = project.data.crawler.get_err()
                     if crawl_err
                       div.alert.dialog(style="cursor: pointer;")
                         |Error #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
