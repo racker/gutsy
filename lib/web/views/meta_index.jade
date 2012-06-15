@@ -89,18 +89,16 @@ block content
                     if project.devops.tags
                       #{project.devops.tags.join(', ')}
                   td(style='text-align: right;')
-                    -var crawl_data = project.data.crawler.get_data()
-                    -var crawl_err = project.data.crawler.get_err()
-                    if crawl_err
+                    if project.crawl_err
                       div.alert.dialog(style="cursor: pointer;")
-                        |Error #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
-                        div.modal_dialog(style="display: none;")=crawl_err
-                    else if project.devops.needs_creds
+                        |Error #{ humane_time(project.crawled_at) }
+                        div.modal_dialog(style="display: none;")=project.crawl_err
+                    else if project.needs_creds
                       div.alert.dialog(style="cursor: pointer;")
-                        |Error #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
+                        |Error #{ humane_time(project.crawled_at) }
                         div.modal_dialog(style="display: none;") Some credentials aren't set. Edit your project and add the correct credentials.
                     else
-                      p Crawled #{crawl_data ? humane_time(crawl_data.crawled_at) : ""}
+                      p Crawled #{ humane_time(project.crawled_at) }
           hr
           div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
             h2 Add project
