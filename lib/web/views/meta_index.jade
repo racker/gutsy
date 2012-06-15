@@ -92,7 +92,7 @@ block content
                     if project.crawl_err
                       div.alert.dialog(style="cursor: pointer;")
                         |Error #{ humane_time(project.crawled_at) }
-                        div.modal_dialog(style="display: none;")=project.crawl_err
+                        div.modal_dialog(style="display: none;")=trace(project.crawl_err)
                     else if project.needs_creds
                       div.alert.dialog(style="cursor: pointer;")
                         |Error #{ humane_time(project.crawled_at) }
