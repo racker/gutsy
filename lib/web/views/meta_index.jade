@@ -111,7 +111,7 @@ block content
               input(class="btn", type="submit", value="Save")
           button(class="btn", value="new-project", style="margin-right: 10px;") Add Project
           if settings.debug
-            form(method="POST", action=urls.CRAWL)
+            form(method="POST", action=urls.CRAWL, style="float: left; margin-right: 10px;")
               input(class="btn", type="submit", value="Crawl Projects")
 
         .well.sidebar-nav
