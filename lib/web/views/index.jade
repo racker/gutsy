@@ -7,55 +7,53 @@ block append scripts
   script(src='/static/js/contacts.js')
 
 block content
-  if !devops.has_been_crawled
-    h1 Gutsy hasn't been able to crawl your devops.  Is it reachable?
-  else
-    if devops.devopsJSON_URL
-      a(href="#{devops.devopsJSON_URL}")
-        img(style="position: absolute; top: 42px; right: 0; border: 0;", src="/static/images/edit-devops-right.png")
-    #timeline
-      include includes/timeline_event
 
-    .container-fluid
-      .row-fluid
-        .span3
-          #banner-block.ablock
-            h1=devops.name
-            h3=devops.description
+  if devops.devopsJSON_URL
+    a(href="#{devops.devopsJSON_URL}")
+      img(style="position: absolute; top: 42px; right: 0; border: 0;", src="/static/images/edit-devops-right.png")
+  #timeline
+    include includes/timeline_event
 
-          #links-block.ablock
-            h1 Links
-            ul
-              each uri, name in devops.links
-                li
-                  a(href='#{uri}') #{name}
+  .container-fluid
+    .row-fluid
+      .span3
+        #banner-block.ablock
+          h1=devops.name
+          h3=devops.description
 
-        .span3
-          .ablock#contacts-block
-            h1#contacts-header Contacts \u25B6
-            .contacts
-              if pager_duty
-                if pager_duty.get_err()
-                  p.alert!=trace(pager_duty.get_err())
-              for team in devops.contacts
-                include includes/team_contacts
+        #links-block.ablock
+          h1 Links
+          ul
+            each uri, name in devops.links
+              li
+                a(href='#{uri}') #{name}
 
-        .span3
-          if devops.environments.length
-            #environments-block.ablock
-              include includes/environments
+      .span3
+        .ablock#contacts-block
+          h1#contacts-header Contacts \u25B6
+          .contacts
+            if pager_duty
+              if pager_duty.get_err()
+                p.alert!=trace(pager_duty.get_err())
+            for team in devops.contacts
+              include includes/team_contacts
 
-          if version_one
-            #versionone-block.ablock.middleware-block
-              include includes/version_one
+      .span3
+        if devops.environments.length
+          #environments-block.ablock
+            include includes/environments
 
-          if new_relic
-            #newrelic-block.ablock.middleware-block
-              include includes/new_relic
+        if version_one
+          #versionone-block.ablock.middleware-block
+            include includes/version_one
 
-          if dreadnot
-            #dreadnot-block.ablock.middleware-block
-              include includes/dreadnot
+        if new_relic
+          #newrelic-block.ablock.middleware-block
+            include includes/new_relic
 
-    script(src='/static/jquery/jquery-1.7.1.min.js')
-    script(src='/static/bootstrap/js/bootstrap.min.js')
+        if dreadnot
+          #dreadnot-block.ablock.middleware-block
+            include includes/dreadnot
+
+  script(src='/static/jquery/jquery-1.7.1.min.js')
+  script(src='/static/bootstrap/js/bootstrap.min.js')
