@@ -1,5 +1,7 @@
 #/bin/bash
 
+set -e
+exec 2>&1
 cd /data/gutsy
 
 latestlocal=`git rev-parse HEAD`;
@@ -13,8 +15,9 @@ echo $latestremote;
 if [ $latestlocal != $latestremote ]
 then
     echo "Changes since last build!";
-    git pull && /etc/init.d/gutsy restart
+    git pull || exit 1
     chown -R gutsy: .
+    /etc/init.d/gutsy restart
 else
     echo "No changes since last build";
 fi
