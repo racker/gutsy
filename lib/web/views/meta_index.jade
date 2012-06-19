@@ -89,16 +89,16 @@ block content
                     if project.devops.tags
                       #{project.devops.tags.join(', ')}
                   td(style='text-align: right;')
-                    if project.crawl_error
+                    if project.crawl_err
                       div.alert.dialog(style="cursor: pointer;")
-                        |Error #{humane_time(project.updated_at)}
-                        div.modal_dialog(style="display: none;")=project.crawl_error
-                    else if project.devops.needs_creds
+                        |Error #{ humane_time(project.crawled_at) }
+                        div.modal_dialog(style="display: none;")=trace(project.crawl_err)
+                    else if project.needs_creds
                       div.alert.dialog(style="cursor: pointer;")
-                        |Error #{humane_time(project.updated_at)}
+                        |Error #{ humane_time(project.crawled_at) }
                         div.modal_dialog(style="display: none;") Some credentials aren't set. Edit your project and add the correct credentials.
                     else
-                      p Crawled #{humane_time(project.updated_at)}
+                      p Crawled #{ humane_time(project.crawled_at) }
           hr
           div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
             h2 Add project
@@ -109,9 +109,10 @@ block content
               input(type="text", name="url")
               br
               input(class="btn", type="submit", value="Save")
-          button(class="btn", value="new-project", style="float: left; margin-right: 10px;") Add Project
-          form(method="POST", action=urls.CRAWL)
-            input(class="btn", type="submit", value="Crawl Projects")
+          button(class="btn", value="new-project", style="margin-right: 10px;") Add Project
+          if settings.debug
+            form(method="POST", action=urls.CRAWL, style="float: left; margin-right: 10px;")
+              input(class="btn", type="submit", value="Crawl Projects")
 
         .well.sidebar-nav
           ul.nav.nav-list

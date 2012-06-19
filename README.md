@@ -23,7 +23,6 @@ git submodule update --init
 npm install
 cp lib/settings.js.example lib/settings.js
 mkdir fixtures
-./bin/crawl
 ```
 
 Note: on production deployments, you may need to edit lib/settings.js to an absolute path:
