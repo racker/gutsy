@@ -28,16 +28,18 @@ block content
         div(style="clear:both")
 
       if version_one
+        -var v1_data = version_one.get_data();
+        -var v1_err = version_one.get_err();
         h1.title
           span.arrow ▶
           |  VersionOne - Defects
-          span.sevcount #{version_one.get_data().total}
-        if version_one.get_err()
+          span.sevcount #{v1_data ? v1_data.total : "?"}
+        if v1_err
           p The version_one API returned the following error:
-          p.alert!=trace(version_one.get_err())
-        else
+          p.alert!=trace(v1_err)
+        else if v1_data
           div#defects
-            - each v, k in version_one.get_data().byAge
+            - each v, k in v1_data.byAge
               hr
               h2.bucket
                 span.arrow \u25B6
