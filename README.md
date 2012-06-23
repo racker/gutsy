@@ -22,6 +22,7 @@ Edit lib/settings.js to point to a devops.json:
 git submodule update --init
 npm install
 cp lib/settings.js.example lib/settings.js
+cp -r keys_example keys
 ```
 
 Note: on production deployments, you may need to edit lib/settings.js to an absolute path:
