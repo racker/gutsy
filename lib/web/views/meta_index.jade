@@ -54,6 +54,9 @@ block content
               th.right Status
             tbody
               each project in projects
+                -var devops = project.devops
+                -var tags = devops ? devops.tags : null
+                -var description = devops ? devops.description : null
                 tr
                   td
                     div(class="devops_url_editor modal_dialog", id="devops_url_editor-" + project.name)
@@ -82,12 +85,12 @@ block content
 
                     button(class="btn", value="#{project.name}", id="project-#{project.id}") Edit
                   td(style="width: 15%")
-                    a(href='/p/#{project.name}', title='#{project.devops.tags}') #{project.name}
+                    a(href='/p/#{project.name}', title='#{tags}') #{project.name}
                   td
-                    #{project.devops.description}
+                    #{description}
                   td
-                    if project.devops.tags
-                      #{project.devops.tags.join(', ')}
+                    if tags
+                      #{tags.join(', ')}
                   td(style='text-align: right;')
                     if project.crawl_err
                       div.alert.dialog(style="cursor: pointer;")
