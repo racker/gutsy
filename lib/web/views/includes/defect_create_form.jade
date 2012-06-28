@@ -1,0 +1,22 @@
+div#create-defects.collapse.in
+  div.well
+    form(method="POST", class="defect-form")
+      label
+        h5 Project
+      select#scope-picker
+      label
+        h5 Title
+      input(class="span3", placeholder="... is broken")
+      label
+        h5 Description
+      textarea(class="span3", placeholder="as a ... \n ... is broken")
+      label
+       h5 Severity
+      select#severity
+        option High
+        option Medium
+        option Low
+      div.form-actions
+        button(type="submit", class="btn btn-primary") Submit defect
+        | 
+        button(class="btn") Cancel
