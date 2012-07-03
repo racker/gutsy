@@ -1,8 +1,5 @@
-div#create-defects.collapse.in
+div#create-defects.collapse
   div.well
-    - var v1_response = v1_response
-    if v1_response
-      h1=v1_response
     form(method="POST", class="defect-form")
       label
         h5 Project
@@ -20,6 +17,6 @@ div#create-defects.collapse.in
         option Medium
         option Low
       div.form-actions
-        button(type="submit", class="btn btn-primary") Submit defect
-        | 
-        button(class="btn") Cancel
+        button(type="submit").btn.btn-primary Submit defect
+        =" "
+        button.btn Cancel

@@ -20,14 +20,21 @@ block content
           a(href="https://www15.v1host.com/RACKSPCE/Default.aspx?menu=IterationSchedulingPage")
             | VersionOne
 
-      div.span4
-        button(data-toggle='collapse', data-target='#create-defects').btn.btn-info
+      // Alert
+      - var v1_response = v1_response
+      if v1_response
+        div.alert
+          strong #{v1_response}
+
+      // Create
+      button(data-toggle='collapse', data-target='#create-defects').btn.btn-info.pull-right
           | <i class="icon-plus"></i> Create a new defect
+      div.span4.offset4
         div.create_form
           include includes/defect_create_form
 
+      // Burndown Chart
       div.span12#burndown
-        // Burndown Chart
         if burndown.get_err()
           p The version_one API returned the following error (for burndown ):
           p.alert!=trace(burndown.get_err())
@@ -39,8 +46,8 @@ block content
           div#charts
           div(style="clear:both")
 
+      // Defects
       div.span12#defects
-        // Defects
         if version_one
           -var v1_data = version_one.get_data();
           -var v1_err = version_one.get_err();
