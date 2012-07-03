@@ -16,6 +16,9 @@ function toggle_arrows() {
 }
 
 $(document).ready(function() {
+  create_defect_scope_dropdown();
+
+
   // Buckets dropdown control
   $("#defects_chart").children(".bucket").css("cursor", "pointer").click(function () {
     $(this).next().children().each(function() {
@@ -41,35 +44,20 @@ $(document).ready(function() {
   });
 
 function create_defect_scope_dropdown() {
+  var select_options = {};
   if (burndown_data){
       $.each(burndown_data, function (scope, data) {
         $.each(data, function (asset_type, assets) {
           var div_id;
           var scope_name = scope.replace(/\W/g, "-").toLowerCase();
           select_options[scope_name] = scope;
-          div_id = asset_type + "-chart-" + scope_name;
-          $("#charts").append("<div id='" + div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
-          make_chart(asset_type, scope, assets, div_id);
-        });
+         });
       });
       for (var key in select_options) {
         var option = $("<option value='" + key + "'>" + select_options[key] + "</option>");
-        if (key === "total") {
-          option.attr("selected", "selected");
-        }
         $("#scope-picker").append(option);
       }
-      $("#scope-picker").append("<option value='burndown'>Show all</option>");
-      $("#scope-picker").change(function (event) {
-        $(".burndown-chart").hide();
-        $("." + $(this).val() + "-chart").show();
-      });
     }
-
-    $("#charts").children(".bucket").css("cursor", "pointer").click(function () {
-      $(this).next().toggle();
-      $(this).children(".arrow").each(toggle_arrows);
-    });
   }
 
 });

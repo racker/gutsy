@@ -1,18 +1,21 @@
 div#create-defects.collapse.in
   div.well
+    - var v1_response = v1_response
+    if v1_response
+      h1=v1_response
     form(method="POST", class="defect-form")
       label
         h5 Project
-      select#scope-picker
+      select(name="scope")#scope-picker
       label
         h5 Title
-      input(class="span3", placeholder="... is broken")
+      input(name="title", class="span3", placeholder="... is broken")
       label
         h5 Description
-      textarea(class="span3", placeholder="as a ... \n ... is broken")
+      textarea(name="description", class="span3", placeholder="as a ... ... is broken")
       label
        h5 Severity
-      select#severity
+      select(name="severity")#severity
         option High
         option Medium
         option Low
