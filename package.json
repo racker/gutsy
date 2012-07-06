@@ -26,11 +26,8 @@
     "node-dev": "",
     "sqlite3": ""
   },
-  "devDependencies": {
-    "jscoverage": "~0.1.4"
-  },
   "engines": {
-    "node": ">=0.4.1 <0.7.0"
+    "node": ">=0.4.1 <=0.8.0"
   },
   "repository": {
     "type": "git",
