@@ -60,6 +60,8 @@ block content
     section(id='services')
       div.page-header
         h1 Services
+          button(data-toggle='collapse', data-target='.service_data').btn.btn-primary.pull-right
+            |Expand All
       table.table.table-bordered.table-sort#service-stats
         thead
           tr#header
@@ -79,8 +81,12 @@ block content
               tr(class=service_health+' data-row', data-toggle='collapse', data-target='#'+service_id+service.service)
                 td(class=service_health+'color', style='text-align: center; line-height: 100%;')=(service.healthy ? '☺' : '☹')
                 td
-                  button.btn.btn-info
-                    =host.service_name
+                  if service_health == health.healthy
+                    button.btn.btn-success
+                      =host.service_name
+                  else
+                    button.btn.btn-danger
+                      =host.service_name
                 td
                   a(href='#host-name-'+host.service_name)=host.service_name
                 td
@@ -90,7 +96,7 @@ block content
               tr(class=service_health+' data-row')
                td(colspan=6)
                   if service_metrics || service_error_msg
-                    div(id=service_id+service.service, class='collapse')
+                    div(id=service_id+service.service, class='collapse').service_data
                       table.table
                         thead
                           tr
