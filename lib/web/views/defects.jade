@@ -15,70 +15,98 @@ block append scripts
 block content
   .container
     .content
-      if burndown.get_err()
+      div.page-header
+        h1
+          a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/Default.aspx?menu=IterationSchedulingPage")
+            | VersionOne
 
-        p The version_one API returned the following error (for burndown ):
-        p.alert!=trace(burndown.get_err())
-      else if burndown.get_data()
-        h1 VersionOne - The Burndown
-        h3(style="margin-top: 20px;")
-          | Select project
-          select#graph-picker
-        div#charts
-        div(style="clear:both")
+      // Alert
+      - var v1_response = v1_response
+      - var v1_error = v1_error
+      if v1_error
+        div.alert.alert-error
+          button(data-dismiss="alert").close ×
+          strong #{v1_error}
+      if v1_response
+        div.alert.alert-info
+          button(data-dismiss="alert").close ×
+          a(href=v1.id_to_url(version_one.get_config(), v1_response.id))
+            strong #{v1_response.id} Created!
 
-      if version_one
-        -var v1_data = version_one.get_data();
-        -var v1_err = version_one.get_err();
-        h1.title
-          span.arrow ▶
-          |  VersionOne - Defects
-          span.sevcount #{v1_data ? v1_data.total : "?"}
-        if v1_err
-          p The version_one API returned the following error:
-          p.alert!=trace(v1_err)
-        else if v1_data
-          div#defects
-            - each v, k in v1_data.byAge
-              hr
-              h2.bucket
-                span.arrow \u25B6
-                span.sevcount #{v.total_count}
-                #{k}
-                for vcount, ksev in v.sev_count
-                  if vcount != 0
-                      if ksev === "1"
-                        span.sev.sev1(title="Severity 1") #{vcount}
-                      if ksev === "2"
-                        span.sev.sev2(title="Severity 2") #{vcount}
-                      if ksev === "3"
-                        span.sev.sev3(title="Severity 3") #{vcount}
-                      if ksev === "4"
-                        span.sev.sev4(title="Severity 4") #{vcount}
-                      if ksev === "?"
-                        span.sev.sevq(title="Severity Unknown") #{vcount}
-              div.table.collapsible
-                table.defects.sortable.table-striped.hide
-                  thead
-                    tr
-                      th Created
-                      th Status
-                      th Severity
-                      if (version_one.get_data().project_count > 1)
-                        th Project
-                      th Changed By
-                      th Defect Name
-                  tbody
-                    if v.defects.length
-                      - each asset in v.defects
-                        tr
-                          -var create_date = new Date(asset.attributes['CreateDate'].text);
-                          td #{create_date.getMonth()+1}/#{create_date.getDate()}
-                          td #{asset.attributes['Status.Name'].text || '-'}
-                          td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
-                          if (version_one.get_data().project_count > 1)
-                            td #{asset.attributes['Scope.Name'].text || '-'}
-                          td
-                            a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
-                          td
-                            a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+      // Create
+      button(data-toggle='collapse', data-target='#create-defects').btn.btn-info.pull-right
+          | <i class="icon-plus"></i> Create a new defect
+      div.span4.offset4
+        div.create_form
+          include includes/defect_create_form
+
+      // Burndown Chart
+      div.span12#burndown
+        if burndown.get_err()
+          p The version_one API returned the following error (for burndown ):
+          p.alert!=trace(burndown.get_err())
+        else if burndown.get_data()
+          h2  Burndown
+          h3(style="margin-top: 20px;")
+            | Select project
+            select#graph-picker
+          div#charts
+          div(style="clear:both")
+
+      // Defects
+      div.span12#defects
+        if version_one
+          -var v1_data = version_one.get_data();
+          -var v1_err = version_one.get_err();
+          h2.title#defects_title
+            | Defects
+            span.sevcount #{v1_data ? v1_data.total : "?"}
+            span.arrow ▶
+          if v1_err
+            p The version_one API returned the following error:
+            p.alert!=trace(v1_err)
+          else if v1_data
+            div#defects_chart
+              - each v, k in v1_data.byAge
+                hr
+                h2.bucket
+                  span.arrow \u25B6
+                  span.sevcount #{v.total_count}
+                  #{k}
+                  for vcount, ksev in v.sev_count
+                    if vcount != 0
+                        if ksev === "1"
+                          span.sev.sev1(title="Severity 1") #{vcount}
+                        if ksev === "2"
+                          span.sev.sev2(title="Severity 2") #{vcount}
+                        if ksev === "3"
+                          span.sev.sev3(title="Severity 3") #{vcount}
+                        if ksev === "4"
+                          span.sev.sev4(title="Severity 4") #{vcount}
+                        if ksev === "?"
+                          span.sev.sevq(title="Severity Unknown") #{vcount}
+                div.table
+                  table.defects.sortable.table-striped.hide
+                    thead
+                      tr
+                        th Created
+                        th Status
+                        th Severity
+                        if (version_one.get_data().project_count > 1)
+                          th Project
+                        th Changed By
+                        th Defect Name
+                    tbody
+                      if v.defects.length
+                        - each asset in v.defects
+                          tr
+                            -var create_date = new Date(asset.attributes['CreateDate'].text);
+                            td #{create_date.getMonth()+1}/#{create_date.getDate()}
+                            td #{asset.attributes['Status.Name'].text || '-'}
+                            td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
+                            if (version_one.get_data().project_count > 1)
+                              td #{asset.attributes['Scope.Name'].text || '-'}
+                            td
+                              a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                            td
+                              a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
