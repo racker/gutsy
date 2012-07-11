@@ -30,7 +30,8 @@ block content
       if v1_response
         div.alert.alert-info
           button(data-dismiss="alert").close ×
-          strong #{v1_response}
+          a(href=v1.id_to_url(version_one.get_config(), v1_response.id))
+            strong #{v1_response.id} Created!
 
       // Create
       button(data-toggle='collapse', data-target='#create-defects').btn.btn-info.pull-right
