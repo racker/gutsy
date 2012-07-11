@@ -22,8 +22,14 @@ block content
 
       // Alert
       - var v1_response = v1_response
+      - var v1_error = v1_error
+      if v1_error
+        div.alert.alert-error
+          button(data-dismiss="alert").close ×
+          strong #{v1_error}
       if v1_response
-        div.alert
+        div.alert.alert-info
+          button(data-dismiss="alert").close ×
           strong #{v1_response}
 
       // Create

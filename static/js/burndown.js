@@ -67,14 +67,14 @@ function drawChart() {
   var select_options = {};
   if (burndown_data){
     $.each(burndown_data, function (scope, data) {
-      $.each(data, function (asset_type, assets) {
-        var div_id;
-        var scope_name = scope.replace(/\W/g, "-").toLowerCase();
-        select_options[scope_name] = scope;
-        div_id = asset_type + "-chart-" + scope_name;
-        $("#charts").append("<div id='" + div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
-        make_chart(asset_type, scope, assets, div_id);
-      });
+      var scope_name = data.Name.replace(/\W/g, "-").toLowerCase();
+      select_options[scope_name] = data.Name;
+      defects_div_id = "defects-chart-" + scope_name;
+      tasks_div_id = "tasks-chart-" + scope_name;
+      $("#charts").append("<div id='" + defects_div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
+      $("#charts").append("<div id='" + tasks_div_id +"' class='burndown-chart " + scope_name + "-chart'></div>");
+      make_chart("Defects", data.Name, data.Defects, defects_div_id);
+      make_chart("Tasks", data.Name, data.Tasks, tasks_div_id);
     });
     for (var key in select_options) {
       var option = $("<option value='" + key + "'>" + select_options[key] + "</option>");

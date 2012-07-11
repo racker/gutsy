@@ -46,18 +46,16 @@ $(document).ready(function() {
 function create_defect_scope_dropdown() {
   var select_options = {};
   if (burndown_data){
-      $.each(burndown_data, function (scope, data) {
-        $.each(data, function (asset_type, assets) {
-          var div_id;
-          var scope_name = scope.replace(/\W/g, "-").toLowerCase();
-          select_options[scope_name] = scope;
-         });
-      });
-      for (var key in select_options) {
-        var option = $("<option value='" + key + "'>" + select_options[key] + "</option>");
+    $.each(burndown_data, function (scope, data) {
+      select_options[scope] = data.Name;
+    });
+    for (var key in select_options) {
+      var option = $("<option value='" + key + "'>" + select_options[key] + "</option>");
+      if (key !== "Total"){
         $("#scope-picker").append(option);
       }
     }
   }
+}
 
 });
