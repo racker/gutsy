@@ -40,14 +40,14 @@ block append css
 block content
   .container
     .content
-      h1
-        a(href="?") Release Notes
-        |  <a href="https://#{req.headers.host}!{req.path}?format=rss"><img src="/static/images/feed-icon.svg" style="width: 25px; height: 25px;"></a>
+      div.page-header
+        h1
+          a(href="?") Release Notes
+          |  <a href="https://#{req.headers.host}!{req.path}?format=rss"><img src="/static/images/feed-icon.svg" style="width: 25px; height: 25px;"></a>
 
       -var errors = errors
       if (errors)
         p.alert!=trace(errors)
-      hr
       p
         | NOTE: gutsy stops looking at pull requests when they were created one month before the start date since github returns pull requests in order of creation and doesn't allow filtering of any sort.
 
