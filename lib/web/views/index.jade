@@ -13,23 +13,24 @@ block content
   #timeline
     include includes/timeline_event
 
+
   .container-fluid
+    div.page-header
+      span3
+        #banner-block
+          h1 #{devops.name}  <small>#{devops.description}</small>
     .row-fluid
       .span3
-        #banner-block.ablock
-          h1=devops.name
-          h3=devops.description
-
-        #links-block.ablock
-          h1 Links
+        #links-block
+          h2 Links
           ul
             each uri, name in devops.links
               li
                 a(href='#{uri}') #{name}
 
       .span3
-        .ablock#contacts-block
-          h1#contacts-header Contacts \u25B6
+        #contacts-block
+          h2#contacts-header Contacts \u25B6
           .contacts
             if pager_duty
               if pager_duty.get_err()
@@ -39,19 +40,19 @@ block content
 
       .span3
         if devops.environments.length
-          #environments-block.ablock
+          #environments-block
             include includes/environments
 
         if version_one
-          #versionone-block.ablock.middleware-block
+          #versionone-block.middleware-block
             include includes/version_one
 
         if new_relic
-          #newrelic-block.ablock.middleware-block
+          #newrelic-block.middleware-block
             include includes/new_relic
 
         if dreadnot
-          #dreadnot-block.ablock.middleware-block
+          #dreadnot-block.middleware-block
             include includes/dreadnot
 
   script(src='/static/jquery/jquery-1.7.1.min.js')

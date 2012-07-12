@@ -12,7 +12,8 @@ block content
   .container
     .content
       if github
-        h1 Development Health
+        div.page-header
+          h1 Development Health
         if github.get_err()
           p The github API returned the following error:
           p.alert!=trace(github.get_err())

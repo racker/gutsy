@@ -33,7 +33,6 @@ $(document).ready(function() {
 
   var contacts_header = $("#contacts-header");
   contacts_header.css("cursor", "pointer");
-  contacts_header.css("padding", "5px");
   contacts_header.click(function() {
     var contact = $(this).next().children().children();
     var infos = contact.children("ul");

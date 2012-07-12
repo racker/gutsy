@@ -1,5 +1,5 @@
 .new_relic
-  h1 NewRelic
+  h2 NewRelic
   if new_relic.get_err()
     p The new_relic API returned the following error:
     p.alert!=trace(new_relic.get_err())
