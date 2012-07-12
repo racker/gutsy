@@ -1,21 +1,37 @@
-h4 #{team.team_name}
-ul.unstyled.contact-team
-  if team && team.members
-    each contact in team.members
-      if pager_duty && pager_duty.get_data()
-        -var on_duty = is_on_duty(contact, pager_duty.get_data().entries)
-      else
-        -var on_duty = false
-      li#contact-item
-        span.plus \u25B6
-        if contact.name
-          if on_duty
-            span.contact-name.on-call #{contact.name}
+h2#contacts-header Contacts 
+  button(data-toggle='collapse', data-target='.contact-info').btn.btn-warning Show All
+.contacts
+  if pager_duty
+    if pager_duty.get_err()
+      p.alert!=trace(pager_duty.get_err())
+  for team in devops.contacts
+    div.contact-team
+      h4 #{team.team_name}
+      if team && team.members
+        each contact in team.members
+          - var formatted_name = contact.sso.replace(/\./g,'\-')
+          if pager_duty && pager_duty.get_data()
+            -var on_duty = is_on_duty(contact, pager_duty.get_data().entries)
           else
-            span.contact-name #{contact.name}
-        ul
-          for uri,type in contact
-            if type == "github" || type == "mailto"
-              li #{type}: <a href=#{uri}>#{uri}</a>
+            -var on_duty = false
+          div(class="contact-item", data-toggle='collapse', data-target='#'+formatted_name)
+            if on_duty
+              a(style="color:red") #{contact.name}
             else
-              li #{type}: #{uri}
+              a #{contact.name}
+          if on_duty
+            div(id=formatted_name, class='collapse in').contact-info
+              ul
+                for uri,type in contact
+                  if type == "github" || type == "mailto"
+                    li #{type}: <a href=#{uri}>#{uri}</a>
+                  else
+                    li #{type}: #{uri}
+          else
+            div(id=formatted_name, class='collapse').contact-info
+              ul
+                for uri,type in contact
+                  if type == "github" || type == "mailto"
+                    li #{type}: <a href=#{uri}>#{uri}</a>
+                  else
+                    li #{type}: #{uri}

@@ -29,23 +29,8 @@ block append scripts
     });
 });
 
-
 block append css
-  link(href='/static/css/devhealth.less', rel='stylesheet/less', type='text/css')
   link(href='/static/css/service_health.less', rel='stylesheet/less', type='text/css')
-  style(type="text/css")
-    .health-healthycolor {
-      background-color: #cfc;
-      font-size: 300%;
-    }
-    .health-unhealthycolor {
-      background-color: salmon;
-      font-size: 300%;
-    }
-    table.table .table-hack{
-      margin: 0; padding: 0; line-height: 0; height: 0; border: 0 none; empty-cells: hide;
-    }
-
 
 block content
   -var hosts = service_health.get_data();
