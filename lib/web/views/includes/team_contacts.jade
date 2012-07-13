@@ -1,5 +1,5 @@
 h2#contacts-header Contacts 
-  button(data-toggle='collapse', data-target='.contact-info').btn.btn-small.btn-warning <i class="icon-info-sign icon-white"></i> Show All
+span(data-toggle='collapse', data-target='.contact-info').label.label-warning.pull-right <i class="icon-info-sign icon-white"></i> Show All
 .contacts
   if pager_duty
     if pager_duty.get_err()
@@ -16,7 +16,7 @@ h2#contacts-header Contacts
             -var on_duty = false
           div(class="contact-item", data-toggle='collapse', data-target='#'+formatted_name)
             if on_duty
-              a(style="color:red") #{contact.name}
+              a(style="color:red") #{contact.name}  <span class="label label-important">On Call</span>
             else
               a #{contact.name}
           if on_duty
