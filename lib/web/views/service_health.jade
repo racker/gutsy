@@ -34,6 +34,7 @@ block append css
 
 block content
   -var hosts = service_health.get_data();
+  -var hostname = hostname;
   .container
     if hosts
       h3(style='text-align:right')
@@ -47,6 +48,10 @@ block content
         h1 Services
           button(data-toggle='collapse', data-target='.service_data').btn.btn-primary.pull-right
             |Expand All
+      if hostname
+        div.alert.alert-error
+          button(data-dismiss="alert").close ×
+          strong Hostname #{hostname.hostname} has been deleted! Please wait at least 10 Seconds, then refresh.
       table.table.table-bordered.table-sort#service-stats
         thead
           tr#header
@@ -91,7 +96,8 @@ block content
                           if service_error_msg
                             tr
                               td.alert-danger(colspan=2)=service_error_msg
-                                button.btn.btn-danger.pull-right Remove #{host.service_name}
+                                form(method="POST").pull-right
+                                  button(name="hostname", value=host.service_name).btn.btn-danger Remove #{host.service_name}
                           if service_metrics
                             for metric in service_metrics
                               tr
