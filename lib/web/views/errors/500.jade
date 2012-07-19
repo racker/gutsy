@@ -1,0 +1,15 @@
+block css
+  link(href='/static/bootstrap/css/bootstrap.css', rel='stylesheet')
+style(type="text/css")
+  body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
+
+block content
+  div.container
+    .hero-unit
+      header#overview.jumbotron.masthead
+        h1(style="margin-bottom: 9px;  font-size: 81px;  font-weight: bold; letter-spacing: -1px;line-height: 1;") 500 - Error
+        h2.lead Something went horribly wrong.
+        h5(style="text-align:right") Please e-mail <a href="gutsy@lists.rackspace.com">gutsy@lists.rackspace.com</a> ASAP with details.
+    div.well
+      h1 Error:
+      blockquote #{error}
