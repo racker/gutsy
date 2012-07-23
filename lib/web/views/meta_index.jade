@@ -83,7 +83,7 @@ block content
                         input(class="btn", name="action", type="submit", value="Save")
                         input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
 
-                    button(class="btn", value="#{project.name}", id="project-#{project.id}") Edit
+                    button(style="margin-top: 10px; margin-bottom: 10px;", class="btn", value="#{project.name}", id="project-#{project.id}") Edit
                   td(style="width: 15%")
                     a(href='/p/#{project.name}', title='#{tags}') #{project.name}
                   td
@@ -91,7 +91,7 @@ block content
                   td
                     if tags
                       #{tags.join(', ')}
-                  td(style='text-align: right;')
+                  td(style='text-align: right; width: 15%;')
                     if project.crawl_err
                       div.alert.dialog(style="cursor: pointer;")
                         |Error #{ humane_time(project.crawled_at) }
