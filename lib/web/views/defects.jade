@@ -58,55 +58,100 @@ block content
         if version_one
           -var v1_data = version_one.get_data();
           -var v1_err = version_one.get_err();
-          h2.title#defects_title
-            | Defects
-            span.sevcount #{v1_data ? v1_data.total : "?"}
-            span.arrow ▶
           if v1_err
             p The version_one API returned the following error:
             p.alert!=trace(v1_err)
           else if v1_data
-            div#defects_chart
-              - each v, k in v1_data.byAge
-                hr
-                h2.bucket
-                  span.arrow \u25B6
-                  span.sevcount #{v.total_count}
-                  #{k}
-                  for vcount, ksev in v.sev_count
-                    if vcount != 0
-                        if ksev === "1"
-                          span.sev.sev1(title="Severity 1") #{vcount}
-                        if ksev === "2"
-                          span.sev.sev2(title="Severity 2") #{vcount}
-                        if ksev === "3"
-                          span.sev.sev3(title="Severity 3") #{vcount}
-                        if ksev === "4"
-                          span.sev.sev4(title="Severity 4") #{vcount}
-                        if ksev === "?"
-                          span.sev.sevq(title="Severity Unknown") #{vcount}
-                div.table
-                  table.defects.sortable.table-striped.hide
-                    thead
-                      tr
-                        th Created
-                        th Status
-                        th Severity
-                        if (version_one.get_data().project_count > 1)
-                          th Project
-                        th Changed By
-                        th Defect Name
-                    tbody
-                      if v.defects.length
-                        - each asset in v.defects
-                          tr
-                            -var create_date = new Date(asset.attributes['CreateDate'].text);
-                            td #{create_date.getMonth()+1}/#{create_date.getDate()}
-                            td #{asset.attributes['Status.Name'].text || '-'}
-                            td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
-                            if (version_one.get_data().project_count > 1)
-                              td #{asset.attributes['Scope.Name'].text || '-'}
-                            td
-                              a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
-                            td
-                              a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+            div.tabbable
+              ul.nav.nav-tabs
+                li.active
+                  a(href="#byAge", data-toggle="tab")
+                    h2 Defects By Age
+                li
+                  a(href="#highPriority", data-toggle="tab")
+                    h2 High Priority
+              div.tab-content
+                div.tab-pane.fade#highPriority
+                  h2.title#defects_byPriority
+                    | Defects By Priority
+                  div.table
+                    table.highPriority.sortable.table-striped
+                      thead
+                        tr
+                          th Created
+                          th Status
+                          th Severity
+                          th Priority
+                          if (version_one.get_data().project_count > 1)
+                            th Project
+                          th Changed By
+                          th Defect Name
+                      tbody
+                        if v1_data.highPriority.length
+                          - each asset in v1_data.highPriority
+                            tr
+                              -var create_date = new Date(asset.attributes['CreateDate'].text);
+                              td #{create_date.getMonth()+1}/#{create_date.getDate()}
+                              td #{asset.attributes['Status.Name'].text || '-'}
+                              td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
+                              td #{asset.attributes['Priority.Name'].text}
+                              if (version_one.get_data().project_count > 1)
+                                td #{asset.attributes['Scope.Name'].text || '-'}
+                              td
+                                a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                              td
+                                a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+
+                div.tab-pane.active#byAge
+                  h2.title#defects_title
+                    | Defects
+                    span.sevcount #{v1_data ? v1_data.total : "?"}
+                    span.arrow ▶
+                  if v1_err
+                    p The version_one API returned the following error:
+                    p.alert!=trace(v1_err)
+                  else if v1_data
+                    div#defects_chart
+                      - each v, k in v1_data.byAge
+                        hr
+                        h2.bucket
+                          span.arrow \u25B6
+                          span.sevcount #{v.total_count}
+                          #{k}
+                          for vcount, ksev in v.sev_count
+                            if vcount != 0
+                                if ksev === "1"
+                                  span.sev.sev1(title="Severity 1") #{vcount}
+                                if ksev === "2"
+                                  span.sev.sev2(title="Severity 2") #{vcount}
+                                if ksev === "3"
+                                  span.sev.sev3(title="Severity 3") #{vcount}
+                                if ksev === "4"
+                                  span.sev.sev4(title="Severity 4") #{vcount}
+                                if ksev === "?"
+                                  span.sev.sevq(title="Severity Unknown") #{vcount}
+                        div.table
+                          table.defects.sortable.table-striped.hide
+                            thead
+                              tr
+                                th Created
+                                th Status
+                                th Severity
+                                if (version_one.get_data().project_count > 1)
+                                  th Project
+                                th Changed By
+                                th Defect Name
+                            tbody
+                              if v.defects.length
+                                - each asset in v.defects
+                                  tr
+                                    -var create_date = new Date(asset.attributes['CreateDate'].text);
+                                    td #{create_date.getMonth()+1}/#{create_date.getDate()}
+                                    td #{asset.attributes['Status.Name'].text || '-'}
+                                    td(class="sev#{asset.severity}") #{asset.attributes['Custom_Severity.Name'].text || '-'}
+                                    if (version_one.get_data().project_count > 1)
+                                      td #{asset.attributes['Scope.Name'].text || '-'}
+                                    td
+                                      a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                                    td
+                                      a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
