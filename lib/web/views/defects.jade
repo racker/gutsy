@@ -77,11 +77,12 @@ block content
                       h2 Defects By Age
                   li
                     a(href="#highPriority", data-toggle="tab")
-                      h2 High Priority Stories
+                      h2 High Priority
 
                 // High Priority
                 div.tab-content
                   div.tab-pane.fade#highPriority
+                    h2 Stories
                     div.table
                       table.highPriority.sortable.table-striped
                         thead
@@ -96,6 +97,41 @@ block content
                         tbody
                           if v1_stories_data
                             - each asset in v1_stories_data.highPriority
+                              tr
+                                -var create_date = new Date(asset.attributes['CreateDate'].text);
+                                td #{create_date.getMonth()+1}/#{create_date.getDate()}
+                                td
+                                  if asset.attributes['Status.Name'].text === "In Progress"
+                                    span.label.label-warning #{asset.attributes['Status.Name'].text}
+                                  if asset.attributes['Status.Name'].text === "Done"
+                                    span.label.label-success #{asset.attributes['Status.Name'].text}
+                                  if asset.attributes['Status.Name'].text === "Future"
+                                    span.label.label-default #{asset.attributes['Status.Name'].text}
+                                  if asset.attributes['Status.Name'].text === "Accepted"
+                                    span.label.label-info #{asset.attributes['Status.Name'].text}
+                                td #{asset.attributes['Priority.Name'].text}
+                                if (version_one_stories.get_data().project_count > 1)
+                                  td #{asset.attributes['Scope.Name'].text || '-'}
+                                td
+                                  a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                                td
+                                  a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+                    hr
+                    h2 Defects
+                    div.table
+                      table.highPriority.sortable.table-striped
+                        thead
+                          tr
+                            th Created
+                            th Status
+                            th Priority
+                            if (version_one.get_data().project_count > 1)
+                              th Project
+                            th Changed By
+                            th Defect Name
+                        tbody
+                          if v1_stories_data
+                            - each asset in v1_data.highPriority
                               tr
                                 -var create_date = new Date(asset.attributes['CreateDate'].text);
                                 td #{create_date.getMonth()+1}/#{create_date.getDate()}
