@@ -1,15 +1,18 @@
 # Gutsy DevOps Dashboard
 
-[![Build Status](https://secure.travis-ci.org/diN0bot/gutsy.png?branch\
-=closed_pull_requests)](http://travis-ci.org/diN0bot/gutsy)
-
-Gutsy is an app for an out-of-the-box DevOps Dashboard built on top of a
-[DevOps JSON URI](/racker/devopsjson).
+Gutsy is an app for an out-of-the-box DevOps Dashboard built on top of 
+[DevOps JSON](/racker/devopsjson) data.
 
 The goal is to reflect not only the most recent raw devops.json data,
-but also to realize related links such as on-call rotations.
+but also to realize related APIs such as version control, issue trackers, build systems and on-call rotations.
 
-[Demo](http://gutsy.nodejitsu.com/)
+
+## Communication
+
+```
+irc.freenode.org#gutsy
+```
+
 
 ## Crawl a devops.json endpoint
 
@@ -61,9 +64,3 @@ To run tests without installing jscoverage:
 ```
 ./bin/test-nocov
 ```
-
-## Communication
-
-```
-irc.freenode.org#gutsy
-
