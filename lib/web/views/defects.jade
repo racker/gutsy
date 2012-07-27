@@ -100,7 +100,7 @@ block content
                               tr
                                 -var create_date = new Date(asset.attributes['CreateDate'].text);
                                 td #{create_date.getMonth()+1}/#{create_date.getDate()}
-                                td
+                                td(style="width: 8%")
                                   if asset.attributes['Status.Name'].text === "In Progress"
                                     span.label.label-warning #{asset.attributes['Status.Name'].text}
                                   if asset.attributes['Status.Name'].text === "Done"
@@ -111,7 +111,7 @@ block content
                                     span.label.label-info #{asset.attributes['Status.Name'].text}
                                 td #{asset.attributes['Priority.Name'].text}
                                 if (version_one_stories.get_data().project_count > 1)
-                                  td #{asset.attributes['Scope.Name'].text || '-'}
+                                  td(style="width: 15%") #{asset.attributes['Scope.Name'].text || '-'}
                                 td
                                   a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                                 td
@@ -135,7 +135,7 @@ block content
                               tr
                                 -var create_date = new Date(asset.attributes['CreateDate'].text);
                                 td #{create_date.getMonth()+1}/#{create_date.getDate()}
-                                td
+                                td(style="width: 8%")
                                   if asset.attributes['Status.Name'].text === "In Progress"
                                     span.label.label-warning #{asset.attributes['Status.Name'].text}
                                   if asset.attributes['Status.Name'].text === "Done"
@@ -146,7 +146,7 @@ block content
                                     span.label.label-info #{asset.attributes['Status.Name'].text}
                                 td #{asset.attributes['Priority.Name'].text}
                                 if (version_one_stories.get_data().project_count > 1)
-                                  td #{asset.attributes['Scope.Name'].text || '-'}
+                                  td(style="width: 15%") #{asset.attributes['Scope.Name'].text || '-'}
                                 td
                                   a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                                 td
