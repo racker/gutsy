@@ -1,69 +1,41 @@
 # Gutsy DevOps Dashboard
 
-[![Build Status](https://secure.travis-ci.org/diN0bot/gutsy.png?branch\
-=closed_pull_requests)](http://travis-ci.org/diN0bot/gutsy)
-
-Gutsy is an app for an out-of-the-box DevOps Dashboard built on top of a
-[DevOps JSON URI](/racker/devopsjson).
+Gutsy is an app for an out-of-the-box DevOps Dashboard built on top of 
+[DevOps JSON](/racker/devopsjson) data.
 
 The goal is to reflect not only the most recent raw devops.json data,
-but also to realize related links such as on-call rotations.
+but also to realize related APIs such as version control, issue trackers, build systems and on-call rotations.
 
-[Demo](http://gutsy.nodejitsu.com/)
 
-## Crawl a devops.json endpoint
-
-Save a devops.json endpoint ./fixtures/
-OR
-Edit lib/settings.js to point to a devops.json:
-"Full": "https://raw.github.com/racker/devopsjson/master/examples/example-full.json?login=username&token=********" and run the crawler to download it.
+## Communication
 
 ```
-git submodule update --init
-npm install
-cp lib/settings.js.example lib/settings.js
-cp -r keys_example keys
+irc.freenode.org#gutsy
 ```
 
-Note: on production deployments, you may need to edit lib/settings.js to an absolute path:
+##Installation
 
-```
-exports.saved_crawls_path = "/ABSOLUTE/PATH/fixtures";
-```
+###Node Setup:
+Make sure you have node installed. We recommend node 0.6.18.
+We recommend the 'n' node version manager (similar to ruby's rvm): (https://github.com/visionmedia/n/)
+
+- http://nodejs.org/#download
+- npm install -g n
+- sudo n 0.6.18
+
+###Installing Gutsy
+
+- git clone https://github.com/racker/gutsy.git
+- npm install
+- sudo npm start
 
 ## Website
 
 Run the web app:
 
 ```
-npm start
+sudo npm start
 ```
 
 Then go to: [http://localhost:3000](http://localhost:3000)
 Pages are currently cached for 5 minutes in the local node process to avoid lengthy API calls.
-
-## Tests
-
-```
-npm test
-```
-
-In order for `--coverage` to work, you'll need to install [node-jscoverage](https://github.com/visionmedia/node-jscoverage)
-and [jscoverage](http://siliconforks.com/jscoverage/)
-
-```
-$ brew install jscoverage
-$ npm install -g jscoverage
-```
-
-To run tests without installing jscoverage:
-
-```
-./bin/test-nocov
-```
-
-## Communication
-
-```
-irc.freenode.org#gutsy
-
