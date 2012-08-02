@@ -19,7 +19,8 @@ but also to realize related APIs such as version control, issue trackers, build 
 Make sure you have node installed. We require node 0.6.18.  
 We recommend ['n'](https://github.com/visionmedia/n/) the node version manager (similar to ruby's rvm).
 
-    npm install -g n
+    npm install npm@1.1.12 -g
+    npm install n -g
     sudo n 0.6.18
 
 ###Installing Gutsy
@@ -37,5 +38,7 @@ Run the web app:
     sudo npm start
 
 Then go to: [http://localhost:3000](http://localhost:3000). The username / password is in settings.js
+
+Add a project using the Add Project button. You're set!
 
 Pages are currently cached for 5 minutes in the local node process to avoid lengthy API calls.
