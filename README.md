@@ -10,32 +10,32 @@ but also to realize related APIs such as version control, issue trackers, build 
 ## Communication
 
 ```
-irc.freenode.org#gutsy
+    irc.freenode.org#gutsy
 ```
 
 ##Installation
 
 ###Node Setup:
-Make sure you have node installed. We recommend node 0.6.18.
-We recommend the 'n' node version manager (similar to ruby's rvm): (https://github.com/visionmedia/n/)
+Make sure you have node installed. We require node 0.6.18.  
+We recommend ['n'](https://github.com/visionmedia/n/) the node version manager (similar to ruby's rvm).
 
-- http://nodejs.org/#download
-- npm install -g n
-- sudo n 0.6.18
+    npm install -g n
+    sudo n 0.6.18
 
 ###Installing Gutsy
 
-- git clone https://github.com/racker/gutsy.git
-- npm install
-- sudo npm start
+    git clone https://github.com/racker/gutsy.git
+    git submodule update --init
+    npm install (you will require gcc for the sqlite3 db build)
+    cp ./lib/settings.js.example ./lib/settings.js
+    cp -r keys_example keys
 
 ## Website
 
 Run the web app:
 
-```
-sudo npm start
-```
+    sudo npm start
 
-Then go to: [http://localhost:3000](http://localhost:3000)
+Then go to: [http://localhost:3000](http://localhost:3000). The username / password is in settings.js
+
 Pages are currently cached for 5 minutes in the local node process to avoid lengthy API calls.
