@@ -42,22 +42,23 @@ block content
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
   .container-fluid
       .span12
-        .hero-unit.span10
-          h1 All of the Dashboards
-          div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
-            h2 Add project
-            form(method="POST")
-              label(for="project") Project Name
-              input(type="text", name="name")
-              label(for="url") Devops.json URL
-              input(type="text", name="url")
-              br
-              input(class="btn", type="submit", value="Save")
-          br
-          button(value="new-project", style="margin-right: 10px;").btn Add Project
-          if settings.debug
-            form(method="POST", action=urls.CRAWL, style="float: left; margin-right: 10px;")
-              input(style="float:right;",class="btn", type="submit", value="Crawl Projects")
+        .well.span12
+          header.jumbotron.masthead#overview
+            h1 All of the Dashboards
+            div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
+              h2 Add project
+              form(method="POST")
+                label(for="project") Project Name
+                input(type="text", name="name")
+                label(for="url") Devops.json URL
+                input(type="text", name="url")
+                br
+                input(class="btn", type="submit", value="Save")
+            br
+            button(value="new-project", style="margin-right: 10px;").btn.pull-right Add Project
+            if settings.debug
+              form(method="POST", action=urls.CRAWL).pull-right
+                input(type="submit", value="Crawl Projects").btn
 
         each project in projects
           .well.span4
@@ -92,7 +93,8 @@ block content
 
             h2
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-              button(value="#{project.name}", id="project-#{project.id}").btn.pull-right Edit
+              button(value="#{project.name}", id="project-#{project.id}").btn.pull-right
+                i.icon-pencil
             h4 #{description}
             if tags
               h6 #{tags.join(', ')}
