@@ -40,19 +40,6 @@ block content
         div.create_form
           include includes/defect_create_form
 
-      // Burndown Chart
-      div.span12#burndown
-        if burndown.get_err()
-          p The version_one API returned the following error (for burndown ):
-          p.alert!=trace(burndown.get_err())
-        else if burndown.get_data()
-          h2  Burndown
-          h3(style="margin-top: 20px;")
-            | Select project
-            select#graph-picker
-          div#charts
-          div(style="clear:both")
-        hr
       // Defects
       div.span12#defects
         if version_one
@@ -82,7 +69,8 @@ block content
                 // High Priority
                 div.tab-content
                   div.tab-pane.fade#highPriority
-                    h2 Stories
+                    // Defects
+                    h2 Defects
                     div.table
                       table.highPriority.sortable.table-striped
                         thead
@@ -96,7 +84,7 @@ block content
                             th Defect Name
                         tbody
                           if v1_stories_data
-                            - each asset in v1_stories_data.highPriority
+                            - each asset in v1_data.highPriority
                               tr
                                 -var create_date = new Date(asset.attributes['CreateDate'].text);
                                 td #{create_date.getMonth()+1}/#{create_date.getDate()}
@@ -117,7 +105,8 @@ block content
                                 td
                                   a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
                     hr
-                    h2 Defects
+                    // Stories
+                    h2 Stories
                     div.table
                       table.highPriority.sortable.table-striped
                         thead
@@ -131,7 +120,7 @@ block content
                             th Defect Name
                         tbody
                           if v1_stories_data
-                            - each asset in v1_data.highPriority
+                            - each asset in v1_stories_data.highPriority
                               tr
                                 -var create_date = new Date(asset.attributes['CreateDate'].text);
                                 td #{create_date.getMonth()+1}/#{create_date.getDate()}
@@ -205,3 +194,17 @@ block content
                                         a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                                       td
                                         a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+      // Burndown Chart
+      div.span12#burndown
+        hr
+        if burndown.get_err()
+          p The version_one API returned the following error (for burndown ):
+          p.alert!=trace(burndown.get_err())
+        else if burndown.get_data()
+          h1  Burndown
+          h3(style="margin-top: 20px;")
+            | Select project
+            select#graph-picker
+          div#charts
+          div(style="clear:both")
+        hr
