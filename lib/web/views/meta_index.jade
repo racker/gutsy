@@ -7,36 +7,7 @@ block append css
 
 block append scripts
   script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
-  script(src='/static/bootstrap/js/bootstrap.min.js', type="text/javascript")
-  script(type="text/javascript")
-    $(document).ready(function(){
-      var edit_project = #{req.query.edit_project || "undefined"};
-      var dialog_open = false;
 
-      $(".btn").click(function(){
-        if (!dialog_open) {
-          $("div#devops_url_editor-" + $(this).val()).dialog({modal: true,
-            width: '256px',
-            close: function() {
-              dialog_open = false;
-            },
-            closeOnEscape: true
-          });
-          dialog_open = true;
-        }
-      });
-
-      if (edit_project !== undefined){
-        $('#project-'+edit_project).click();
-      }
-
-      $(".dialog").click(function(){
-        if (!this.node) {
-          this.node = $(this).children("div:hidden");
-        }
-        $(this.node).dialog({modal: true});
-      });
-    });
 block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
@@ -45,37 +16,46 @@ block content
         .well.span12
           header.jumbotron.masthead#overview
             h1 All of the Dashboards
-            div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
-              h2 Add project
-              form(method="POST")
-                label(for="project") Project Name
-                input(type="text", name="name")
-                label(for="url") Devops.json URL
-                input(type="text", name="url")
-                br
-                input(class="btn", type="submit", value="Save")
+            div(class="modal hide", id="new-project-modal")
+              div.modal-header
+                button(type="button", class="close", data-dismiss="modal") X
+                h2 Add project
+              div.modal-body
+                form(id="new-project-form", method="POST")
+                  label(for="project") Project Name
+                  input(type="text", name="name")
+                  label(for="url") Devops.json URL
+                  input(type="text", name="url")
+                  hr
+                  input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
             br
-            button(value="new-project", style="margin-right: 10px;").btn.pull-right Add Project
             if settings.debug
               form(method="POST", action=urls.CRAWL).pull-right
                 input(type="submit", value="Crawl Projects").btn
+            button(href="#new-project-modal", data-toggle="modal").btn.pull-right
+              i.icon-plus
+              | Add Project
 
         each project in projects
-          .well.span4
-            div(id=project.name)
+          .well(id=project.name).span4
             -var devops = project.devops
             -var tags = devops ? devops.tags : null
             -var description = devops ? devops.description : null
             // Edit
-            div(class="devops_url_editor modal_dialog", id="devops_url_editor-" + project.name)
+            div(class="modal hide", id="edit-#{project.name}")
+              div.modal-header
+                button(type="button", class="close", data-dismiss="modal") X
                 h2 Edit
+              div.modal-body
                 form(method="POST")
                   input(type="hidden", name="id", value=project.id)
                   input(type="hidden", name="old_name", value=project.name)
-                  label(for="name") Project Name
-                  input(type="text", name="name", value=project.name)
-                  label(for="url") Devops.json URL
-                  input(type="text", name="url", value=project.url)
+                  label(for="name")
+                    h4 Project Name
+                  input(type="text", name="name", value=project.name).span5
+                  label(for="url")
+                    h4 Devops.json URL
+                  textarea(name="url").span5 #{project.url}
                   -var devops_json = JSON.parse(project.devops_json)
                   if devops_json && devops_json.related_apis
                     for api,api_name in devops_json.related_apis
@@ -88,12 +68,13 @@ block content
                             br
                           -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
                           input(type="text", name=field_name, value=value)
-                  input(class="btn", name="action", type="submit", value="Save")
-                  input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
+                  hr
+                  button(name="action", type="submit", value="Save").btn.btn-primary Save
+                  button(name="action", type="submit", value="Delete").btn.btn-danger Delete
 
             h2
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-              button(value="#{project.name}", id="project-#{project.id}").btn.pull-right
+              button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
                 i.icon-pencil
             h4 #{description}
             if tags
