@@ -63,6 +63,12 @@
         }
     ],
     "related_apis": {
+        "cloud_monitoring": {
+            "url": "https://auth.api.rackspacecloud.com",
+            "username": "gutsy",
+            "apikey": "__external__",
+            "scriptname": "gutsy"
+        },
         "github": {
             "url": "https://api.github.com",
             "org": "racker",
