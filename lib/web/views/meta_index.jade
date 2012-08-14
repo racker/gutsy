@@ -7,124 +7,103 @@ block append css
 
 block append scripts
   script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
-  script(src='/static/bootstrap/js/bootstrap.min.js', type="text/javascript")
-  script(type="text/javascript")
-    $(document).ready(function(){
-      var edit_project = #{req.query.edit_project || "undefined"};
-      var dialog_open = false;
 
-      $(".btn").click(function(){
-        if (!dialog_open) {
-          $("div#devops_url_editor-" + $(this).val()).dialog({modal: true,
-            width: '256px',
-            close: function() {
-              dialog_open = false;
-            },
-            closeOnEscape: true
-          });
-          dialog_open = true;
-        }
-      });
-
-      if (edit_project !== undefined){
-        $('#project-'+edit_project).click();
-      }
-
-      $(".dialog").click(function(){
-        if (!this.node) {
-          this.node = $(this).children("div:hidden");
-        }
-        $(this.node).dialog({modal: true});
-      });
-    });
 block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
-  .container-fluid
-      .span12
-        .well
-          .hero-unit
-            h1 All of the Dashboards
-          table(style="width: 100%;")
-            thead
-              th
-              th.left Project
-              th.left Description
-              th.left Tags
-              th.right Status
-            tbody
-              each project in projects
-                -var devops = project.devops
-                -var tags = devops ? devops.tags : null
-                -var description = devops ? devops.description : null
-                tr
-                  td
-                    div(class="devops_url_editor modal_dialog", id="devops_url_editor-" + project.name)
-                      h2 Edit
-                      form(method="POST")
-                        input(type="hidden", name="id", value=project.id)
-                        input(type="hidden", name="old_name", value=project.name)
-                        label(for="name") Project Name
-                        input(type="text", name="name", value=project.name)
-                        label(for="url") Devops.json URL
-                        input(type="text", name="url", value=project.url)
-                        -var devops_json = JSON.parse(project.devops_json)
-                        if devops_json && devops_json.related_apis
-                          for api,api_name in devops_json.related_apis
-                            for value,field in api
-                              if value === constants.EXTERNAL_TOKEN
-                                -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
-                                label(for=field_name)
-                                  | #{api_name} #{field}
-                                  a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
-                                  br
-                                -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
-                                input(type="text", name=field_name, value=value)
-                        input(class="btn", name="action", type="submit", value="Save")
-                        input(class='btn btn-danger', name="action", type="submit", value="Delete", style="float:right")
+  .container
+    // Title
+    div.span12
+      header.jumbotron.masthead#overview
+        h1 All of the Dashboards
+      // Buttons
+      .span6.offset4
+        button(href="#new-project-modal", data-toggle="modal").btn.pull-left
+          i.icon-plus
+          | Add Project
+        if settings.debug
+          form(method="POST", action=urls.CRAWL)
+            input(type="submit", value="Crawl Projects").btn
+      div(class="modal hide", id="new-project-modal")
+        div.modal-header
+          button(type="button", class="close", data-dismiss="modal") X
+          h2 Add project
+        div.modal-body
+          form(id="new-project-form", method="POST")
+            label(for="project")
+              h4 Project Name
+            input(type="text", name="name")
+            label(for="url")
+              h4 Devops.json URL
+            input(type="text", name="url")
+            hr
+            input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
 
-                    button(style="margin-top: 10px; margin-bottom: 10px;", class="btn", value="#{project.name}", id="project-#{project.id}") Edit
-                  td(style="width: 15%")
-                    a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-                  td
-                    #{description}
-                  td
-                    if tags
-                      #{tags.join(', ')}
-                  td(style='text-align: right; width: 15%;')
-                    if project.crawl_err
-                      div.alert.dialog(style="cursor: pointer;")
-                        |Error #{ humane_time(project.crawled_at) }
-                        div.modal_dialog(style="display: none;")=trace(project.crawl_err)
-                    else if project.needs_creds
-                      div.alert.dialog(style="cursor: pointer;")
-                        |Error #{ humane_time(project.crawled_at) }
-                        div.modal_dialog(style="display: none;") Some credentials aren't set. Edit your project and add the correct credentials.
-                    else
-                      p Crawled #{ humane_time(project.crawled_at) }
-          hr
-          div(class="devops_url_editor modal_dialog", id="devops_url_editor-new-project")
-            h2 Add project
-            form(method="POST")
-              label(for="project") Project Name
-              input(type="text", name="name")
-              label(for="url") Devops.json URL
-              input(type="text", name="url")
-              br
-              input(class="btn", type="submit", value="Save")
-          button(class="btn", value="new-project", style="margin-right: 10px;") Add Project
-          if settings.debug
-            form(method="POST", action=urls.CRAWL, style="float: left; margin-right: 10px;")
-              input(class="btn", type="submit", value="Crawl Projects")
+    // Projects
+    div.span12.row
+      each project in projects
+        .well(id=project.name).span3
+          -var devops = project.devops
+          -var tags = devops ? devops.tags : null
+          -var description = devops ? devops.description : null
 
-        .well.sidebar-nav
-          ul.nav.nav-list
-            li.nav-header Links
-            each uri, name in links
-              li
-                a(href='#{uri}') #{name}
-            each uri, name in external_projects
-              li
-                a(href='#{uri}') #{name}
-            li
-              a(href='/about') About
+          // Edit
+          div(class="modal hide", id="edit-#{project.name}")
+            div.modal-header
+              button(type="button", class="close", data-dismiss="modal") X
+              h2 Edit
+            div.modal-body
+              form(method="POST")
+                input(type="hidden", name="id", value=project.id)
+                input(type="hidden", name="old_name", value=project.name)
+                label(for="name")
+                  h4 Project Name
+                input(type="text", name="name", value=project.name).span5
+                label(for="url")
+                  h4 Devops.json URL
+                textarea(name="url").span5 #{project.url}
+                -var devops_json = JSON.parse(project.devops_json)
+                if devops_json && devops_json.related_apis
+                  for api,api_name in devops_json.related_apis
+                    for value,field in api
+                      if value === constants.EXTERNAL_TOKEN
+                        -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
+                        label(for=field_name)
+                          | #{api_name} #{field}
+                          a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
+                          br
+                        -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
+                        input(type="text", name=field_name, value=value)
+                hr
+                button(name="action", type="submit", value="Save").btn.btn-primary Save
+                button(name="action", type="submit", value="Delete").btn.btn-danger Delete
+          // Project Body
+          h2
+            a(href='/p/#{project.name}', title='#{tags}') #{project.name}
+            button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
+              i.icon-pencil
+          h4 #{description}
+          if tags
+            h6 #{tags.join(', ')}
+
+          // Error and Debug
+          if project.crawl_err
+            div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}")
+              |Error #{ humane_time(project.crawled_at) }
+              div(class="modal hide", id="error-#{project.name}")
+                div.modal-header
+                  h2 Error with #{project.name}
+                div.modal-body
+                  =trace(project.crawl_err)
+                div.modal-footer
+          else if project.needs_creds
+            div.alert(style="cursor: pointer;", data-toggle="modal", href="#credentials-#{project.name}")
+              |Error #{ humane_time(project.crawled_at) }
+              div(class="modal hide", id="credentials-#{project.name}")
+                div.modal-header
+                  h2 Add Credentials
+                div.modal-body
+                  | Some credentials aren't set. Edit your project and add the correct credentials.
+                div.modal-footer
+          else
+            | Crawled #{ humane_time(project.crawled_at) }
