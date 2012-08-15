@@ -14,16 +14,18 @@ block content
   .container
     // Title
     div.span12
-      header.jumbotron.masthead#overview
-        h1 All of the Dashboards
       // Buttons
-      .span6.offset4
-        button(href="#new-project-modal", data-toggle="modal").btn.pull-left
-          i.icon-plus
-          | Add Project
-        if settings.debug
-          form(method="POST", action=urls.CRAWL)
-            input(type="submit", value="Crawl Projects").btn
+      button(href="#new-project-modal", data-toggle="modal").btn.pull-left
+        i.icon-plus
+        | Add Project
+      if settings.debug
+        form(method="POST", action=urls.CRAWL)
+          input(type="submit", value="Crawl Projects").btn
+      header.jumbotron.masthead
+        h1 All of the Dashboards
+        hr
+
+      // Add project modal
       div(class="modal hide", id="new-project-modal")
         div.modal-header
           button(type="button", class="close", data-dismiss="modal") X
@@ -42,7 +44,7 @@ block content
     // Projects
     div.span12.row
       each project in projects
-        .well(id=project.name).span3
+        .well(style="min-height:150px", id=project.name).span3
           -var devops = project.devops
           -var tags = devops ? devops.tags : null
           -var description = devops ? devops.description : null
