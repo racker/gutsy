@@ -84,6 +84,12 @@ block content
             a(href='/p/#{project.name}', title='#{tags}') #{project.name}
             button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
               i.icon-pencil
+          if project.get_data("cloud_monitoring")
+            if project.get_data("cloud_monitoring").status == "ok"
+              span.label.label-success Status: OK
+            else
+              span.label.label-important Status: ERROR
+
           h4 #{description}
           if tags
             h6 #{tags.join(', ')}
