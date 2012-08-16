@@ -12,37 +12,31 @@ block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
   .container
-    // Title
-    div.span12
-      // Buttons
-      button(href="#new-project-modal", data-toggle="modal").btn.pull-left
-        i.icon-plus
-        | Add Project
-      if settings.debug
-        form(method="POST", action=urls.CRAWL)
-          input(type="submit", value="Crawl Projects").btn
-      header.jumbotron.masthead
-        h1 All of the Dashboards
-        hr
-
-      // Add project modal
-      div(class="modal hide", id="new-project-modal")
-        div.modal-header
-          button(type="button", class="close", data-dismiss="modal") X
-          h2 Add project
-        div.modal-body
-          form(id="new-project-form", method="POST")
-            label(for="project")
-              h4 Project Name
-            input(type="text", name="name")
-            label(for="url")
-              h4 Devops.json URL
-            input(type="text", name="url")
-            hr
-            input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
+    // Add project modal
+    div(class="modal hide", id="new-project-modal")
+      div.modal-header
+        button(type="button", class="close", data-dismiss="modal") X
+        h2 Add project
+      div.modal-body
+        form(id="new-project-form", method="POST")
+          label(for="project")
+            h4 Project Name
+          input(type="text", name="name")
+          label(for="url")
+            h4 Devops.json URL
+          input(type="text", name="url")
+          hr
+          input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
 
     // Projects
-    div.span12.row
+    div.span12.row(style="padding-top: 30px;")
+      .well(style="min-height:150px").span3
+        h2
+          a(href="#new-project-modal", data-toggle="modal") Add New Project
+        h4 
+          | Adding a new project to gutsy is easy. Just make a 
+          a(href="https://github.com/racker/devopsjson") devops.json 
+          | file that is publicly accessible.
       each project in projects
         .well(style="min-height:150px", id=project.name).span3
           -var devops = project.devops
