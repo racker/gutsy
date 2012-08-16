@@ -39,11 +39,11 @@ html(lang='en')
           if '/' == url
             a.active.brand(href='/')
               img(src='/static/images/gutsy-grey-25px.png', width='17px', height='10px')
-              |  Dashboards
+              |  #{settings.gutsy_title}
           else
             a.brand(href='/')
               img(src='/static/images/gutsy-grey-25px.png', width='17px', height='10px')
-              |  Dashboards
+              |  #{settings.gutsy_title}
           ul.internal
             -var navbar_obj = navbar(this)
             each _url, text in navbar_obj

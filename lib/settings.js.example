@@ -28,6 +28,10 @@ exports.metadashboard_uris = {
     //"a reference": "https://reference.com"
 };
 
+exports.gutsy_title = "Dashboards";
+exports.gutsy_tagline = "All projects under one roof";
+
+
 // credentials too sensitive for devops.json
 exports.external_creds = {
     "Full": {
