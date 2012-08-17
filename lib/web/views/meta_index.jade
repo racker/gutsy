@@ -93,9 +93,19 @@ block content
                 i.icon-pencil
             if project.get_data("cloud_monitoring")
               if project.get_data("cloud_monitoring").status == "ok"
-                span.label.label-success Status: OK
+                span(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}").label.label-success Status: OK
               else
-                span.label.label-important Status: ERROR
+                span(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}").label.label-important Status: ERROR
+              div(class="modal hide", id="error-#{project.name}")
+                div.modal-header
+                    h2 #{project.name} Status: #{project.get_data("cloud_monitoring").status}
+                  div.modal-body
+                    h4 Details:
+                    if project.get_data("cloud_monitoring").details != ""
+                      =project.get_data("cloud_monitoring").details
+                    else
+                      |No Details
+                  div.modal-footer
 
             h4 #{description}
             if tags
