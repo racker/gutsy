@@ -15,13 +15,14 @@ block content
     .row-fluid
       div.span2
         .well
-          // Buttons
-          button(href="#new-project-modal", data-toggle="modal").btn.pull-left
-            i.icon-plus
-            | Add Project
-          if settings.debug
-            form(method="POST", action=urls.CRAWL)
-              input(type="submit", value="Crawl Projects").btn
+          div
+            // Buttons
+            button(href="#new-project-modal", data-toggle="modal").btn
+              i.icon-plus
+              | Add Project
+            if settings.debug
+              form(method="POST", action=urls.CRAWL)
+                input(type="submit", value="Crawl Projects").btn
 
           // Add project modal
           div(class="modal hide", id="new-project-modal")
@@ -38,14 +39,15 @@ block content
                 input(type="text", name="url")
                 hr
                 input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
-          h4 Tag Filters
-          ul
-            li
-              a Filter One
-            li
-              a Filter Two
-            li
-              a...
+          div
+            h4 Tag Filters
+              ul
+                li
+                  a Filter One
+                li
+                  a Filter Two
+                li
+                  a...
       // Projects
       div.span10
         each project in projects
