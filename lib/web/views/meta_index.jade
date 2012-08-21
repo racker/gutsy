@@ -92,18 +92,18 @@ block content
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
               button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
                 i.icon-pencil
-            if project.get_data("cloud_monitoring")
-              if project.get_data("cloud_monitoring").state == "ok"
+            if project.get_data("ruok")
+              if project.get_data("ruok").state == "ok"
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-success Status: OK
               else
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
               div(class="modal hide", id="status-#{project.name}")
                 div.modal-header
-                    h2 #{project.name} Status: #{project.get_data("cloud_monitoring").status}
+                    h2 #{project.name} Status: #{project.get_data("ruok").status}
                   div.modal-body
                     h4 Details:
-                    p #{project.get_data("cloud_monitoring").msg}
-                    - var timestamp = new Date(project.get_data("cloud_monitoring").timestamp)
+                    p #{project.get_data("ruok").msg}
+                    - var timestamp = new Date(project.get_data("ruok").timestamp)
                     p #{timestamp}
                   div.modal-footer
 
