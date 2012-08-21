@@ -93,7 +93,7 @@ block content
               button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
                 i.icon-pencil
             if project.get_data("cloud_monitoring")
-              if project.get_data("cloud_monitoring").status == "ok"
+              if project.get_data("cloud_monitoring").state == "ok"
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-success Status: OK
               else
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
@@ -102,10 +102,9 @@ block content
                     h2 #{project.name} Status: #{project.get_data("cloud_monitoring").status}
                   div.modal-body
                     h4 Details:
-                    if project.get_data("cloud_monitoring").details != ""
-                      =project.get_data("cloud_monitoring").details
-                    else
-                      |No Details
+                    p #{project.get_data("cloud_monitoring").msg}
+                    - var timestamp = new Date(project.get_data("cloud_monitoring").timestamp)
+                    p #{timestamp}
                   div.modal-footer
 
             h4 #{description}
