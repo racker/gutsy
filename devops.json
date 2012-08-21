@@ -63,11 +63,10 @@
         }
     ],
     "related_apis": {
-        "cloud_monitoring": {
-            "url": "https://auth.api.rackspacecloud.com",
-            "username": "__external__",
-            "apikey": "__external__",
-            "scriptname": "gutsy"
+        "ruok": {
+            "production": {
+                "dfw": "http://dashboard.rax.io:8000/gutsy.json"
+            }
         },
         "github": {
             "url": "https://api.github.com",
