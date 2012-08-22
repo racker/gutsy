@@ -65,7 +65,11 @@
     "related_apis": {
         "ruok": {
             "production": {
-                "dfw": "http://dashboard.rax.io:8000/gutsy.json"
+                "quesadilla villa": "http://dashboard.rax.io:8000/gutsy.json"
+                "taco land": "http://dashboard.rax.io:8000/gutsy.json"
+            },
+            "staging": {
+                "burritoville": "http://dashboard.rax.io:8000/gutsy.json"
             }
         },
         "github": {
