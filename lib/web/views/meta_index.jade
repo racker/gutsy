@@ -87,17 +87,22 @@ block content
                   hr
                   button(name="action", type="submit", value="Save").btn.btn-primary Save
                   button(name="action", type="submit", value="Delete").btn.btn-danger Delete
+
             // Project Body
             h2
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
               button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
                 i.icon-pencil
+
+            // RUOK
             if project.get_data("ruok")
               - var ruok = project.get_data("ruok")
               if ruok.state == "ok"
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-success Status: OK
               else
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
+
+              // RUOK Modal
               div(class="modal hide", id="status-#{project.name}")
                 div.modal-header
                   h1 #{project.name} Status
@@ -123,7 +128,10 @@ block content
                           dd #{new Date(data.last_state_timestamp)}
                     hr
                 div.modal-footer
+                  small
+                    a(href="https://github.rackspace.com/hacktherack/RUOK") What is this?
 
+            // Project Body cont.
             h4 #{description}
             if tags
               h6 #{tags.join(', ')}
