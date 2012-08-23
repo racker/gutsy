@@ -389,16 +389,34 @@ ul.unstyled, ol.unstyled {
   list-style: none;
 }
 dl {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
-dt, dd {
-  line-height: 18px;
+
+dt,
+dd {
+  line-height: 20px;
 }
+
 dt {
   font-weight: bold;
 }
+
 dd {
-  margin-left: 9px;
+  margin-left: 10px;
+}
+
+.dl-horizontal dt {
+  float: left;
+  width: 120px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dl-horizontal dd {
+  margin-left: 130px;
 }
 hr {
   margin: 18px 0;
