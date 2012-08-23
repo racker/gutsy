@@ -1,4 +1,4 @@
-h2#contacts-header Contacts 
+h2#contacts-header Contacts
 span(data-toggle='collapse', data-target='.contact-info').label.label-warning.pull-right <i class="icon-info-sign icon-white"></i> Show All
 .contacts
   if pager_duty
@@ -9,7 +9,7 @@ span(data-toggle='collapse', data-target='.contact-info').label.label-warning.pu
       h4 #{team.team_name}
       if team && team.members
         each contact in team.members
-          - var formatted_name = contact.sso.replace(/\./g,'\-')
+          - var formatted_name = contact.mailto.split('@')[0].replace(/\./g,'\-')
           if pager_duty && pager_duty.get_data()
             -var on_duty = is_on_duty(contact, pager_duty.get_data().entries)
           else
