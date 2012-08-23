@@ -52,7 +52,7 @@ block content
       // Projects
       div.span10
         each project in projects
-          .well(style="min-height:150px", id=project.name).span4
+          .well(style="min-height:170px", id=project.name).span4
             -var devops = project.devops
             -var tags = devops ? devops.tags : null
             -var description = devops ? devops.description : null
@@ -79,7 +79,7 @@ block content
                         if value === constants.EXTERNAL_TOKEN
                           -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
                           label(for=field_name)
-                            | #{api_name} #{field}
+                            h4 #{api_name} #{field}
                             a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
                             br
                           -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
@@ -92,26 +92,44 @@ block content
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
               button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
                 i.icon-pencil
-            if project.get_data("cloud_monitoring")
-              if project.get_data("cloud_monitoring").state == "ok"
+            if project.get_data("ruok")
+              - var ruok = project.get_data("ruok")
+              if ruok.state == "ok"
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-success Status: OK
               else
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
               div(class="modal hide", id="status-#{project.name}")
                 div.modal-header
-                    h2 #{project.name} Status: #{project.get_data("cloud_monitoring").status}
-                  div.modal-body
-                    h4 Details:
-                    p #{project.get_data("cloud_monitoring").msg}
-                    - var timestamp = new Date(project.get_data("cloud_monitoring").timestamp)
-                    p #{timestamp}
-                  div.modal-footer
+                  h1 #{project.name} Status
+                div.modal-body
+                  for regions, environment in ruok.details
+                    u.lead #{environment}
+                    for data, region in regions
+                      .well
+                        p.lead #{region}:
+                        dl.dl-horizontal
+                          dt Status:
+                          dd #{data.state}
+                          dt Message:
+                          dd #{data.msg}
+                          dt Date:
+                          dd #{new Date(data.timestamp)}
+                        dl.dl-horizontal
+                          dt Previous State:
+                          dd #{data.last_state}
+                          dt Previous Message:
+                          dd #{data.last_msg}
+                          dt Previous Date:
+                          dd #{new Date(data.last_state_timestamp)}
+                    hr
+                div.modal-footer
 
             h4 #{description}
             if tags
               h6 #{tags.join(', ')}
 
             // Error and Debug
+            div.muted Crawled #{ humane_time(project.crawled_at) }
             if project.crawl_err
               div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}")
                 |Error #{ humane_time(project.crawled_at) }
@@ -122,13 +140,5 @@ block content
                     =trace(project.crawl_err)
                   div.modal-footer
             else if project.needs_creds
-              div.alert(style="cursor: pointer;", data-toggle="modal", href="#credentials-#{project.name}")
-                |Error #{ humane_time(project.crawled_at) }
-                div(class="modal hide", id="credentials-#{project.name}")
-                  div.modal-header
-                    h2 Add Credentials
-                  div.modal-body
-                    | Some credentials aren't set. Edit your project and add the correct credentials.
-                  div.modal-footer
-            else
-                | Crawled #{ humane_time(project.crawled_at) }
+              div.alert.alert-info(style="cursor: pointer;", data-toggle="modal", href="#edit-#{project.name}")
+                |Error: Some credentials aren't set.
