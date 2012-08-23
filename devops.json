@@ -64,12 +64,8 @@
     ],
     "related_apis": {
         "ruok": {
-            "production": {
-                "quesadilla villa": "http://dashboard.rax.io:8000/gutsy.json",
-                "taco land": "http://dashboard.rax.io:8000/gutsy.json"
-            },
-            "staging": {
-                "burritoville": "http://dashboard.rax.io:8000/gutsy.json"
+            "Production": {
+                "ORD": "http://dashboard.rax.io:8000/gutsy.json"
             }
         },
         "github": {
