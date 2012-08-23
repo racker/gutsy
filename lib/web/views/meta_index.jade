@@ -52,7 +52,7 @@ block content
       // Projects
       div.span10
         each project in projects
-          .well(style="min-height:150px", id=project.name).span4
+          .well(style="min-height:170px", id=project.name).span4
             -var devops = project.devops
             -var tags = devops ? devops.tags : null
             -var description = devops ? devops.description : null
@@ -100,13 +100,13 @@ block content
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
               div(class="modal hide", id="status-#{project.name}")
                 div.modal-header
-                  h2 #{project.name} Status
+                  h1 #{project.name} Status
                 div.modal-body
                   for regions, environment in ruok.details
-                    h1 #{environment}
+                    u.lead #{environment}
                     for data, region in regions
                       .well
-                        h2 #{region}:
+                        p.lead #{region}:
                         dl.dl-horizontal
                           dt Status:
                           dd #{data.state}
@@ -115,11 +115,11 @@ block content
                           dt Date:
                           dd #{new Date(data.timestamp)}
                         dl.dl-horizontal
-                          dt Last State:
+                          dt Previous State:
                           dd #{data.last_state}
-                          dt Last Message:
+                          dt Previous Message:
                           dd #{data.last_msg}
-                          dt Last Date:
+                          dt Previous Date:
                           dd #{new Date(data.last_state_timestamp)}
                     hr
                 div.modal-footer
@@ -129,7 +129,7 @@ block content
               h6 #{tags.join(', ')}
 
             // Error and Debug
-            | Crawled #{ humane_time(project.crawled_at) }
+            div.muted Crawled #{ humane_time(project.crawled_at) }
             if project.crawl_err
               div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}")
                 |Error #{ humane_time(project.crawled_at) }
