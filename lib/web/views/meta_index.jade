@@ -5,8 +5,6 @@ block append css
   style(type="text/css")
     body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
 
-block append scripts
-  script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
 
 block content
   a(href="https://github.com/racker/gutsy")
@@ -52,13 +50,21 @@ block content
       // Projects
       div.span10
         each project in projects
-          .well(style="min-height:170px", id=project.name).span4
-            -var devops = project.devops
-            -var tags = devops ? devops.tags : null
-            -var description = devops ? devops.description : null
+          -var devops_json = null;
+          -var devops = project.devops;
+          -var formatted_project_name = project.name.replace(/\ /g,'\-');
+          -var tags = devops ? devops.tags : null;
+          -var description = devops ? devops.description : null;
+          -var bg_color = null;
+          -var ruok = null;
+          if project.get_data("ruok")
+            -var ruok = project.get_data("ruok")
+            -bg_color = (ruok.status == "ok") ?  "#F8A7A7" : "#ECFFEC";
+
+          .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3
 
             // Edit
-            div(class="modal hide", id="edit-#{project.name}")
+            div(class="modal hide", id="edit-#{formatted_project_name}")
               div.modal-header
                 button(type="button", class="close", data-dismiss="modal") X
                 h2 Edit
@@ -72,7 +78,7 @@ block content
                   label(for="url")
                     h4 Devops.json URL
                   textarea(name="url").span5 #{project.url}
-                  -var devops_json = JSON.parse(project.devops_json)
+                  -devops_json = JSON.parse(project.devops_json)
                   if devops_json && devops_json.related_apis
                     for api,api_name in devops_json.related_apis
                       for value,field in api
@@ -91,19 +97,18 @@ block content
             // Project Body
             h2
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-              button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
+              button(data-toggle="modal", href="#edit-#{formatted_project_name}").btn.pull-right
                 i.icon-pencil
 
             // RUOK
-            if project.get_data("ruok")
-              - var ruok = project.get_data("ruok")
+            if ruok
               if ruok.state == "ok"
-                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-success Status: OK
+                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-success Status: OK
               else
-                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
+                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-important Status: ERROR
 
               // RUOK Modal
-              div(class="modal hide", id="status-#{project.name}")
+              div(class="modal hide", id="status-#{formatted_project_name}")
                 div.modal-header
                   h1 #{project.name} Status
                 div.modal-body
@@ -139,14 +144,15 @@ block content
             // Error and Debug
             div.muted Crawled #{ humane_time(project.crawled_at) }
             if project.crawl_err
-              div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}")
+              div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{formatted_project_name}")
                 |Error #{ humane_time(project.crawled_at) }
-                div(class="modal hide", id="error-#{project.name}")
+                div(class="modal hide", id="error-#{formatted_project_name}")
                   div.modal-header
                     h2 Error with #{project.name}
                   div.modal-body
                     =trace(project.crawl_err)
                   div.modal-footer
             else if project.needs_creds
-              div.alert.alert-info(style="cursor: pointer;", data-toggle="modal", href="#edit-#{project.name}")
-                |Error: Some credentials aren't set.
+              p
+                div.alert.alert-info(style="cursor: pointer;", data-toggle="modal", href="#edit-#{formatted_project_name}")
+                  |Error: Some credentials aren't set.
