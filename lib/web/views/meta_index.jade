@@ -6,6 +6,7 @@ block append css
     body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
 
 
+
 block content
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
@@ -18,9 +19,10 @@ block content
             button(href="#new-project-modal", data-toggle="modal").btn
               i.icon-plus
               | Add Project
-            if settings.debug
-              form(method="POST", action=urls.CRAWL)
-                input(type="submit", value="Crawl Projects").btn
+            p
+              if settings.debug
+                form(method="POST", action=urls.CRAWL)
+                  input(type="submit", value="Crawl Projects").btn
 
           // Add project modal
           div(class="modal hide", id="new-project-modal")
@@ -62,11 +64,12 @@ block content
             -bg_color = (ruok.status == "ok") ?  "#F8A7A7" : "#ECFFEC";
 
           .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3
+            style(type="text/css")
+              ##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
 
-            // Edit
+            // Edit Modal
             div(class="modal hide", id="edit-#{formatted_project_name}")
               div.modal-header
-                button(type="button", class="close", data-dismiss="modal") X
                 h2 Edit
               div.modal-body
                 form(method="POST")
@@ -97,7 +100,7 @@ block content
             // Project Body
             h2
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-              button(data-toggle="modal", href="#edit-#{formatted_project_name}").btn.pull-right
+              button(id="#{project.name}-edit-button",data-toggle="modal", href="#edit-#{formatted_project_name}").btn.pull-right.hide
                 i.icon-pencil
 
             // RUOK
