@@ -4,6 +4,15 @@ block append scripts
   script
     $(document).ready(function(){
       $('.project').tsort();
+      //- Setting up tag filtering
+      var tags = $('.tags').map(function() { return this.textContent.toLowerCase().split(', ');});
+      tags = _.uniq(tags);
+      // tags.sort();
+      $.each(tags, function(i, value) {
+        if (value !== "") {$('.filters > ul').append(
+          '<li>'+value.toLowerCase()+'</li>'
+        )}
+      })
     });
 
 block append css
@@ -43,29 +52,21 @@ block content
                 input(type="text", name="url")
                 hr
                 input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
-        //
-          div
+          div.filters
             h4 Tag Filters
-              ul
-                li
-                  a Filter One
-                li
-                  a Filter Two
-                li
-                  a...
+            ul
       // Projects
       div.span10
         each project in projects
-          -var devops_json = null;
+          -var devops_json = JSON.parse(project.devops_json); //- immutable version of the devops.json file.
           -var devops = project.devops;
           -var formatted_project_name = project.name.replace(/\ /g,'\-');
           -var tags = devops ? devops.tags : null;
           -var description = devops ? devops.description : null;
           -var bg_color = null;
-          -var ruok = null;
-          if project.get_data("ruok")
-            -var ruok = project.get_data("ruok")
-            -bg_color = (ruok.status == "ok") ?  "#F8A7A7" : "#ECFFEC";
+          -var ruok = project.get_data("ruok")
+          if ruok
+            -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
 
           .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3.project
             style(type="text/css")##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
@@ -83,7 +84,6 @@ block content
                   label(for="url")
                     h4 Devops.json URL
                   textarea(name="url").span5 #{project.url}
-                  -devops_json = JSON.parse(project.devops_json)
                   if devops_json && devops_json.related_apis
                     for api,api_name in devops_json.related_apis
                       for value,field in api
@@ -144,7 +144,7 @@ block content
             // Project Body cont.
             h4 #{description}
             if tags
-              h6 #{tags.join(', ')}
+              h6.tags #{tags.join(', ')}
 
             // Error and Debug
             div.muted Crawled #{ humane_time(project.crawled_at) }
