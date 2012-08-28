@@ -103,7 +103,25 @@ block content
                                 td
                                   a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                                 td
-                                  a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+                                  a(data-toggle="modal", href="#"+asset.attributes['Number'].text) #{asset.attributes['Name'].text}
+                                  div(id=asset.attributes['Number'].text, style="top: 25%; max-height: 90%;").modal.hide
+                                    div.modal-header
+                                      h2 #{asset.attributes['Name'].text}
+                                      h4 #{asset.attributes['Number'].text}
+                                    div.modal-body
+                                      dt Description
+                                      dl !{asset.attributes['Description'].text}
+                                      dt Status
+                                      dl #{asset.attributes['Status.Name'].text || '-'}
+                                      dt Scope
+                                      dl #{asset.attributes['Scope.Name'].text || '-'}
+                                      dt Create Date
+                                      dl #{create_date}
+                                      dt Last Modified By
+                                      dl
+                                        a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                                    div.modal-footer
+                                      a(href=v1.id_to_url(version_one.get_config(), asset.id)).pull-right View in Version One
                     hr
                     // Stories
                     h2 Stories
@@ -139,7 +157,26 @@ block content
                                 td
                                   a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                                 td
-                                  a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+                                  a(data-toggle="modal", href="#"+asset.attributes['Number'].text) #{asset.attributes['Name'].text}
+                                  div(id=asset.attributes['Number'].text, style="top: 25%; max-height: 90%;").modal.hide
+                                    div.modal-header
+                                      h2 #{asset.attributes['Name'].text}
+                                      h4 #{asset.attributes['Number'].text}
+                                    div.modal-body
+                                      dt Description
+                                      dl !{asset.attributes['Description'].text}
+                                      dt Status
+                                      dl #{asset.attributes['Status.Name'].text || '-'}
+                                      dt Scope
+                                      dl #{asset.attributes['Scope.Name'].text || '-'}
+                                      dt Create Date
+                                      dl #{create_date}
+                                      dt Last Modified By
+                                      dl
+                                        a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                                    div.modal-footer
+                                      a(href=v1.id_to_url(version_one.get_config(), asset.id)).pull-right View in Version One
+
                   // By Age
                   div.tab-pane.active#byAge
                     h2.title#defects_title
@@ -193,7 +230,25 @@ block content
                                       td
                                         a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
                                       td
-                                        a(href=v1.id_to_url(version_one.get_config(), asset.id)) #{asset.attributes['Name'].text}
+                                        a( data-toggle="modal", href="#"+asset.attributes['Number'].text) #{asset.attributes['Name'].text}
+                                        div(id=asset.attributes['Number'].text, style="top: 25%; max-height: 90%;").modal.hide
+                                          div.modal-header
+                                            h2 #{asset.attributes['Name'].text}
+                                            h4 #{asset.attributes['Number'].text}
+                                          div.modal-body
+                                            dt Description
+                                            dl !{asset.attributes['Description'].text}
+                                            dt Status
+                                            dl #{asset.attributes['Status.Name'].text || '-'}
+                                            dt Scope
+                                            dl #{asset.attributes['Scope.Name'].text || '-'}
+                                            dt Create Date
+                                            dl #{create_date}
+                                            dt Last Modified By
+                                            dl
+                                              a(href="http://#{version_one.get_config().host}/#{version_one.get_config().name}/member.mvc/Summary?oidToken=#{asset.relations['ChangedBy'][0].idref}") #{asset.attributes['ChangedBy.Name'].text || '-'}
+                                          div.modal-footer
+                                            a(href=v1.id_to_url(version_one.get_config(), asset.id)).pull-right View in Version One
       // Burndown Chart
       div.span12#burndown
         hr
