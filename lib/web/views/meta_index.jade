@@ -1,11 +1,15 @@
 extends layout
 
+block append scripts
+  script
+    $(document).ready(function(){
+      $('.project').tsort();
+    });
+
 block append css
   link(href="/static/css/meta_index.less", rel='stylesheet/less', type='text/css')
   style(type="text/css")
     body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
-
-
 
 block content
   a(href="https://github.com/racker/gutsy")
@@ -63,10 +67,8 @@ block content
             -var ruok = project.get_data("ruok")
             -bg_color = (ruok.status == "ok") ?  "#F8A7A7" : "#ECFFEC";
 
-          .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3
-            style(type="text/css")
-              ##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
-
+          .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3.project
+            style(type="text/css")##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
             // Edit Modal
             div(class="modal hide", id="edit-#{formatted_project_name}")
               div.modal-header
@@ -103,8 +105,8 @@ block content
               button(id="#{project.name}-edit-button",data-toggle="modal", href="#edit-#{formatted_project_name}").btn.pull-right.hide
                 i.icon-pencil
 
-            // RUOK
             if ruok
+              // RUOK
               if ruok.state == "ok"
                 span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-success Status: OK
               else
