@@ -13,9 +13,16 @@ block append scripts
         if (value !== "") {$('.filters > ul').append(
           '<li id="' + nospace + '-filter"><a>' + value + '</a></li>'
         )};
-        $('#'+nospace+'-filter').click(function (){
-          $('.tags').not(':contains('+value+')').parent().toggle();
-        })
+        $('#'+nospace+'-filter').toggle(
+          function () {
+            $(this).children().css({"color": "red"});
+            $('.tags').not(':contains('+value+')').parent().hide();
+          },
+          function () {
+            $(this).children().css({"color": "#08C"});
+            $('.tags').not(':contains('+value+')').parent().show();
+          }
+        );
       })
     });
 
@@ -58,7 +65,7 @@ block content
                 input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
           div.filters
             h4 Tag Filters
-            ul
+            ul.unstyled
       // Projects
       div.span10
         each project in projects
