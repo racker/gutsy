@@ -1,12 +1,42 @@
 extends layout
 
+block append scripts
+  script
+    $(document).ready(function(){
+      $('.project').tsort();
+      //- Setting up tag filtering
+      var tag_count = {};
+      var tags = $('.tags').map(function() {
+        return this.textContent.split(', ');
+      });
+      tags.sort();
+      $.each(tags, function(i, value) {
+        if (tag_count[value]) {tag_count[value]++}
+        else {tag_count[value] = 1}
+      });
+      tags = _.uniq(tags);
+      $.each(tags, function(i, value) {
+        nospace = value.replace(/\ /g,'\-'); // This sucks, fix me.
+        if (value !== "") {$('.filters > ul').append(
+          '<li id="' + nospace + '-filter"><a>' + value + '</a> <span class="muted">(' +tag_count[value] + ')</span> </li>'
+        )};
+        $('#'+nospace+'-filter').toggle(
+          function () {
+            $(this).find('a').css({"color": "red"});
+            $('.tags').not(':contains('+value+')').parent().hide();
+          },
+          function () {
+            $(this).find('a').css({"color": "#08C"});
+            $('.tags').not(':contains('+value+')').parent().show();
+          }
+        );
+      });
+    });
+
 block append css
   link(href="/static/css/meta_index.less", rel='stylesheet/less', type='text/css')
   style(type="text/css")
     body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
-
-block append scripts
-  script(src="/static/js/jquery-ui-1.8.20.custom.min.js", type="text/javascript")
 
 block content
   a(href="https://github.com/racker/gutsy")
@@ -20,9 +50,10 @@ block content
             button(href="#new-project-modal", data-toggle="modal").btn
               i.icon-plus
               | Add Project
-            if settings.debug
-              form(method="POST", action=urls.CRAWL)
-                input(type="submit", value="Crawl Projects").btn
+            p
+              if settings.debug
+                form(method="POST", action=urls.CRAWL)
+                  input(type="submit", value="Crawl Projects").btn
 
           // Add project modal
           div(class="modal hide", id="new-project-modal")
@@ -39,28 +70,27 @@ block content
                 input(type="text", name="url")
                 hr
                 input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
-        //
-          div
+          div.filters
             h4 Tag Filters
-              ul
-                li
-                  a Filter One
-                li
-                  a Filter Two
-                li
-                  a...
+            ul.unstyled
       // Projects
       div.span10
         each project in projects
-          .well(style="min-height:170px", id=project.name).span4
-            -var devops = project.devops
-            -var tags = devops ? devops.tags : null
-            -var description = devops ? devops.description : null
+          -var devops_json = JSON.parse(project.devops_json); //- immutable version of the devops.json file.
+          -var devops = project.devops;
+          -var formatted_project_name = project.name.replace(/\ /g,'\-');
+          -var tags = devops ? devops.tags : null;
+          -var description = devops ? devops.description : null;
+          -var bg_color = null;
+          -var ruok = project.get_data("ruok")
+          if ruok
+            -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
 
-            // Edit
-            div(class="modal hide", id="edit-#{project.name}")
+          .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3.project
+            style(type="text/css")##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
+            // Edit Modal
+            div(class="modal hide", id="edit-#{formatted_project_name}")
               div.modal-header
-                button(type="button", class="close", data-dismiss="modal") X
                 h2 Edit
               div.modal-body
                 form(method="POST")
@@ -72,7 +102,6 @@ block content
                   label(for="url")
                     h4 Devops.json URL
                   textarea(name="url").span5 #{project.url}
-                  -var devops_json = JSON.parse(project.devops_json)
                   if devops_json && devops_json.related_apis
                     for api,api_name in devops_json.related_apis
                       for value,field in api
@@ -91,19 +120,18 @@ block content
             // Project Body
             h2
               a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-              button(data-toggle="modal", href="#edit-#{project.name}").btn.pull-right
+              button(id="#{project.name}-edit-button",data-toggle="modal", href="#edit-#{formatted_project_name}").btn.pull-right.hide
                 i.icon-pencil
 
-            // RUOK
-            if project.get_data("ruok")
-              - var ruok = project.get_data("ruok")
+            if ruok
+              // RUOK
               if ruok.state == "ok"
-                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-success Status: OK
+                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-success Status: OK
               else
-                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{project.name}").label.label-important Status: ERROR
+                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-important Status: ERROR
 
               // RUOK Modal
-              div(class="modal hide", id="status-#{project.name}")
+              div(class="modal hide", id="status-#{formatted_project_name}")
                 div.modal-header
                   h1 #{project.name} Status
                 div.modal-body
@@ -134,19 +162,20 @@ block content
             // Project Body cont.
             h4 #{description}
             if tags
-              h6 #{tags.join(', ')}
+              h6.tags #{tags.join(', ').toLowerCase()}
 
             // Error and Debug
             div.muted Crawled #{ humane_time(project.crawled_at) }
             if project.crawl_err
-              div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{project.name}")
+              div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{formatted_project_name}")
                 |Error #{ humane_time(project.crawled_at) }
-                div(class="modal hide", id="error-#{project.name}")
+                div(class="modal hide", id="error-#{formatted_project_name}")
                   div.modal-header
                     h2 Error with #{project.name}
                   div.modal-body
                     =trace(project.crawl_err)
                   div.modal-footer
             else if project.needs_creds
-              div.alert.alert-info(style="cursor: pointer;", data-toggle="modal", href="#edit-#{project.name}")
-                |Error: Some credentials aren't set.
+              p
+                div.alert.alert-info(style="cursor: pointer;", data-toggle="modal", href="#edit-#{formatted_project_name}")
+                  |Error: Some credentials aren't set.
