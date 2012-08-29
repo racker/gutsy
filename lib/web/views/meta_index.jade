@@ -5,13 +5,17 @@ block append scripts
     $(document).ready(function(){
       $('.project').tsort();
       //- Setting up tag filtering
-      var tags = $('.tags').map(function() { return this.textContent.toLowerCase().split(', ');});
+      var tags = $('.tags').map(function() { return this.textContent.split(', ');});
       tags = _.uniq(tags);
-      // tags.sort();
+      tags.sort();
       $.each(tags, function(i, value) {
+        nospace = value.replace(/\ /g,'\-'); // This sucks, fix me.
         if (value !== "") {$('.filters > ul').append(
-          '<li>'+value.toLowerCase()+'</li>'
-        )}
+          '<li id="' + nospace + '-filter"><a>' + value + '</a></li>'
+        )};
+        $('#'+nospace+'-filter').click(function (){
+          $('.tags').not(':contains('+value+')').parent().toggle();
+        })
       })
     });
 
@@ -144,7 +148,7 @@ block content
             // Project Body cont.
             h4 #{description}
             if tags
-              h6.tags #{tags.join(', ')}
+              h6.tags #{tags.join(', ').toLowerCase()}
 
             // Error and Debug
             div.muted Crawled #{ humane_time(project.crawled_at) }
