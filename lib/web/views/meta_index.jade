@@ -6,17 +6,21 @@ block append scripts
       //var nodes = [{"name": "a", "color": "#ff2299"}, {"name": "b", "color": "#9922ff"}, {"name": "c", "color": "#ff1122"}];
       //var edges = [{"source": 0, "target": 1, "value": 8}];
 
-      var nodes = [];
+      var _nodes = [];
       $("#nodes .node").each(function(e) {
-        nodes.push({name: $(this).children(".name").text(), color: $(this).children(".color").text()});
+        _nodes.push({name: $(this).children(".name").text(), color: $(this).children(".color").text()});
       });
 
-      var edges = [];
-      $("#edges").each(function(e) {
-        if (e.source && e.target) {
-            edges.push({source: $(this).children(".source").text(), target: $(this).children(".target").text(), value: 8});
+      var _edges = [];
+      $("#edges .edge").each(function(e) {
+        var source = $(this).children(".source").text();
+        var target = $(this).children(".target").text();
+        if (source != "" && target != "") {
+            console.log("SOURCE "+source+" TARGET "+target);
+            _edges.push({source: source, target: target, value: 8});
         }
       });
+      console.log(_edges);
 
       var width = 500,
           height = 300;
@@ -31,19 +35,19 @@ block append scripts
           .attr("height", height);
 
       force
-          .nodes(nodes)
-          .links(edges)
+          .nodes(_nodes)
+          .links(_edges)
           .start();
 
       var link = svg.selectAll("line.link")
-          .data(edges)
+          .data(_edges)
         .enter().append("line")
           .attr("class", "link")
           .style("stroke-width", 5)
           .style("stroke", "#000");
 
       var node = svg.selectAll("circle.node")
-          .data(nodes)
+          .data(_nodes)
         .enter().append("circle")
           .attr("class", "node")
           .attr("r", 10)
@@ -115,7 +119,7 @@ block content
       -var ruok = project.get_data("ruok")
       if ruok
         -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
-      .node(style="background-color: #{bg_color})
+      .node(style="background-color: #{bg_color}")
         .name #{project.name}
         .color #{bg_color}
 
@@ -123,7 +127,7 @@ block content
   #edges
     each project in projects
       for dep in project.devops.dependent_services
-        .edge
+        .edge #{project.url}
           .source #{project_node_map[project.url]}
           .target #{project_node_map[dep]}
 
