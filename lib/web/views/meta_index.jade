@@ -5,15 +5,16 @@ block append scripts
     $(document).ready(function(){
       //var nodes = [{"name": "a", "color": "#ff2299"}, {"name": "b", "color": "#9922ff"}, {"name": "c", "color": "#ff1122"}];
       //var edges = [{"source": 0, "target": 1, "value": 8}];
+
       var nodes = [];
-      $("#nodes").each(function(e) {
-        nodes.push({name: e.name, color: e.color});
+      $("#nodes .node").each(function(e) {
+        nodes.push({name: $(this).children(".name").text(), color: $(this).children(".color").text()});
       });
 
       var edges = [];
       $("#edges").each(function(e) {
         if (e.source && e.target) {
-            edges.push({source: e.source, target: e.target, value: 8});
+            edges.push({source: $(this).children(".source").text(), target: $(this).children(".target").text(), value: 8});
         }
       });
 
@@ -47,10 +48,8 @@ block append scripts
           .attr("class", "node")
           .attr("r", 10)
           .style("fill", function(d) { return d.color; })
-        .call(force.drag);
-
-      node.append("title")
-          .text(function(d) { return d.name; });
+          .text(function(d) { return d.name; })
+          .call(force.drag);
 
       force.on("tick", function() {
         link.attr("x1", function(d) { return d.source.x; })
