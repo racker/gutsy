@@ -82,7 +82,7 @@ block content
           -var bg_color = null;
           -var ruok = project.get_data("ruok")
           if ruok
-            -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
+            -if (ruok.state === "ok") {bg_color = "#ECFFEC"}  else {bg_color = "#F8A7A7"};
 
           .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3.project
             style(type="text/css")##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
