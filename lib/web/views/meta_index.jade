@@ -7,20 +7,19 @@ block append scripts
       //var edges = [{"source": 0, "target": 1, "value": 8}];
 
       var _nodes = [];
-      $("#nodes .node").each(function(e) {
+      $("#hidden .node").each(function(e) {
         _nodes.push({name: $(this).children(".name").text(), color: $(this).children(".color").text()});
       });
 
       var _edges = [];
-      $("#edges .edge").each(function(e) {
-        var source = $(this).children(".source").text();
-        var target = $(this).children(".target").text();
+      $("#hidden .edge").each(function(e) {
+        var children = $(this).children();
+        var source = children.filter(".source").text();
+        var target = children.filter(".target").text();
         if (source != "" && target != "") {
-            console.log("SOURCE "+source+" TARGET "+target);
-            _edges.push({source: source, target: target, value: 8});
+            _edges.push({source: parseInt(source, 10), target: parseInt(target, 10), value: 8});
         }
       });
-      console.log(_edges);
 
       var width = 500,
           height = 300;
@@ -109,24 +108,22 @@ block content
   -var project_node_map = {};
   -var idx = 0;
 
-  h3 Nodes
-  #nodes
-    each project in projects
-      -project_node_map[project.url] = idx;
-      -idx++;
-      -var formatted_project_name = project.name.replace(/\ /g,'\-');
-      -var bg_color = null;
-      -var ruok = project.get_data("ruok")
-      if ruok
-        -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
-      .node(style="background-color: #{bg_color}")
-        .name #{project.name}
-        .color #{bg_color}
-
-  h3 Edges
-  #edges
+  #hidden
     each project in projects
       if project.devops
+        //- node
+        -project_node_map[project.url] = idx;
+        -idx++;
+        -var formatted_project_name = project.name.replace(/\ /g,'\-');
+        -var bg_color = null;
+        -var ruok = project.get_data("ruok")
+        if ruok
+          -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
+        .node(style="background-color: #{bg_color}")
+          .name #{project.name}
+          .color #{bg_color}
+
+        //- edge
         each dep in project.devops.dependent_services
           .edge #{project.url}
             .source #{project_node_map[project.url]}
