@@ -3,6 +3,68 @@ extends layout
 block append scripts
   script
     $(document).ready(function(){
+      //var nodes = [{"name": "a", "color": "#ff2299"}, {"name": "b", "color": "#9922ff"}, {"name": "c", "color": "#ff1122"}];
+      //var edges = [{"source": 0, "target": 1, "value": 8}];
+      var nodes = [];
+      $("#nodes").each(function(e) {
+        nodes.push({name: e.name, color: e.color});
+      });
+
+      var edges = [];
+      $("#edges").each(function(e) {
+        if (e.source && e.target) {
+            edges.push({source: e.source, target: e.target, value: 8});
+        }
+      });
+
+      var width = 500,
+          height = 300;
+
+      var force = d3.layout.force()
+          .charge(-120)
+          .linkDistance(30)
+          .size([width, height]);
+
+      var svg = d3.select("#chart").append("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+      force
+          .nodes(nodes)
+          .links(edges)
+          .start();
+
+      var link = svg.selectAll("line.link")
+          .data(edges)
+        .enter().append("line")
+          .attr("class", "link")
+          .style("stroke-width", 5)
+          .style("stroke", "#000");
+
+      var node = svg.selectAll("circle.node")
+          .data(nodes)
+        .enter().append("circle")
+          .attr("class", "node")
+          .attr("r", 10)
+          .style("fill", function(d) { return d.color; })
+        .call(force.drag);
+
+      node.append("title")
+          .text(function(d) { return d.name; });
+
+      force.on("tick", function() {
+        link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+        node.attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+      });
+    });
+
+  script
+    $(document).ready(function(){
       $('.project').tsort();
       //- Setting up tag filtering
       var tag_count = {};
@@ -39,6 +101,33 @@ block append css
     body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
 
 block content
+  #chart
+
+  -var project_node_map = {};
+  -var idx = 0;
+
+  h3 Nodes
+  #nodes
+    each project in projects
+      -project_node_map[project.url] = idx;
+      -idx++;
+      -var formatted_project_name = project.name.replace(/\ /g,'\-');
+      -var bg_color = null;
+      -var ruok = project.get_data("ruok")
+      if ruok
+        -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
+      .node(style="background-color: #{bg_color})
+        .name #{project.name}
+        .color #{bg_color}
+
+  h3 Edges
+  #edges
+    each project in projects
+      for dep in project.devops.dependent_services
+        .edge
+          .source #{project_node_map[project.url]}
+          .target #{project_node_map[dep]}
+
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
   .container-fluid
