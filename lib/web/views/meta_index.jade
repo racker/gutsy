@@ -30,8 +30,7 @@ block content
           // Add project modal
           div(class="modal hide", id="new-project-modal")
             div.modal-header
-              button(type="button", class="close", data-dismiss="modal") X
-              h2 Add project
+              h1 Add project
             div.modal-body
               form(id="new-project-form", method="POST")
                 label(for="project")
@@ -68,7 +67,7 @@ block content
             // Edit Modal
             div(class="modal hide", id="edit-#{formatted_project_name}")
               div.modal-header
-                h2 Edit
+                h1 Edit
               div.modal-body
                 form(method="POST")
                   input(type="hidden", name="id", value=project.id)
@@ -113,24 +112,26 @@ block content
                   h1 #{project.name} Status
                 div.modal-body
                   for regions, environment in ruok.details
-                    u.lead #{environment}
-                    for data, region in regions
-                      .well
-                        p.lead #{region}:
-                        dl.dl-horizontal
-                          dt Status:
-                          dd #{data.state}
-                          dt Message:
-                          dd #{data.msg}
-                          dt Date:
-                          dd #{new Date(data.timestamp)}
-                        dl.dl-horizontal
-                          dt Previous State:
-                          dd #{data.last_state}
-                          dt Previous Message:
-                          dd #{data.last_msg}
-                          dt Previous Date:
-                          dd #{new Date(data.last_state_timestamp)}
+                    p.lead #{environment.toUpperCase()}:
+                    .well
+                      for data, region in regions
+                        div
+                          p.lead #{region.toUpperCase()}:
+                          dl.dl-horizontal
+                            dt Status:
+                            dd #{data.state}
+                            dt Message:
+                            dd #{data.msg}
+                            dt Date:
+                            dd #{new Date(data.timestamp)}
+                          dl.dl-horizontal
+                            dt Previous State:
+                            dd #{data.last_state}
+                            dt Previous Message:
+                            dd #{data.last_msg}
+                            dt Previous Date:
+                            dd #{new Date(data.last_state_timestamp)}
+                          br
                     hr
                 div.modal-footer
                   small
@@ -148,7 +149,7 @@ block content
                 |Error #{ humane_time(project.crawled_at) }
                 div(class="modal hide", id="error-#{formatted_project_name}")
                   div.modal-header
-                    h2 Error with #{project.name}
+                    h1 Error with #{project.name}
                   div.modal-body
                     =trace(project.crawl_err)
                   div.modal-footer
