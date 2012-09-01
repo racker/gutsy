@@ -48,7 +48,7 @@ block append scripts
         .attr("markerWidth", 6)
         .attr("markerHeight", 10)
         .attr("orient", "auto")
-        .style("fill", "#AAA")
+        .style("fill", "#FAA")
       .append("svg:path")
         .attr("d", "M0,-5L10,0L0,5");
 
@@ -64,10 +64,18 @@ block append scripts
           .attr("class", "node")
           .call(force.drag);
 
+      var text_width = function(txt) {
+        var e = $("<span>"+txt+"</span>").css("font-size", "1.5em");
+        $("body").append(e)
+        var width = e.width();
+        e.remove();
+        return width;
+      };
+
       node.append("svg:rect")
-          .attr("width", function(d) {return $("span").css("font-size", "1.5em").text(d.name).width() + 4; })
+          .attr("width", function(d) { return text_width(d.name) + 4; })
           .attr("height", "2em")
-          .attr("x", function(d) {return -0.5 * ($("span").css("font-size", "1.5em").text(d.name).width() + 2); })
+          .attr("x", function(d) {return -0.5 * (text_width(d.name) + 2); })
           .attr("y", "-1.4em")
           .style("fill", function(d) { return d.color; });
 
