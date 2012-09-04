@@ -12,13 +12,6 @@
             "team_name": "Operations",
             "members": [
                 {
-                    "name": "Geoff Greer",
-                    "sso": "geoffrey.greer",
-                    "github": "ggreer",
-                    "mailto": "geoffrey.greer@rackspace.com",
-                    "ircnick": "ggreer"
-                },
-                {
                     "name": "Matt Kaniaris",
                     "sso": "matt4795",
                     "github": "kans",
