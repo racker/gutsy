@@ -1,8 +1,9 @@
 $(document).ready(function(){
   //var nodes = [{"name": "a", "color": "#ff2299"}, {"name": "b", "color": "#9922ff"}, {"name": "c", "color": "#ff1122"}];
   //var edges = [{"source": 0, "target": 1, "value": 8}];
-
-var w = 900, h = vertexes.length * 220;
+var vertex_h = 80;
+var vertex_w = 360;
+var w = 900, h = vertexes.length * vertex_h;
 
 // var force = d3.layout.force()
 //   .nodes(d3.values([]))
@@ -13,7 +14,7 @@ var w = 900, h = vertexes.length * 220;
 //   .on("tick", tick)
 //   .start();
 
-var svg = d3.select("#chart").append("svg:svg")
+var svg = d3.select("#arc").append("svg:svg")
   .attr("width", "100%")
   .attr("height", h)
   .style("padding", "20px");
@@ -25,8 +26,6 @@ var y = d3.scale.ordinal()
 var x = 0;
 
 var vertex_group = svg.append("g");
-var vertex_h = 220;
-var vertex_w = 360;
 
 //plot the team logos along the x-axis
 vertex_group.selectAll("foreignObject")
@@ -42,7 +41,8 @@ vertex_group.selectAll("foreignObject")
     .attr("height", "100%")
     .attr("xmlns", "http://www.w3.org/1999/xhtml")
     .html(function(d){
-      return $("#vertex-"+d).html().toString();
+      // move over the rendered elements into our foreign object
+      return $("#vertex-"+d).remove().html();
     });
   //.attr("xlink:href",function(d, i) { return edges[i];} );
   //fades out all other trades, except for ones involving this team
