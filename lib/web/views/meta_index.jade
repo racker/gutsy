@@ -3,7 +3,8 @@ extends layout
 block append scripts
   script(src='/static/js/arcify.js')
   script
-    edges = !{JSON.stringify(edges)};
+    edges = !{JSON.stringify(edges)}
+    vertexes = !{JSON.stringify(vertexes)}
   script
     $(document).ready(function(){
       $('.project').tsort();
@@ -42,11 +43,7 @@ block append css
 
 block content
   #chart
-
-  #hidden
-    
-
-
+  
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
   .container-fluid
@@ -71,7 +68,7 @@ block content
                 input(type="text", name="name")
                 label(for="url")
                   h4 Devops.json URL
-                input(type="text", name="url")
+                input(type="text", name="url")  
                 hr
                 input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
           div.filters
@@ -79,5 +76,12 @@ block content
             ul.unstyled
       // Projects
       div.span10
-        each project in projects
-          include includes/project
+        -var height = 220;
+        -var width = 360;
+        svg(width="100%", height=height*projects.length)
+          -var offset = 0;
+          each project in projects
+            foreignObject.node(width=width, height=height, x=0, y=offset)
+              -offset += height;
+              body(xmlns="http://www.w3.org/1999/xhtml")
+                include includes/project
