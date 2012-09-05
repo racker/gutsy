@@ -1,6 +1,14 @@
 $(document).ready(function(){
   //var nodes = [{"name": "a", "color": "#ff2299"}, {"name": "b", "color": "#9922ff"}, {"name": "c", "color": "#ff1122"}];
   //var edges = [{"source": 0, "target": 1, "value": 8}];
+
+/*jshint multistr:true */
+var template =  _.template('\
+  <h2>\
+    <a href="/p/<%= name %>", title="<%= tags %>"> <%= name %> </a>\
+  </h2>\
+  <h4> <%= description %> </h4>');
+ // <h6 class="tags"><% tags.join(", "").toLowerCase() %> </h6> ');
 var vertex_h = 80;
 var vertex_w = 360;
 var w = 900, h = vertexes.length * vertex_h;
@@ -41,8 +49,13 @@ vertex_group.selectAll("foreignObject")
     .attr("height", "100%")
     .attr("xmlns", "http://www.w3.org/1999/xhtml")
     .html(function(d){
+      try{
       // move over the rendered elements into our foreign object
-      return $("#vertex-"+d).remove().html();
+      return template(projects[d]);
+    }
+      catch(e){
+        console.log(projects);
+      }
     });
   //.attr("xlink:href",function(d, i) { return edges[i];} );
   //fades out all other trades, except for ones involving this team
@@ -70,8 +83,8 @@ arcGroup.selectAll("path")
     y2 = proj_a_y;
     }
     //start the arc at the middle of the logo
-    y1 = y1;
-    y2 = y2;
+    y1 = y1 + vertex_h / 2;
+    y2 = y2 + vertex_h / 2;
     //qick calculation for the arc. The closer the
     //teams are to each other (on the axis), the
     //smaller the radii need to be

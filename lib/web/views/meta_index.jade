@@ -5,6 +5,7 @@ block append scripts
   script
     edges = !{JSON.stringify(edges)}
     vertexes = !{JSON.stringify(vertexes)}
+    projects = !{JSON.stringify(projects)}
   script
     $(document).ready(function(){
       $('.project').tsort();
@@ -76,5 +77,3 @@ block content
                   span.muted (#{count})
       // Projects
       div.span10#arc
-        each project in projects
-          include includes/project
