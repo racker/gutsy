@@ -12,8 +12,8 @@ $(document).ready(function(){
     var children = $(this).children();
     var source = children.filter(".source").text();
     var target = children.filter(".target").text();
-    if (source != "" && target != "") {
-        _edges.push({source: parseInt(source, 10), target: parseInt(target, 10), value: 8});
+    if (source !== "" && target !== "") {
+      _edges.push({source: parseInt(source, 10), target: parseInt(target, 10), value: 8});
     }
   });
 

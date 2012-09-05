@@ -2,6 +2,12 @@ extends layout
 
 block append scripts
   script(src='/static/js/arcify.js')
+  script
+    edges = []
+    nodes = []
+    a = #{projects.length}
+  
+
     
 block append css
   link(href="/static/css/meta_index.less", rel='stylesheet/less', type='text/css')
@@ -12,29 +18,7 @@ block content
   #chart
 
   #hidden
-    -var project_node_map = {};
-    -var idx = 0;
-    each project in projects
-      if project.devops
-        //- hide node info in dom
-        -project_node_map[project.url] = idx;
-        -idx++;
-        -var formatted_project_name = project.name.replace(/\ /g,'\-');
-        -var bg_color = null;
-        -var ruok = project.get_data("ruok")
-        if ruok
-          -bg_color = (ruok.status == "ok") ? "#F8A7A7" : "#ECFFEC";
-        .node(style="background-color: #{bg_color}")
-          .name #{project.name}
-          .color #{bg_color}
-
-    each project in projects
-      if project.devops
-        //- hide edge info in dom
-        each dep in project.devops.dependent_services
-          .edge #{project.url}
-            .source #{project_node_map[project.url]}
-            .target #{project_node_map[dep]}
+    
 
 
   a(href="https://github.com/racker/gutsy")
