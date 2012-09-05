@@ -17,35 +17,6 @@ $(document).ready(function(){
     }
   });
 
-$('.project').tsort();
-  //- Setting up tag filtering
-  var tag_count = {};
-  var tags = $('.tags').map(function() {
-    return this.textContent.split(', ');
-  });
-  tags.sort();
-  $.each(tags, function(i, value) {
-    if (tag_count[value]) {tag_count[value]++;}
-    else {tag_count[value] = 1;}
-  });
-  tags = _.uniq(tags);
-  $.each(tags, function(i, value) {
-    nospace = value.replace(/\ /g,'\-'); // This sucks, fix me.
-    if (value !== "") {$('.filters > ul').append(
-      '<li id="' + nospace + '-filter"><a>' + value + '</a> <span class="muted">(' +tag_count[value] + ')</span> </li>'
-    );}
-    $('#'+nospace+'-filter').toggle(
-      function () {
-        $(this).find('a').css({"color": "red"});
-        $('.tags').not(':contains('+value+')').parent().hide();
-      },
-      function () {
-        $(this).find('a').css({"color": "#08C"});
-        $('.tags').not(':contains('+value+')').parent().show();
-      }
-    );
-  });
-
 var w = 900, h = 300;
 
 var force = d3.layout.force()
