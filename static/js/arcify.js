@@ -12,6 +12,7 @@ var template =  _.template('\
 var vertex_h = 80;
 var vertex_w = 360;
 var w = 900, h = vertexes.length * vertex_h;
+var colors = ["#DF5ECA", "#00E0FF", "#F5FF0D", "#848B87"];
 
 // var force = d3.layout.force()
 //   .nodes(d3.values([]))
@@ -49,13 +50,8 @@ vertex_group.selectAll("foreignObject")
     .attr("height", "100%")
     .attr("xmlns", "http://www.w3.org/1999/xhtml")
     .html(function(d){
-      try{
       // move over the rendered elements into our foreign object
       return template(projects[d]);
-    }
-      catch(e){
-        console.log(projects);
-      }
     });
   //.attr("xlink:href",function(d, i) { return edges[i];} );
   //fades out all other trades, except for ones involving this team
@@ -70,7 +66,7 @@ arcGroup.selectAll("path")
   .data(edges)
   .enter().append("path")
   .attr("d",function(d, i){
-    var rx, ry, x = vertex_w+30;
+    var rx, ry, x = vertex_w + 15;
     //swap the values if neccessary
     var proj_a_y = y(d[0]);
     var proj_b_y = y(d[1]);
@@ -94,7 +90,9 @@ arcGroup.selectAll("path")
 
     return "M" + x + "," + y1 + " A "+ rx + "," + ry +" 0 0 0 " + x + "," + y2;
   })
-  .attr("stroke", function(d,i){ return "#000";})
+  .attr("stroke", function(d,i){
+    return colors[d[0] % colors.length ];
+  })
   //set the line thickness based on the 'size' of the trade.
   //the more players/picks exchanged, the thicker the line
   .attr("stroke-width","15px")
