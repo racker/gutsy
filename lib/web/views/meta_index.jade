@@ -43,7 +43,7 @@ block append css
 
 block content
   #chart
-  
+
   a(href="https://github.com/racker/gutsy")
     img(style="position: absolute; top: 42px; right: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt="Fork me on GitHub")
   .container-fluid
@@ -76,12 +76,5 @@ block content
             ul.unstyled
       // Projects
       div.span10
-        -var height = 220;
-        -var width = 360;
-        svg(width="100%", height=height*projects.length)
-          -var offset = 0;
-          each project in projects
-            foreignObject.node(width=width, height=height, x=0, y=offset)
-              -offset += height;
-              body(xmlns="http://www.w3.org/1999/xhtml")
-                include includes/project
+        each project in projects
+          include includes/project

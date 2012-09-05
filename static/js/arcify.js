@@ -29,17 +29,21 @@ var vertex_h = 220;
 var vertex_w = 360;
 
 //plot the team logos along the x-axis
-vertex_group.selectAll("text")
+vertex_group.selectAll("foreignObject")
   .data(vertexes)
   .enter()
-  .append("text")
-  .text(String)
-  .attr("dy", ".5em")
-  .style("fill", '#333')
+  .append("foreignObject")
   .attr("y", y)
   .attr("x", x)
   .attr("width", vertex_w)
-  .attr("height", vertex_h);
+  .attr("height", vertex_h)
+  .append("xhtml:body")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("xmlns", "http://www.w3.org/1999/xhtml")
+    .html(function(d){
+      return $("#vertex-"+d).html().toString();
+    });
   //.attr("xlink:href",function(d, i) { return edges[i];} );
   //fades out all other trades, except for ones involving this team
   // .on("mouseover", fade(0.1,teams))
