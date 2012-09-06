@@ -37,38 +37,36 @@ var x = 0;
 
 var defs = svg.append('svg:defs');
 
-var grads = defs.selectAll('linearGradient')
-  .data(colors)
-  .enter()
-  .append('linearGradient')
-  .attr('id', function(d, i){
-    return 'grad-'+i;
-  })
-  .attr('x1', "0%")
-  .attr('x2', "100%")
-  .attr('y1', "0%")
-  .attr('y1', "100%")
-  .attr('spreadMethod', "pad");
+// var grads = defs.selectAll('radialGradient')
+//   .data(colors)
+//   .enter()
+//   .append('radialGradient')
+//   .attr('id', function(d, i){
+//     return 'grad-'+i;
+//   })
+//   .attr('r', "99%")
+//   // .attr('x1', "0%")
+//   // .attr('x2', "100%")
+//   // .attr('y1', "0%")
+//   // .attr('y1', "100%")
+//  .attr('spreadMethod', "pad");
 
-grads.insert('stop',  ":first-child")
-  .attr('offset', "0%")
-  .attr('stop-color', function(d){
-    return d;
-  })
-  .attr('stop-opacity', "1");
+// grads.insert('stop',  ":first-child")
+//   .attr('offset', "0%")
+//   .attr('stop-color', String)
+//   .attr('stop-opacity', "1");
 
-grads.insert('stop', ":first-child")
-  .attr('stop-color', function(d){
-    return d;
-  })
-  .attr('stop-opacity', "1");
-    //   < id="myLinearGradient1"
-    //                 x1="0%" y1="0%"
-    //                 x2="0%" y2="100%"
-    //                 spreadMethod="pad">
-    //   <stop offset="0%"   stop-color="#00cc00" stop-opacity="1"/>
-    //   <stop offset="100%" stop-color="#006600" stop-opacity="1"/>
-    // </linearGradient>')
+// grads.insert('stop', ":first-child")
+//   .attr('offset', "50%")
+//   .attr('stop-color', String)
+//   .attr('stop-opacity', ".1");
+//     //   < id="myLinearGradient1"
+//     //                 x1="0%" y1="0%"
+//     //                 x2="0%" y2="100%"
+//     //                 spreadMethod="pad">
+//     //   <stop offset="0%"   stop-color="#00cc00" stop-opacity="1"/>
+//     //   <stop offset="100%" stop-color="#006600" stop-opacity="1"/>
+//     // </linearGradient>')
 var vertex_group = svg.append("g");
 
 //plot the team logos along the x-axis
@@ -134,12 +132,15 @@ arcGroup.selectAll("path")
     return "M" + x + "," + y1 + " A "+ rx + "," + ry +" 0 0 0 " + x + "," + y2;
   })
   .attr("stroke", function(d,i){
-    return colors[d[0] % colors.length ];
+   return colors[d[0] % colors.length ];
   })
   //set the line thickness based on the 'size' of the trade.
   //the more players/picks exchanged, the thicker the line
   .attr("stroke-width","5px")
-  .attr("fill","none");
+  .attr('fill', 'none');
+  // .attr("fill",function(d){
+  //   return"fill:url(#grad-" + d[0] % colors.length + ")";
+  // });
   //on click, update the view model
 });
 
