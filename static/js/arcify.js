@@ -9,6 +9,7 @@ var template =  _.template('\
   </h2>\
   <h4> <%= description %> </h4>');
  // <h6 class="tags"><% tags.join(", "").toLowerCase() %> </h6> ');
+var in_out_offset = 15;
 var vertex_h = 80;
 var vertex_w = 360;
 var w = 900, h = vertexes.length * vertex_h;
@@ -30,7 +31,7 @@ var svg = d3.select("#arc").append("svg:svg")
 
 var y = d3.scale.ordinal()
   .domain(vertexes)
-  .rangeBands([0, h]);
+  .rangeBands([0, h], 0.05);
 
 var x = 0;
 
@@ -83,22 +84,18 @@ arcGroup.selectAll("path")
     var proj_a_y = y(d[0]);
     var proj_b_y = y(d[1]);
     if(proj_a_y > proj_b_y){
-    y1 = proj_a_y - 15;
-    y2 = proj_b_y + 15;
+    y1 = proj_a_y - in_out_offset;
+    y2 = proj_b_y + in_out_offset;
     }
     else{
-    y1 = proj_b_y + 15;
-    y2 = proj_a_y - 15;
+    y1 = proj_b_y + in_out_offset;
+    y2 = proj_a_y - in_out_offset;
     }
     //start the arc at the middle of the boxes
     y1 = y1 + vertex_h / 2;
     y2 = y2 + vertex_h / 2;
-    //qick calculation for the arc. The closer the
-    //teams are to each other (on the axis), the
-    //smaller the radii need to be
-    val = (y2 - y1)/2;
-    rx = val;
-    ry = val;
+
+    rx = ry = (y2 - y1)/2;
 
     return "M" + x + "," + y1 + " A "+ rx + "," + ry +" 0 0 0 " + x + "," + y2;
   })
