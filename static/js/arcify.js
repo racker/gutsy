@@ -35,6 +35,40 @@ var y = d3.scale.ordinal()
 
 var x = 0;
 
+var defs = svg.append('svg:defs');
+
+var grads = defs.selectAll('linearGradient')
+  .data(colors)
+  .enter()
+  .append('linearGradient')
+  .attr('id', function(d, i){
+    return 'grad-'+i;
+  })
+  .attr('x1', "0%")
+  .attr('x2', "100%")
+  .attr('y1', "0%")
+  .attr('y1', "100%")
+  .attr('spreadMethod', "pad");
+
+grads.insert('stop',  ":first-child")
+  .attr('offset', "0%")
+  .attr('stop-color', function(d){
+    return d;
+  })
+  .attr('stop-opacity', "1");
+
+grads.insert('stop', ":first-child")
+  .attr('stop-color', function(d){
+    return d;
+  })
+  .attr('stop-opacity', "1");
+    //   < id="myLinearGradient1"
+    //                 x1="0%" y1="0%"
+    //                 x2="0%" y2="100%"
+    //                 spreadMethod="pad">
+    //   <stop offset="0%"   stop-color="#00cc00" stop-opacity="1"/>
+    //   <stop offset="100%" stop-color="#006600" stop-opacity="1"/>
+    // </linearGradient>')
 var vertex_group = svg.append("g");
 
 //plot the team logos along the x-axis
