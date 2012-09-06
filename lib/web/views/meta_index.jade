@@ -6,6 +6,7 @@ block append scripts
     edges = !{JSON.stringify(edges)}
     vertexes = !{JSON.stringify(vertexes)}
     projects = !{JSON.stringify(projects)}
+    linked_vertexes = !{JSON.stringify(linked_vertexes)}
   script
     $(document).ready(function(){
       $('.project').tsort();

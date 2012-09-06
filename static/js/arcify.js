@@ -12,7 +12,7 @@ var template =  _.template('\
 var vertex_h = 80;
 var vertex_w = 360;
 var w = 900, h = vertexes.length * vertex_h;
-var colors = ["#DF5ECA", "#00E0FF", "#F5FF0D", "#848B87"];
+var colors = ["#DF5ECA", "#333", "#00E0FF", "#F5FF0D", "#848B87"];
 
 // var force = d3.layout.force()
 //   .nodes(d3.values([]))
@@ -48,6 +48,18 @@ vertex_group.selectAll("foreignObject")
   .append("xhtml:body")
     .attr("width", "100%")
     .attr("height", "100%")
+    .style("border", function(d){
+      var color;
+      if (linked_vertexes.indexOf(d) < 0){
+        color = "";
+      } else {
+        color = colors[d % colors.length ];
+      }
+
+      return "5px solid " + color;
+    })
+    .style("border-radius", "10px")
+    .style('padding', "5px")
     .attr("xmlns", "http://www.w3.org/1999/xhtml")
     .html(function(d){
       // move over the rendered elements into our foreign object
@@ -66,19 +78,19 @@ arcGroup.selectAll("path")
   .data(edges)
   .enter().append("path")
   .attr("d",function(d, i){
-    var rx, ry, x = vertex_w + 15;
+    var rx, ry, x = vertex_w;
     //swap the values if neccessary
     var proj_a_y = y(d[0]);
     var proj_b_y = y(d[1]);
     if(proj_a_y > proj_b_y){
-    y1 = proj_a_y;
-    y2 = proj_b_y;
+    y1 = proj_a_y - 15;
+    y2 = proj_b_y + 15;
     }
     else{
-    y1 = proj_b_y;
-    y2 = proj_a_y;
+    y1 = proj_b_y + 15;
+    y2 = proj_a_y - 15;
     }
-    //start the arc at the middle of the logo
+    //start the arc at the middle of the boxes
     y1 = y1 + vertex_h / 2;
     y2 = y2 + vertex_h / 2;
     //qick calculation for the arc. The closer the
@@ -95,7 +107,7 @@ arcGroup.selectAll("path")
   })
   //set the line thickness based on the 'size' of the trade.
   //the more players/picks exchanged, the thicker the line
-  .attr("stroke-width","15px")
+  .attr("stroke-width","5px")
   .attr("fill","none");
   //on click, update the view model
 });
