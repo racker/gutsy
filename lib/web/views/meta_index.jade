@@ -1,12 +1,5 @@
 extends layout
 
-block append scripts
-  script
-    $(document).ready(function(){
-      $('.project').tsort();
-       $('.filters > ul > li').tsort();
-    });
-
 block append css
   link(href="/static/css/meta_index.less", rel='stylesheet/less', type='text/css')
   style(type="text/css")
@@ -44,7 +37,8 @@ block content
           div.filters
             h4 Tag Filters
             ul.unstyled
-              each count, tag in tags
+              each tag in sorted_tags
+                -var count = tags[tag]
                 li
                   a(href="/?tags="+encodeURI(tag))
                     #{tag}
