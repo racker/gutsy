@@ -37,7 +37,7 @@ Run the web app:
 
     sudo npm start
 
-Then go to: [http://localhost:3000](http://localhost:3000). The username / password is in settings.js
+Then go to: [https://0.0.0.0](https://0.0.0.0).
 
 Add a project using the Add Project button. You're set!
 
