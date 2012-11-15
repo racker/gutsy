@@ -16,7 +16,7 @@ but also to realize related APIs such as version control, issue trackers, build 
 ##Installation
 
 ###Node Setup:
-Make sure you have node installed. We require node 0.6.18.  
+Make sure you have node installed. We require at least node 0.8.11.
 We recommend ['n'](https://github.com/visionmedia/n/) the node version manager (similar to ruby's rvm).
 
     npm install npm@1.1.12 -g
