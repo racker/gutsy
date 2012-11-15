@@ -1,16 +1,47 @@
 extends layout
 
 block append scripts
+  script(src='/static/js/arcify.js')
+  script
+    edges = !{JSON.stringify(edges)}
+    vertexes = !{JSON.stringify(vertexes)}
+    projects = !{JSON.stringify(projects)}
+    linked_vertexes = !{JSON.stringify(linked_vertexes)}
   script
     $(document).ready(function(){
       $('.project').tsort();
-       $('.filters > ul > li').tsort();
-    });
-
+      //- Setting up tag filtering
+      var tag_count = {};
+      var tags = $('.tags').map(function() {
+        return this.textContent.split(', ');
+      });
+      tags.sort();
+      $.each(tags, function(i, value) {
+        if (tag_count[value]) {tag_count[value]++;}
+        else {tag_count[value] = 1;}
+      });
+      tags = _.uniq(tags);
+      $.each(tags, function(i, value) {
+        nospace = value.replace(/\ /g,'\-'); // This sucks, fix me.
+        if (value !== "") {$('.filters > ul').append(
+          '<li id="' + nospace + '-filter"><a>' + value + '</a> <span class="muted">(' +tag_count[value] + ')</span> </li>'
+        );}
+        $('#'+nospace+'-filter').toggle(
+          function () {
+            $(this).find('a').css({"color": "red"});
+            $('.tags').not(':contains('+value+')').parent().hide();
+          },
+          function () {
+            $(this).find('a').css({"color": "#08C"});
+            $('.tags').not(':contains('+value+')').parent().show();
+          }
+        );
+      });
+    })
 block append css
   link(href="/static/css/meta_index.less", rel='stylesheet/less', type='text/css')
   style(type="text/css")
-    body {background-image:url('/static/images/gutsy-2.gif');  background-repeat:no-repeat; background-attachment:fixed; background-position: 95% 100%;}
+    //body {background-image:url('/static/images/gutsy-2.gif'); background-repeat:no-repeat; background-attachment:scroll; background-position: 95% 100%;}
 
 block content
   .container-fluid
@@ -22,10 +53,6 @@ block content
             button(href="#new-project-modal", data-toggle="modal").btn
               i.icon-plus
               | Add Project
-            p
-              if settings.debug
-                form(method="POST", action=urls.CRAWL)
-                  input(type="submit", value="Crawl Projects").btn
 
           // Add project modal
           div(class="modal hide", id="new-project-modal")
@@ -38,7 +65,7 @@ block content
                 input(type="text", name="name")
                 label(for="url")
                   h4 Devops.json URL
-                input(type="text", name="url")
+                input(type="text", name="url")  
                 hr
                 input(id="new-project-submit", class="btn btn-primary", type="submit", value="Save")
           div.filters
@@ -50,110 +77,4 @@ block content
                     #{tag}
                   span.muted (#{count})
       // Projects
-      div.span10
-        each project in projects
-          -var devops_json = JSON.parse(project.devops_json); //- immutable version of the devops.json file.
-          -var devops = project.devops;
-          -var formatted_project_name = project.name.replace(/\ /g,'\-');
-          -var tags = devops ? devops.tags : null;
-          -var description = devops ? devops.description : null;
-          -var bg_color = null;
-          -var ruok = project.get_data("ruok")
-          if ruok
-            -if (ruok.state === "ok") {bg_color = "#ECFFEC"}  else {bg_color = "#F8A7A7"};
-
-          .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3.project
-            style(type="text/css")##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
-            // Edit Modal
-            div(class="modal hide", id="edit-#{formatted_project_name}")
-              div.modal-header
-                h1 Edit
-              div.modal-body
-                form(method="POST")
-                  input(type="hidden", name="id", value=project.id)
-                  input(type="hidden", name="old_name", value=project.name)
-                  label(for="name")
-                    h4 Project Name
-                  input(type="text", name="name", value=project.name).span5
-                  label(for="url")
-                    h4 Devops.json URL
-                  textarea(name="url").span5 #{project.url}
-                  if devops_json && devops_json.related_apis
-                    for api,api_name in devops_json.related_apis
-                      for value,field in api
-                        if value === constants.EXTERNAL_TOKEN
-                          -var field_name=constants.EXTERNAL_TOKEN + constants.DELIMITER + api_name + constants.DELIMITER + field;
-                          label(for=field_name)
-                            h4 #{api_name} #{field}
-                            a(href=urls.ABOUT + "#creds", style="font-size: 75%;") What's this?
-                            br
-                          -var value=project.devops.related_apis[api_name][field] == constants.EXTERNAL_TOKEN ? '' : constants.EMPTY_FIELD
-                          input(type="text", name=field_name, value=value)
-                  hr
-                  button(name="action", type="submit", value="Save").btn.btn-primary Save
-                  button(name="action", type="submit", value="Delete").btn.btn-danger Delete
-
-            // Project Body
-            h2
-              a(href='/p/#{project.name}', title='#{tags}') #{project.name}
-              button(id="#{project.name}-edit-button",data-toggle="modal", href="#edit-#{formatted_project_name}").btn.pull-right.hide
-                i.icon-pencil
-
-            if ruok
-              // RUOK
-              if ruok.state == "ok"
-                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-success Status: OK
-              else
-                span(style="cursor: pointer;", data-toggle="modal", href="#status-#{formatted_project_name}").label.label-important Status: ERROR
-
-              // RUOK Modal
-              div(class="modal hide", id="status-#{formatted_project_name}")
-                div.modal-header
-                  h1 #{project.name} Status
-                div.modal-body
-                  for regions, environment in ruok.details
-                    p.lead #{environment.toUpperCase()}:
-                    .well
-                      for data, region in regions
-                        div
-                          p.lead #{region.toUpperCase()}:
-                          dl.dl-horizontal
-                            dt Status:
-                            dd #{data.state}
-                            dt Message:
-                            dd #{data.msg}
-                            dt Date:
-                            dd #{new Date(data.timestamp)}
-                          dl.dl-horizontal
-                            dt Previous State:
-                            dd #{data.last_state}
-                            dt Previous Message:
-                            dd #{data.last_msg}
-                            dt Previous Date:
-                            dd #{new Date(data.last_state_timestamp)}
-                          br
-                    hr
-                div.modal-footer
-                  small
-                    a(href="https://github.rackspace.com/hacktherack/RUOK") What is this?
-
-            // Project Body cont.
-            h4 #{description}
-            if tags
-              h6.tags #{tags.join(', ').toLowerCase()}
-
-            // Error and Debug
-            div.muted Crawled #{ humane_time(project.crawled_at) }
-            if project.crawl_err
-              div.alert(style="cursor: pointer;", data-toggle="modal", href="#error-#{formatted_project_name}")
-                |Error #{ humane_time(project.crawled_at) }
-                div(class="modal hide", id="error-#{formatted_project_name}")
-                  div.modal-header
-                    h1 Error with #{project.name}
-                  div.modal-body
-                    =trace(project.crawl_err)
-                  div.modal-footer
-            else if project.needs_creds
-              p
-                div.alert.alert-info(style="cursor: pointer;", data-toggle="modal", href="#edit-#{formatted_project_name}")
-                  |Error: Some credentials aren't set.
+      div.span10#arc
