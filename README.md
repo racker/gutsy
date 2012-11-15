@@ -21,7 +21,7 @@ We recommend ['n'](https://github.com/visionmedia/n/) the node version manager (
 
     npm install npm@1.1.12 -g
     npm install n -g
-    sudo n 0.6.18
+    sudo n 0.8.11
 
 ###Installing Gutsy
 
