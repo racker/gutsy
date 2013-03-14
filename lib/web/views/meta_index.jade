@@ -60,7 +60,10 @@ block content
           -var bg_color = null;
           -var ruok = project.get_data("ruok")
           if ruok
-            -if (ruok.state === "ok") {bg_color = "#ECFFEC"}  else {bg_color = "#F8A7A7"};
+            -if (ruok.state === "ok") {bg_color = "#ECFFEC"}
+            -else if (ruok.msg === "Error: socket hang up") {bg_color = "#FCF8E3"}
+            -else {bg_color = "#F8A7A7"}
+            - console.log(ruok)
 
           .well(style="background-color: #{bg_color}; height:170px;", id=formatted_project_name).span3.project
             style(type="text/css")##{formatted_project_name}:hover ##{project.name}-edit-button{ display: block; }
